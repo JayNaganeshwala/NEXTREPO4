@@ -1,0 +1,43 @@
+     let csvDataArray = await Evolve.Csv().fromFile(	"./public/BULKLOADFILES/EVOLVESOSHIPPERDELETE.csv");
+            let fileData = [["shipperId","status"]]
+           
+            for (let i = 0; i < csvDataArray.length; i++) {
+                const element = csvDataArray[i];
+                console.log('element::::::::::: ', element);
+                
+                let condition = {
+                    EvolveSoShipper_ID : element.shipperNo,
+                    $or: [ { EvolveSalesOrderShipment_Status: "SUBMITTED" },{ EvolveSalesOrderShipment_Status: 'SHIPERCREATED' } ]
+                }
+
+                let res = await Evolve.Mongoose.model('EvolveSalesOrderShipment').find(condition).lean();
+
+                console.log("Response:::::",res)
+                if(res.length > 0){
+                    for (let i = 0; i < res.length; i++) {
+                        const el = res[i];
+
+                        let deleteRes = await Evolve.Mongoose.model('EvolveSalesOrderShipment').findByIdAndDelete({_id: el._id});
+
+                        if(deleteRes){
+                            fileData.push([deleteRes.EvolveSoShipper_ID , "SUCCESS"])
+                        }else{
+                            fileData.push([element.shipperNo , "ERROR"])
+
+                        }
+                        console.log('deleteRes::::::: ', deleteRes);
+                    }
+                }
+            }
+
+            let ws = Evolve.Xlsx.utils.aoa_to_sheet(fileData);
+            let wb = Evolve.Xlsx.utils.book_new();
+            Evolve.Xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+            Evolve.Xlsx.writeFile(wb, "./public/BULKLOADFILES/EVOLVESOSHIPPERDELETE_Response.csv");
+
+
+
+//                {$addFields: { "data.Average_Line_to_Neutral_Voltage" :{ $round: ["$data.Average_Line_to_Neutral_Voltage", 3] }}},
+
+round mongodb field
+

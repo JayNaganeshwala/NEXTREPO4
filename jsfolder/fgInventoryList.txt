@@ -1,0 +1,1084 @@
+'use strict';
+const Evolve = require('../../../../Boot/Evolve');
+module.exports = {
+
+    fgInvantoryListHandler: async function (req, res) {
+        try {
+            let error = false;
+            let message = '';
+            let result = null;
+
+            if (req.body.operation == 'L') {
+                let fgInventoryList = await Evolve.App.Controllers.Wms.fgInventoryList.ConList.getFgInventoryList(req.body);
+                if (fgInventoryList.statusCode == 200) {
+                    result = {
+                        totalQty: fgInventoryList.result.totalQty,
+                        noOfRecord: fgInventoryList.result.noOfRecord,
+                        records: fgInventoryList.result.records
+                    }
+                    if ((!isNaN(fgInventoryList.messageCode)) && (fgInventoryList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(fgInventoryList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = fgInventoryList.messageCode;
+                    }
+
+                } else {
+                    error = true;
+                    if ((!isNaN(fgInventoryList.messageCode)) && (fgInventoryList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(fgInventoryList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = fgInventoryList.messageCode;
+                    }
+                }
+            } else if (req.body.operation == 'CSV') {
+                let csvExportList = await Evolve.App.Controllers.Wms.fgInventoryList.ConList.getAllCsvExportDownload(req.body);
+                if (csvExportList.statusCode == 200) {
+                    result = {
+
+                        noOfRecord: csvExportList.noOfRecord,
+                        records: csvExportList.result.fileName
+                    }
+                    if ((!isNaN(csvExportList.messageCode)) && (csvExportList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(csvExportList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = csvExportList.messageCode;
+                    }
+
+                } else {
+                    error = true;
+                    if ((!isNaN(csvExportList.messageCode)) && (csvExportList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(csvExportList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = csvExportList.messageCode;
+                    }
+                }
+            } else if (req.body.operation == 'REPORT') {
+                let reportRes = await Evolve.App.Controllers.Wms.fgInventoryList.ConList.reportDownloadController(req.body);
+                if (reportRes.statusCode == 200) {
+                    result = reportRes;
+                    if ((!isNaN(reportRes.messageCode)) && (reportRes.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(reportRes.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = reportRes.messageCode;
+                    }
+
+                } else {
+                    error = true;
+                    if ((!isNaN(reportRes.messageCode)) && (reportRes.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(reportRes.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = reportRes.messageCode;
+                    }
+                }
+            }
+            let obj = {
+                statusCode: error ? 400 : 200,
+                status: error ? "Fail" : "Success",
+                message: message,
+                result: result
+            };
+            res.send(obj);
+        } catch (error) {
+            Evolve.Console.log("Error While Invantory List Handler !! " + error.message);
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, req.body.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            res.send(obj);
+        }
+    },
+
+    // getAllInventorytList: async function (data) {
+    //     return new Promise(async function (resolve, reject) {
+    //         try {
+
+    //             let filterobj = {}
+    //             data.filterobj = {}
+    //             filterobj.tableName = 'EvolveInventory'
+    //             filterobj.filterArray = [
+    //                 {
+    //                     field: "EvolveUnit_ID",
+    //                     operator: "in",
+    //                     value: data.EvolveUnit_ID,
+    //                     collectionName: "EvolveInventory",
+    //                 }
+    //             ]
+    //             filterobj.populateTables = [
+    //                 {
+    //                     'fieldName': 'EvolveUnit_ID',
+    //                     'filterArray': []
+    //                 },
+    //                 {
+    //                     'fieldName': 'EvolveItem_ID',
+    //                     'filterArray': [
+    //                         {
+    //                             field: "EvolveItem_Type",
+    //                             operator: "in",
+    //                             value: 'CFG',
+    //                             collectionName: "EvolveItem",
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     'fieldName': 'EvolveUom_ID',
+    //                     'filterArray': []
+    //                 },
+    //                 {
+    //                     'fieldName': 'EvolveLocation_ID',
+    //                     'filterArray': []
+    //                 }
+    //             ];
+    //             if (data.filterArray.length > 0) {
+    //                 for (let i = 0; i < data.filterArray.length; i++) {
+    //                     if (data.filterArray[i].field != '' && data.filterArray[i].operator != '' && data.filterArray[i].value != '' && data.filterArray[i].collectionName != '') {
+    //                         if (data.filterArray[i].collectionName == 'EvolveUnit') {
+    //                             const index = filterobj.populateTables.findIndex(populateTables => populateTables.fieldName == 'EvolveUnit_ID');
+    //                             if (index == -1) {
+    //                                 let obj = {
+    //                                     'fieldName': 'EvolveUnit_ID',
+    //                                     'filterArray': [{
+    //                                         field: data.filterArray[i].field,
+    //                                         operator: data.filterArray[i].operator,
+    //                                         value: data.filterArray[i].value,
+    //                                     }]
+    //                                 }
+    //                                 filterobj.populateTables.push(obj)
+    //                             } else {
+    //                                 let obj = {
+    //                                     field: data.filterArray[i].field,
+    //                                     operator: data.filterArray[i].operator,
+    //                                     value: data.filterArray[i].value,
+    //                                 }
+    //                                 filterobj.populateTables[index].filterArray.push(obj)
+    //                             }
+    //                         } else if (data.filterArray[i].collectionName == 'EvolveItem') {
+    //                             const index = filterobj.populateTables.findIndex(populateTables => populateTables.fieldName == 'EvolveItem_ID');
+    //                             if (index == -1) {
+    //                                 let obj = {
+    //                                     'fieldName': 'EvolveItem_ID',
+    //                                     'filterArray': [{
+    //                                         field: data.filterArray[i].field,
+    //                                         operator: data.filterArray[i].operator,
+    //                                         value: data.filterArray[i].value,
+    //                                     }]
+    //                                 }
+    //                                 filterobj.populateTables.push(obj)
+    //                             } else {
+    //                                 let obj = {
+    //                                     field: data.filterArray[i].field,
+    //                                     operator: data.filterArray[i].operator,
+    //                                     value: data.filterArray[i].value,
+    //                                 }
+    //                                 filterobj.populateTables[index].filterArray.push(obj)
+    //                             }
+    //                         } else if (data.filterArray[i].collectionName == 'EvolveUom') {
+    //                             const index = filterobj.populateTables.findIndex(populateTables => populateTables.fieldName == 'EvolveUom_ID');
+    //                             if (index == -1) {
+    //                                 let obj = {
+    //                                     'fieldName': 'EvolveUom_ID',
+    //                                     'filterArray': [{
+    //                                         field: data.filterArray[i].field,
+    //                                         operator: data.filterArray[i].operator,
+    //                                         value: data.filterArray[i].value,
+    //                                     }]
+    //                                 }
+    //                                 filterobj.populateTables.push(obj)
+    //                             } else {
+    //                                 let obj = {
+    //                                     field: data.filterArray[i].field,
+    //                                     operator: data.filterArray[i].operator,
+    //                                     value: data.filterArray[i].value,
+    //                                 }
+    //                                 filterobj.populateTables[index].filterArray.push(obj)
+    //                             }
+    //                         } else if (data.filterArray[i].collectionName == 'EvolveLocation') {
+    //                             const index = filterobj.populateTables.findIndex(populateTables => populateTables.fieldName == 'EvolveLocation_ID');
+    //                             if (index == -1) {
+    //                                 let obj = {
+    //                                     'fieldName': 'EvolveLocation_ID',
+    //                                     'filterArray': [{
+    //                                         field: data.filterArray[i].field,
+    //                                         operator: data.filterArray[i].operator,
+    //                                         value: data.filterArray[i].value,
+    //                                     }]
+    //                                 }
+    //                                 filterobj.populateTables.push(obj)
+    //                             } else {
+    //                                 let obj = {
+    //                                     field: data.filterArray[i].field,
+    //                                     operator: data.filterArray[i].operator,
+    //                                     value: data.filterArray[i].value,
+    //                                 }
+    //                                 filterobj.populateTables[index].filterArray.push(obj)
+    //                             }
+    //                         } else {
+    //                             let obj = {
+    //                                 field: data.filterArray[i].field,
+    //                                 operator: data.filterArray[i].operator,
+    //                                 value: data.filterArray[i].value,
+    //                             }
+    //                             filterobj.filterArray.push(obj)
+    //                         }
+    //                     }
+    //                 }
+    //             }
+
+    //             let getFinelFilterObj = await Evolve.App.Controllers.Common.ConCommon.getFinelFilterObj(filterobj);
+    //             // console.log("getFinelFilterObj:::::::::::", getFinelFilterObj);
+    //             let getAllInventorytList = await Evolve.App.Services.Wms.fgInventoryList.SrvList.getAllInventorytList(getFinelFilterObj.result, data);
+    //             let getPrinterData = await Evolve.App.Services.Wms.fgInventoryList.SrvList.getPrinterData(data);
+    //             // console.log("getPrinterData",getPrinterData);
+    //             let printerData = {};
+    //             for (let i = 0; i < getPrinterData.length; i++) {
+    //                 if (getPrinterData[i].EvolvePrintAction_ID != null) {
+    //                     printerData = getPrinterData[i];
+    //                 }
+    //             }
+    //             let list = []
+    //             let count = 0;
+    //             for (let i = 0; i < getAllInventorytList.records.length; i++) {
+
+    //                 if (getAllInventorytList.records[i].EvolveUnit_ID != null && getAllInventorytList.records[i].EvolveLocation_ID != null && getAllInventorytList.records[i].EvolveItem_ID != null && getAllInventorytList.records[i].EvolveUom_ID != null) {
+    //                     getAllInventorytList.records[i].printerData = printerData;
+    //                     getAllInventorytList.records[i].EvolveUnit_Code = getAllInventorytList.records[i].EvolveUnit_ID.EvolveUnit_Code
+
+    //                     getAllInventorytList.records[i].EvolveLocation_Code = getAllInventorytList.records[i].EvolveLocation_ID.EvolveLocation_Code
+
+    //                     getAllInventorytList.records[i].EvolveItem_Code = getAllInventorytList.records[i].EvolveItem_ID.EvolveItem_Code
+    //                     getAllInventorytList.records[i].EvolveItem_Desc1 = getAllInventorytList.records[i].EvolveItem_ID.EvolveItem_Desc1
+    //                     getAllInventorytList.records[i].EvolveItem_Desc2 = getAllInventorytList.records[i].EvolveItem_ID.EvolveItem_Desc2
+    //                     getAllInventorytList.records[i].EvolveUom_Uom = getAllInventorytList.records[i].EvolveUom_ID.EvolveUom_Uom;
+    //                     getAllInventorytList.records[i].Design = "-"
+    //                     getAllInventorytList.records[i].Quality = "-"
+    //                     getAllInventorytList.records[i].Color = "-"
+    //                     getAllInventorytList.records[i].QtyYard = "-"
+    //                     getAllInventorytList.records[i].Weight = "-"
+    //                     getAllInventorytList.records[i].Flags = "-"
+    //                     getAllInventorytList.records[i].RollProperties = []
+    //                     if (getAllInventorytList.records[i].EvolveInventory_Attributes != undefined) {
+    //                         getAllInventorytList.records[i].Design = getAllInventorytList.records[i].EvolveInventory_Attributes.Design == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.Design
+    //                         getAllInventorytList.records[i].Quality = getAllInventorytList.records[i].EvolveInventory_Attributes.Quality == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.Quality
+    //                         getAllInventorytList.records[i].Color = getAllInventorytList.records[i].EvolveInventory_Attributes.Color == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.Color
+    //                         getAllInventorytList.records[i].QtyYard = getAllInventorytList.records[i].EvolveInventory_Attributes.QtyYard == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.QtyYard
+    //                         getAllInventorytList.records[i].Weight = getAllInventorytList.records[i].EvolveInventory_Attributes.Weight == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.Weight
+    //                         getAllInventorytList.records[i].Flags = getAllInventorytList.records[i].EvolveInventory_Attributes.Flags == undefined ? '-' : getAllInventorytList.records[i].EvolveInventory_Attributes.Flags
+    //                         getAllInventorytList.records[i].RollProperties = getAllInventorytList.records[i].EvolveInventory_Attributes.RollProperties == undefined ? [] : getAllInventorytList.records[i].EvolveInventory_Attributes.RollProperties
+    //                     }
+    //                     count += 1
+    //                     list.push(getAllInventorytList.records[i])
+    //                 }
+    //             }
+    //             let result = list.slice(data.startFrom, data.dispalyRecord * data.currentPage)
+    //             getAllInventorytList.noOfRecord = count
+    //             getAllInventorytList.records = result
+    //             resolve(getAllInventorytList);
+
+    //         } catch (error) {
+    //             Evolve.Console.log(" Error In Get All FG Inventory  List !! " + error.message);
+    //             let obj = {
+    //                 statusCode: 400,
+    //                 messageCode: 111,
+    //                 var: [],
+    //             };
+    //             resolve(obj);
+    //         }
+    //     })
+    // },
+
+    getAllCsvExportDownload: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let error = false;
+                let errorCode = null;
+                let msgInfo = [];
+                let fileData = []
+                let result = {
+                    records: [],
+                    noOfRecord: 0
+                };
+
+                data.filterObj = {};
+                data.filterArray.push({
+                    field: 'EvolveUnit_ID',
+                    operator: "in",
+                    value: data.EvolveUnit_ID,
+                    collectionName: "EvolveInentory",
+                })
+                let matchObj = await Evolve.App.Controllers.Common.ConCommon.getMatchObjForAggregate(data)
+
+
+                if (matchObj.statusCode != 400) {
+                    data.filterObj = matchObj.result;
+                    data.addFieldObj = matchObj.resultAddField;
+
+                }
+                console.time("STARTTIME")
+                let list = await Evolve.App.Services.Wms.fgInventoryList.SrvList.csvExportDownload(data);
+                console.timeEnd("STARTTIME")
+                if (list instanceof Error) {
+                    error = true;
+                    errorCode = '120'
+                    msgInfo = ['Fg Inventory List']
+                } else {
+                    result.records = list;
+                    fileData.push(['Item Code', 'Description', 'Location', 'Design','Quality', 'Color', 'Lot Serial', 'Ref Number','Status', 'OnHand Qty', 'Qty Yard', 'Weight', 'Flags', 'createdAt' , 'isTP']);
+                    for (let i = 0; i < result.records.length; i++) {
+                        result.records[i].createdAt = result.records[i].createdAt != null || result.records[i].createdAt != undefined || result.records[i].createdAt != "" ? Evolve.moment(result.records[i].createdAt).format('DD-MM-YYYY HH:mm:ss') : "-"
+                        result.records[i].EvolveLocation_Code = result.records[i].EvolveLocation_ID.EvolveLocation_Code
+                        result.records[i].EvolveItem_Code = result.records[i].EvolveItem_ID.EvolveItem_Code
+                        result.records[i].EvolveItem_Desc1 = result.records[i].EvolveItem_ID.EvolveItem_Desc1
+                        result.records[i].EvolveItem_Desc2 = result.records[i].EvolveItem_ID.EvolveItem_Desc2
+                        result.records[i].Design = "-"
+                        result.records[i].Quality = "-"
+                        result.records[i].Color = "-"
+                        result.records[i].QtyYard = "-"
+                        result.records[i].Weight = "-"
+                        result.records[i].Flags = "-"
+                        result.records[i].RollProperties = []
+                        if (result.records[i].EvolveInventory_Attributes != undefined) {
+                            result.records[i].Design = !result.records[i].EvolveInventory_Attributes.Design ? '' : result.records[i].EvolveInventory_Attributes.Design
+                            result.records[i].Quality = !result.records[i].EvolveInventory_Attributes.Quality ? '-' : result.records[i].EvolveInventory_Attributes.Quality
+                            result.records[i].Color = !result.records[i].EvolveInventory_Attributes.Color ? '' : result.records[i].EvolveInventory_Attributes.Color
+                            result.records[i].QtyYard = !result.records[i].EvolveInventory_Attributes.QtyYard ? '-' : result.records[i].EvolveInventory_Attributes.QtyYard
+                            result.records[i].Weight = !result.records[i].EvolveInventory_Attributes.Weight ? '-' : result.records[i].EvolveInventory_Attributes.Weight
+                            result.records[i].Flags = !result.records[i].EvolveInventory_Attributes.Flags ? '-' : result.records[i].EvolveInventory_Attributes.Flags
+                            result.records[i].RollProperties = !result.records[i].EvolveInventory_Attributes.RollProperties ? [] : result.records[i].EvolveInventory_Attributes.RollProperties
+                            if (result.records[i].EvolveInventory_Attributes) {
+                                if (result.records[i].EvolveInventory_Attributes.Color) {
+                                    let getColorDesc = await Evolve.App.Services.Common.SrvCommon.getselect2List({
+                                        "collctionName": "EvolveProductColour",
+                                        "selectedFild": ['EvolveProductColour_Code', 'EvolveProductColour_Desc', '_id'],
+                                        "condition": { "EvolveProductColour_Code": result.records[i].EvolveInventory_Attributes.Color, EvolveProductColour_IsActive: true }
+                                    });
+                                    if (getColorDesc.records && getColorDesc.records.length > 0) {
+                                        result.records[i].Color = getColorDesc.records[0]["EvolveProductColour_Desc"] ? (result.records[i].EvolveInventory_Attributes.Color + '-' + getColorDesc.records[0]["EvolveProductColour_Desc"]) : result.records[i].EvolveInventory_Attributes.Color;
+                                    }
+                                }
+                                if (result.records[i].EvolveInventory_Attributes.Design) {
+                                    let getDesignDesc = await Evolve.App.Services.Common.SrvCommon.getselect2List({
+                                        "collctionName": "EvolveDesign",
+                                        "selectedFild": ['EvolveDesign_Code', 'EvolveDesign_Desc', '_id'],
+                                        "condition": { "EvolveDesign_Code": result.records[i].EvolveInventory_Attributes.Design, EvolveDesign_IsActive: true }
+                                    });
+                                    if (getDesignDesc.records && getDesignDesc.records.length > 0) {
+                                        result.records[i].Design = getDesignDesc.records[0]["EvolveDesign_Desc"] ? (result.records[i].EvolveInventory_Attributes.Design + '-' + getDesignDesc.records[0]["EvolveDesign_Desc"]) : result.records[i].EvolveInventory_Attributes.Design;
+                                    }
+                                }
+                            }
+                        };
+
+                        result.records[i].isTp = "-"
+
+                        if(result.records[i].RollProperties.length > 0){
+                            if( !(result.records[i].Quality == 'SD' ||  result.records[i].Quality == 'SS' ||  result.records[i].Quality == 'CUTS')){
+                                for (let j = 0; j < result.records[i].RollProperties.length; j++) {
+                                    const element = result.records[i].RollProperties[j];
+                                    
+                                    let keys = Object.keys(element)
+                                    
+                                    if(!element[keys[0]] == ''){
+                                        // console.log("TP>>>>>>>>>>>>>>>>>","-")
+                                        result.records[i].isTp = "Tp"
+                                    }
+                                }
+                            }
+                        }
+
+
+                        fileData.push([
+                            result.records[i].EvolveItem_Code,
+                            result.records[i].EvolveItem_Desc1 + "-" + result.records[i].EvolveItem_Desc2,
+                            result.records[i].EvolveLocation_Code,
+                            result.records[i].Design,
+                            result.records[i].Quality,
+                            result.records[i].Color,
+                            result.records[i].EvolveInventory_LotSerial,
+                            result.records[i].EvolveInventory_RefNumber,
+                            result.records[i].EvolveInventory_Status,
+                            result.records[i].EvolveInventory_QtyOnHand,
+                            result.records[i].QtyYard,
+                            result.records[i].Weight,
+                            result.records[i].Flags,
+                            result.records[i].createdAt,
+                            result.records[i].isTp,
+                        ]);
+                    }
+                }
+                // console.log("getAllCsvExportList.records:::::::::::", result.records.length)
+
+
+                // for (let i = 0; i < result.records.length; i++) {
+                //     let element = result.records[i]
+                //     fileData.push([
+                //         element.EvolveItem_Code,
+                //         element.EvolveItem_Desc1 + "-" + element.EvolveItem_Desc2,
+                //         element.EvolveLocation_Code,
+                //         element.Design,
+                //         element.Color,
+                //         element.EvolveInventory_LotSerial,
+                //         element.EvolveInventory_RefNumber,
+                //         element.EvolveInventory_QtyOnHand,
+                //         element.QtyYard,
+                //         element.Weight,
+                //         element.Flags,
+                //     ]);
+                // }
+                let date = new Date();
+                date = date.getFullYear() + "_" + (date.getMonth() + 1) + "_" + date.getDate();
+                let fileName = date + '.xlsx';
+                await Evolve.Fs.mkdirSync(`./public/FGINVENTORY/`, { recursive: true });
+                let ws = Evolve.Xlsx.utils.aoa_to_sheet(fileData);
+                let wb = Evolve.Xlsx.utils.book_new();
+                Evolve.Xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+                fileName = './public/FGINVENTORY/' + fileName
+                Evolve.Xlsx.writeFile(wb, fileName);
+                fileName = fileName.replace("./public", "");
+                let obj = {
+                    statusCode: 200,
+                    status: "success",
+                    messageCode: 102,
+                    noOfRecord: result.records.length,
+                    result: { fileName }
+                };
+                resolve(obj);
+
+            } catch (err) {
+                console.log("Error In Get All CsvExport List !! ", err)
+                Evolve.Console.log("Error In Get All CsvExport List !! " + err.message);
+                let obj = {
+                    statusCode: 400,
+                    messageCode: 111,
+                    var: [],
+                };
+                resolve(obj);
+            }
+        })
+    },
+
+    printLabel: async function (req, res) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let error = false;
+                let message = "";
+                for (let i = 0; i < req.body.printerData.length; i++) {
+                    let printLabel = await Evolve.App.Controllers.Common.ConCommon.AddNewPrintQuee(req.body.printerData[i].EvolvePrinter_Code, "ZPLCODE", req.body.printerData[i], 1);
+                    if (printLabel.statusCode == 400) {
+                        error = true;
+                        message = printLabel.message;
+                    }
+                }
+
+                let data = {
+                    statusCode: error ? 400 : 200,
+                    records: null,
+                    messageCode: error ? message : 159,
+                    var: [],
+                }
+                res.send(data);
+            } catch (error) {
+                Evolve.Console.log("Error While Print Label !! " + error.message);
+                let obj = {
+                    statusCode: 400,
+                    status: "fail",
+                    messageCode: 111,
+                    var: [],
+                    result: null
+                };
+                resolve(obj);
+            }
+        })
+    },
+
+    getFgInventoryList: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let error = false;
+                let errorCode = null;
+                let msgInfo = [];
+                let result = {
+                    records: [],
+                    noOfRecord: 0,
+                    totalQty: 0,
+                };
+
+                data.filterObj = {};
+                data.filterArray.push({
+                    field: 'EvolveUnit_ID',
+                    operator: "in",
+                    value: data.EvolveUnit_ID,
+                    collectionName: "EvolveInventory",
+                })
+                let countFilterArray = [];
+                countFilterArray.push({
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId(data.EvolveUnit_ID)
+                            }
+                        ]
+                    }
+                });
+
+                countFilterArray.push({
+                    "$lookup": {
+                        "from": "EvolveItem",
+                        "let": { item: "$EvolveItem_ID" },
+                        "pipeline": [
+                            {
+                                $match: {
+                                    $expr: {
+                                        $and: [
+                                            { $eq: ["$_id", "$$item"] },
+
+                                        ]
+                                    }
+                                }
+                            },
+                            {
+                                $project: {
+                                    EvolveItem_Code: 1,
+                                    EvolveItem_Desc1: 1,
+                                    EvolveItem_Desc2: 1,
+                                    EvolveItem_Type: 1
+                                }
+                            }
+                        ],
+                        "as": "EvolveItem_ID",
+                    }
+                })
+                countFilterArray.push({
+                    $unwind: {
+                        path: "$EvolveItem_ID",
+                        preserveNullAndEmptyArrays: true
+                    }
+                })
+                countFilterArray.push({
+                    $match: {
+                        $and: [
+                            {
+                                "EvolveItem_ID.EvolveItem_Type": "CFG"
+                            }
+                        ]
+                    }
+                })
+                let locationFound = false;
+                data.filterArray.map((v) => {
+                    if (v.collectionName === 'EvolveLocation' && !locationFound) {
+                        locationFound = true;
+                        countFilterArray.push({
+                            "$lookup": {
+                                "from": "EvolveLocation",
+                                "let": { loc: "$EvolveLocation_ID" },
+                                "pipeline": [
+                                    {
+                                        $match: {
+                                            $expr: { $eq: ["$_id", "$$loc"] },
+                                        }
+                                    }, {
+                                        $project: {
+                                            EvolveLocation_Code: 1,
+                                        }
+                                    }
+                                ],
+                                "as": "EvolveLocation_ID",
+                            }
+                        },)
+                        countFilterArray.push({
+                            $unwind: {
+                                path: "$EvolveLocation_ID",
+                                preserveNullAndEmptyArrays: true
+                            }
+                        })
+                    }
+                    v.collectionName = "EvolveInventory"
+                })
+                countFilterArray.push({
+                    "$addFields": {
+                        keyexist: {
+                            $cond: {
+                                if: {
+                                    $eq: [
+                                        {
+                                            $type: "$EvolveInventory_Attributes"
+                                        },
+                                        "missing"
+                                    ]
+                                },
+                                then: false,
+                                else: true
+                            }
+                        }
+                    }
+                })
+                countFilterArray.push({
+                    "$addFields": {
+                        "Tp": {
+                            $cond: {
+                                if: { $eq: ["$keyexist", true] }, then: {
+                                    $map: {
+                                        input: "$EvolveInventory_Attributes.RollProperties",
+                                        in: {
+                                            $cond: {
+                                                if: {
+                                                    $or: [
+                                                        { $eq: ['SD', "$EvolveInventory_Attributes.Quality"] },
+                                                        { $eq: ['SS', "$EvolveInventory_Attributes.Quality"] },
+                                                        { $eq: ['CUTS', "$EvolveInventory_Attributes.Quality"] },
+                                                        { $eq: ['', "$$this.T1"] },
+                                                        { $eq: ['', "$$this.T2"] },
+                                                        { $eq: ['', "$$this.T3"] },
+                                                        { $eq: ['', "$$this.T4"] },
+                                                        { $eq: ['', "$$this.T5"] },
+                                                        { $eq: ['', "$$this.T6"] },
+                                                    ],
+
+                                                }
+                                                , then: "-", else: "Tp"
+                                            }
+                                        }
+                                    }
+                                },
+                                else: "-"
+                            }
+
+
+                        }
+                    }
+                },
+                    { $addFields: { "Tp": { $ifNull: ["$Tp", ["-"]] } } },
+
+                    {
+                        "$addFields": {
+                            "isTp": {
+                                $cond: {
+                                    if: { $eq: ["$keyexist", true] }, then: {
+                                        $cond: {
+                                            if: { $in: ["Tp", "$Tp"] }
+                                            , then: "Tp", else: "-"
+                                        }
+                                    }, else: "-"
+                                }
+                            }
+                        }
+                    })
+                let matchObj = await Evolve.App.Controllers.Common.ConCommon.getMatchObjForAggregate(data)
+
+
+                if (matchObj.statusCode != 400) {
+                    data.filterObj = matchObj.result;
+                    data.addFieldObj = matchObj.resultAddField;
+
+                }
+                countFilterArray.push({
+                    "$addFields": data.addFieldObj
+                })
+                countFilterArray.push({
+                    $match: data.filterObj
+                })
+                countFilterArray.push({
+                    $group: {
+                        _id: null,
+                        totalCount: { $sum: 1 },
+                        totalQty: { $sum: "$EvolveInventory_QtyOnHand" }
+                    }
+                });
+
+                let getPrinterData = await Evolve.App.Services.Wms.fgInventoryList.SrvList.getPrinterData(data);
+                let printerData = {};
+                for (let i = 0; i < getPrinterData.length; i++) {
+                    if (getPrinterData[i].EvolvePrintAction_ID != null) {
+                        printerData = getPrinterData[i];
+                    }
+                }
+
+
+
+                let count = [];
+                if (data.isPaginateClick) {
+                    count = [{
+                        totalCount: data.noOfRecord,
+                        totalQty:data.totalQty
+                    }]
+                } else {
+                    // console.time('COUNT')
+                    count = await Evolve.App.Services.Wms.fgInventoryList.SrvList.getFgInventoryCount(countFilterArray);
+                    // console.timeEnd('COUNT')
+                };
+                if (count instanceof Error) {
+                    error = true;
+                    errorCode = '120'
+                    msgInfo = ['Fg Inventory Count']
+                } else {
+                    // result.noOfRecord = count[0].totalCount.length == 0 ? 0 : count[0].totalCount[0].count;
+                    // result.totalQty = count[0].totalQty.length == 0 ? 0 : count[0].totalQty[0].count;
+                    result.noOfRecord = count.length > 0 ? count[0].totalCount : 0;
+                    result.totalQty = count ? (count[0] ? count[0].totalQty : 0) : 0
+                    result.totalQty = parseFloat(result.totalQty).toFixed(Evolve.CONFIG.EvolveToFixedConfig)
+                    let list = await Evolve.App.Services.Wms.fgInventoryList.SrvList.getFgInventoryList(data);
+                    if (list instanceof Error) {
+                        error = true;
+                        errorCode = '120'
+                        msgInfo = ['Fg Inventory List']
+                    } else {
+                        result.records = list;
+                        for (let i = 0; i < result.records.length; i++) {
+                            // console.log("EvolveInventory_Attributes>>>>::::::::::::::", JSON.stringify(result.records[i].createdAt))
+                            // result.totalQty += parseFloat(result.records[i].EvolveInventory_QtyOnHand);
+                            result.records[i].printerData = printerData;
+                            result.records[i].createdAt = Evolve.moment(new Date(result.records[i].createdAt)).format('DD-MM-YYYY HH:mm:ss')
+                            result.records[i].createdDate = result.records[i].createdAt != null || result.records[i].createdAt != undefined || result.records[i].createdAt != "" ? Evolve.moment(new Date(result.records[i].createdAt)).format('DD-MM-YYYY HH:mm:ss') : "-"
+                            result.records[i].EvolveLocation_Code = result.records[i].EvolveLocation_ID.EvolveLocation_Code
+                            result.records[i].EvolveItem_Code = result.records[i].EvolveItem_ID.EvolveItem_Code
+                            result.records[i].EvolveItem_Desc1 = result.records[i].EvolveItem_ID.EvolveItem_Desc1
+                            result.records[i].EvolveItem_Desc2 = result.records[i].EvolveItem_ID.EvolveItem_Desc2
+                            result.records[i].Design = "-"
+                            result.records[i].Quality = "-"
+                            result.records[i].Color = "-"
+                            result.records[i].QtyYard = "-"
+                            result.records[i].Weight = "-"
+                            result.records[i].Flags = "-"
+                            result.records[i].RollProperties = []
+                            if (result.records[i].EvolveInventory_Attributes != undefined) {
+                                result.records[i].Design = !result.records[i].EvolveInventory_Attributes.Design ? '' : result.records[i].EvolveInventory_Attributes.Design
+                                result.records[i].Quality = !result.records[i].EvolveInventory_Attributes.Quality ? '-' : result.records[i].EvolveInventory_Attributes.Quality
+                                result.records[i].Color = !result.records[i].EvolveInventory_Attributes.Color ? '' : result.records[i].EvolveInventory_Attributes.Color
+                                result.records[i].QtyYard = !result.records[i].EvolveInventory_Attributes.QtyYard ? '-' : result.records[i].EvolveInventory_Attributes.QtyYard
+                                result.records[i].Weight = !result.records[i].EvolveInventory_Attributes.Weight ? '-' : result.records[i].EvolveInventory_Attributes.Weight
+                                result.records[i].Flags = !result.records[i].EvolveInventory_Attributes.Flags ? '-' : result.records[i].EvolveInventory_Attributes.Flags
+                                result.records[i].RollProperties = !result.records[i].EvolveInventory_Attributes.RollProperties ? [] : result.records[i].EvolveInventory_Attributes.RollProperties
+                                if (result.records[i].EvolveInventory_Attributes) {
+                                    if (result.records[i].EvolveInventory_Attributes.Color) {
+                                        let getColorDesc = await Evolve.App.Services.Common.SrvCommon.getselect2List({
+                                            "collctionName": "EvolveProductColour",
+                                            "selectedFild": ['EvolveProductColour_Code', 'EvolveProductColour_Desc', '_id'],
+                                            "condition": { "EvolveProductColour_Code": result.records[i].EvolveInventory_Attributes.Color, EvolveProductColour_IsActive: true }
+                                        });
+                                        if (getColorDesc.records && getColorDesc.records.length > 0) {
+                                            result.records[i].Color = getColorDesc.records[0]["EvolveProductColour_Desc"] ? (result.records[i].EvolveInventory_Attributes.Color + '-' + getColorDesc.records[0]["EvolveProductColour_Desc"]) : result.records[i].EvolveInventory_Attributes.Color;
+                                        }
+                                    }
+                                    if (result.records[i].EvolveInventory_Attributes.Design) {
+                                        let getDesignDesc = await Evolve.App.Services.Common.SrvCommon.getselect2List({
+                                            "collctionName": "EvolveDesign",
+                                            "selectedFild": ['EvolveDesign_Code', 'EvolveDesign_Desc', '_id'],
+                                            "condition": { "EvolveDesign_Code": result.records[i].EvolveInventory_Attributes.Design, EvolveDesign_IsActive: true }
+                                        });
+                                        if (getDesignDesc.records && getDesignDesc.records.length > 0) {
+                                            result.records[i].Design = getDesignDesc.records[0]["EvolveDesign_Desc"] ? (result.records[i].EvolveInventory_Attributes.Design + '-' + getDesignDesc.records[0]["EvolveDesign_Desc"]) : result.records[i].EvolveInventory_Attributes.Design;
+                                        }
+                                    }
+                                }
+                            };
+
+                            /* result.records[i].isTp = "-"
+
+                            if(result.records[i].RollProperties.length > 0){
+                                if( !(result.records[i].Quality == 'SD' ||  result.records[i].Quality == 'SS' ||  result.records[i].Quality == 'CUTS')){
+                                    
+                                    for (let j = 0; j < result.records[i].RollProperties.length; j++) {
+                                        const element = result.records[i].RollProperties[j];
+                                        
+                                        let keys = Object.keys(element)
+                                        
+                                        if(!element[keys[0]] == ''){
+                                            console.log("TP>>>>>>>>>>>>>>>>>","-")
+                                            result.records[i].isTp = "Tp"
+                                        }
+                                    }
+                                }
+                            } */
+                        }
+                    }
+                }
+
+
+
+
+                let getMessage = error == true ? await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(errorCode, data.EvolveLanguage_Code, msgInfo) : '';
+                let obj = {
+                    statusCode: error ? 400 : 200,
+                    status: error ? "fail" : "success",
+                    message: getMessage,
+                    result: result
+                };
+                resolve(obj);
+            } catch (error) {
+                console.log("Error In Get All Fg Inventory List !!", error)
+                Evolve.Console.log("Error In Get All Fg Inventory List !!" + error.message);
+                let obj = {
+                    statusCode: 400,
+                    messageCode: 111,
+                    var: [],
+                    result: null
+                };
+                resolve(obj);
+            }
+        })
+    },
+
+    reportDownloadController: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let error = false;
+                let errorCode = null;
+                let msgInfo = [];
+                let fileData = [];
+                let filterArray = [];
+
+                filterArray.push({
+                    $match: {
+                        $and: [
+                            {
+                                "$or": [
+                                    {
+                                        "$expr": {
+                                            "$eq": [
+                                                "$EvolveUnit_ID",
+                                                {
+                                                    "$toObjectId": data.EvolveUnit_ID
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                EvolveInventory_QtyOnHand: { "$gt": 0 }
+                            },
+                            {
+                                EvolveInventory_Status: "AVAILABLE"
+                            }
+                        ]
+                    }
+                });
+                if (data.EvolveItem_ID) {
+                    filterArray[0]["$match"]["$and"].push(
+                        {
+                            "$or": [
+                                {
+                                    "$expr": {
+                                        "$eq": [
+                                            "$EvolveItem_ID",
+                                            {
+                                                "$toObjectId": data.EvolveItem_ID
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    );
+                }
+                if (data.EvolveLocation_ID) {
+                    filterArray[0]["$match"]["$and"].push(
+                        {
+                            "$or": [
+                                {
+                                    "$expr": {
+                                        "$eq": [
+                                            "$EvolveLocation_ID",
+                                            {
+                                                "$toObjectId": data.EvolveLocation_ID
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    );
+                }
+                if (data.Color) {
+                    filterArray[0]["$match"]["$and"].push({ "EvolveInventory_Attributes.Color": data.Color });
+                }
+                if (data.Design) {
+                    filterArray[0]["$match"]["$and"].push({ "EvolveInventory_Attributes.Design": data.Design });
+                }
+                filterArray.push({
+                    "$lookup": {
+                        "from": "EvolveItem",
+                        "let" :{item : "$EvolveItem_ID"},
+                        "pipeline" :[
+                            {
+                              $match :{
+                                $expr :{
+                                    $and :[
+                                        {$eq :["$_id", "$$item"]},
+                                      
+                                    ]
+                                }
+                              }  
+                            },
+                            {
+                                $project :{
+                                    EvolveItem_Code :1,
+                                    EvolveItem_Desc1 :1,
+                                    EvolveItem_Desc2 :1,
+                                    EvolveItem_Type :1
+                                }
+                            }
+                        ],
+                        "as": "EvolveItem_ID",
+                    }
+                });
+                filterArray.push({
+                    $unwind: {
+                        path: "$EvolveItem_ID",
+                        preserveNullAndEmptyArrays: true
+                    }
+                });
+                filterArray.push({
+                    $match: {
+                        $and: [
+                            {
+                                "EvolveItem_ID.EvolveItem_Type" : "CFG"
+                            }
+                        ]
+                    }
+                });
+                filterArray.push({
+                    "$lookup": {
+                        "from": "EvolveLocation",
+                        "let" :{loc : "$EvolveLocation_ID" },
+                        "pipeline" :[
+                            {
+                              $match :{
+                                $expr :{$eq :["$_id", "$$loc"]},
+                              }  
+                            },{
+                                $project :{
+                                    EvolveLocation_Code :1,
+                                }
+                            }
+                        ],
+                        "as": "EvolveLocation_ID",
+                    }
+                });
+                filterArray.push({
+                    $unwind: {
+                        path: "$EvolveLocation_ID",
+                        preserveNullAndEmptyArrays: true
+                    }
+                });
+                filterArray.push({
+                    "$lookup": {
+                        "from": "EvolveProductColour",
+                        "let" :{ "colorCode" : "$EvolveInventory_Attributes.Color"},
+                        "pipeline" :[
+                            {
+                              $match :{
+                                $expr :{
+                                    $and :[
+                                        {
+                                            $eq :["$EvolveProductColour_Code", "$$colorCode"]
+                                        },
+                                      
+                                    ]
+                                }
+                              }  
+                            },
+                            {
+                                $project :{
+                                    EvolveProductColour_Code :1,
+                                    EvolveProductColour_Desc :1
+                                }
+                            }
+                        ],
+                        "as": "ColorDetail",
+                    }
+                });
+                filterArray.push({
+                    $unwind: {
+                        path: "$ColorDetail",
+                        preserveNullAndEmptyArrays: true
+                    }
+                });
+                filterArray.push({
+                    "$lookup": {
+                        "from": "EvolveDesign",
+                        "let" :{ "designCode" : "$EvolveInventory_Attributes.Design"},
+                        "pipeline" :[
+                            {
+                              $match :{
+                                $expr :{
+                                    $and :[
+                                        {
+                                            $eq :["$EvolveDesign_Code", "$$designCode"]
+                                        },
+                                      
+                                    ]
+                                }
+                              }  
+                            },
+                            {
+                                $project :{
+                                    EvolveDesign_Code :1,
+                                    EvolveDesign_Desc :1
+                                }
+                            }
+                        ],
+                        "as": "DesignDetail",
+                    }
+                });
+                filterArray.push({
+                    $unwind: {
+                        path: "$DesignDetail",
+                        preserveNullAndEmptyArrays: true
+                    }
+                });
+                console.log('filterArrayfilterArray::::::::;', JSON.stringify(filterArray))
+                console.time("STARTTIME")
+                let list = await Evolve.App.Services.Wms.fgInventoryList.SrvList.reportDownloadSrv(filterArray);
+                console.timeEnd("STARTTIME")
+                if (list instanceof Error) {
+                    error = true;
+                    errorCode = '120'
+                    msgInfo = ['Fg Inventory Report']
+                } else {
+                    if (list.length > 0) {
+                        let fileData = []
+                        let headerArray = ["Product", "Location", "Color", "Design", "Grade", "Quantity"];
+                        fileData.push(headerArray);
+                        list.map((v)=>{
+                            let dataArray = [];
+                            dataArray.push(v["EvolveItem_ID"] ? v["EvolveItem_ID"]["EvolveItem_Desc1"] : "")
+                            dataArray.push(v["EvolveLocation_ID"] ? v["EvolveLocation_ID"]["EvolveLocation_Code"] : "")
+                            dataArray.push(v["ColorDetail"] ? v["ColorDetail"]["EvolveProductColour_Desc"] : v["EvolveInventory_Attributes"]["Color"])
+                            dataArray.push(v["DesignDetail"] ? v["DesignDetail"]["EvolveDesign_Desc"] : v["EvolveInventory_Attributes"]["Design"])
+                            dataArray.push(v["EvolveInventory_Attributes"]["Quality"])
+                            dataArray.push(v["Quantity"] ? v["Quantity"] : "0");
+                            fileData.push(dataArray)
+                        })
+
+
+                        let ws = Evolve.Xlsx.utils.aoa_to_sheet(fileData);
+                        let wb = Evolve.Xlsx.utils.book_new();
+                        Evolve.Xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+                        Evolve.Xlsx.writeFile(wb, './public/' + 'test.csv');
+                    }
+                    console.log("RECORDSSSSSSSSSSSSSS", list)
+                }
+                
+                let obj = {
+                    statusCode: 200,
+                    status: "success",
+                    messageCode: 102,
+                    result:list.length
+                };
+                resolve(obj);
+
+            } catch (err) {
+                console.log("Error In Get Report Download !! ", err)
+                Evolve.Console.log("Error In Get Report Download !! " + err.message);
+                let obj = {
+                    statusCode: 400,
+                    messageCode: 111,
+                    var: [],
+                };
+                resolve(obj);
+            }
+        })
+    },
+}

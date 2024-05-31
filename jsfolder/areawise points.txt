@@ -1,0 +1,55 @@
+delicia
+
+
+Calandering
+Average_VLL_Voltage 
+Energy_Cost 
+but not showing graph because of Average_VLL_Voltage
+current average for that we cant get current graph(	Current_Average)
+
+
+mixing
+Average_VLL_Voltage
+Energy_Cost
+but not showing graph because of Average_VLL_Voltage
+current average for that we cant get current graph(	Current_Average)
+
+
+streme boiler
+Average_VLL_Voltage
+Energy_Cost
+but not showing graph because of Average_VLL_Voltage
+current average for that we cant get current graph( Current_Average)
+
+
+chiller02 mac: 94:3c:c6:c0:a1:b8 slave: 10
+but not showing this month, current, previous
+but not showing graph because of Average_VLL_Voltage
+current average for that we cant get current graph(	Current_Average)
+
+
+chiller01
+ANDON:testtingnew:23 mac: 94:3c:c6:c2:d8:70 slave:2
+but not showing graph because of Average_VLL_Voltage
+but not showing this month For Energy Consume.
+All the graphs not showing becuase of wrong template.
+current average for that we cant get current graph(	Current_Average)
+
+    function a(){
+
+                this.c = "something"
+
+                // let e = 11
+                console.log('this: ', this);
+                let b =()=>{
+                    this.d = 10
+                    console.log("hello",this)
+                }
+                b()
+                console.log(this.d)
+            }
+
+          new a()
+
+
+

@@ -1,0 +1,928 @@
+<script>
+import { useUserDataStore } from "~/stores/userdata";
+
+import { orders } from "@/common/data";
+export default {
+  components: {},
+  props: {
+    propsdata: {
+      type: Object,
+      default: {},
+    },
+  },
+  data() {
+    return {
+      // w: this.propsdata?.width?.value ? this.propsdata.width.value : 225.76,
+      // h: this.propsdata?.height?.value ? this.propsdata.height.value : 105.24,
+      orders: [],
+      searchQuery: null,
+      page: 1,
+      perPage: 10,
+      pages: [],
+      submitted: false,
+      orderModal: false,
+      dataEdit: false,
+      deleteModal: false,
+      csvModal: false,
+      event: {
+        id: "",
+        order_date: "",
+        delivery_date: "",
+        product: "",
+        customer: "",
+        img: "",
+        name: "",
+        pay_method: "",
+        price: "",
+        ratings: "",
+        delivery_status: "",
+      },
+
+      // platform fields
+      pagedata: {},
+
+      // Table fields
+
+      options: "Options",
+      exportType: "Export",
+
+      isdevice: false,
+      loading: true,
+      searchClick: false
+    };
+  },
+  computed: {
+    displayedPosts() {
+      return this.paginate(this.orders);
+    },
+    resultQuery() {
+      if (this.searchQuery && this.searchClick) {
+        this.searchClick = false
+        const search = this.searchQuery.toLowerCase();
+        return this.displayedPosts.filter((data) => {
+          let isExist = false;
+          for (let i = 0; i < this.pagedata.listfields.length; i++) {
+            const el = this.pagedata.listfields[i];
+            console.log("el: ", el);
+            if (
+              typeof data[el.field] == "string" ||
+              typeof data[el.field] == "boolean" ||
+              typeof data[el.field] == "object"
+            ) {
+              if (el.tablereffield) {
+                data[el.field][el.tabledisplayfield]
+                  .toString()
+                  .toLowerCase()
+                  .includes(search) == true
+                  ? (isExist = true)
+                  : (isExist = false);
+              } else {
+                data[el.field].toString().toLowerCase().includes(search) == true
+                  ? (isExist = true)
+                  : (isExist = false);
+              }
+
+              if (isExist == true) {
+                break;
+              }
+            }else{
+              if(el.field.includes(".")){
+                let a = this.evaluateProp(el.field,data).toString()
+                a.toString().includes(search) == true
+                  ? (isExist = true)
+                  : (isExist = false);
+              }
+
+              if (isExist == true) {
+                break;
+              }
+            }
+          }
+          return isExist;
+        });
+      } else {
+        return this.displayedPosts;
+      }
+    },
+  },
+  async beforeCreate() {
+    try {
+      // get Page Data
+      this.loading = true
+      const resultpagedata = await $fetch(`/getpageData`, {
+        baseURL: this.$config.public.baseURL,
+        method: "POST",
+        body: {
+          code: this.propsdata.pageId,
+        },
+      });
+      console.log("result>>>", resultpagedata);
+      if (resultpagedata.statusCode == 200) {
+        this.pagedata = resultpagedata.result;
+        this.isdevice = resultpagedata.result.isdevice
+      }
+
+      let getPageTableData = await $fetch("/getTableData", {
+        baseURL: this.$config.public.baseURL,
+        method: "POST",
+        body: {
+          pagedata: this.pagedata,
+        },
+      });
+
+      console.log("getPageTableData: ", getPageTableData);
+
+      this.orders = getPageTableData.result;
+      this.loading = false
+    } catch (error) {
+      console.log("error?????????", error);
+    }
+  },
+  watch: {
+    orders() {
+      this.setPages();
+    },
+  },
+  async created() {
+    this.setPages();
+  },
+
+  methods: {
+    async getInitialPageData(){
+      try {
+        this.loading = true
+        // get Page Data
+        const resultpagedata = await $fetch(`/getpageData`, {
+          baseURL: this.$config.public.baseURL,
+          method: "POST",
+          body: {
+            code: this.propsdata.pageId,
+          },
+        });
+        console.log("result>>>", resultpagedata);
+        if (resultpagedata.statusCode == 200) {
+          this.pagedata = resultpagedata.result;
+        }
+
+        let getPageTableData = await $fetch("/getTableData", {
+          baseURL: this.$config.public.baseURL,
+          method: "POST",
+          body: {
+            pagedata: this.pagedata,
+          },
+        });
+
+        console.log("getPageTableData: ", getPageTableData);
+
+        this.orders = getPageTableData.result;
+        this.loading = false
+      } catch (error) {
+        this.loading = false
+        console.log("error?????????", error);
+      }
+    },
+
+    setPages() {
+      let numberOfPages = Math.ceil(this.orders.length / this.perPage);
+      this.pages = [];
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+
+    paginate(orders) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return orders.slice(from, to);
+    },
+
+    //
+    handleSubmit() {
+      if (this.dataEdit) {
+        this.submitted = true;
+        if (
+          this.submitted &&
+          this.event.customer &&
+          this.event.product &&
+          this.event.order_date &&
+          this.event.name &&
+          this.event.price &&
+          this.event.pay_method &&
+          this.event.delivery_status
+        ) {
+          this.orders = this.orders.map((item) =>
+            item.id.toString() == this.event.id.toString()
+              ? { ...item, ...this.event }
+              : item
+          );
+          this.orderModal = false;
+        }
+      } else {
+        this.submitted = true;
+        if (
+          this.submitted &&
+          this.event.customer &&
+          this.event.product &&
+          this.event.order_date &&
+          this.event.name &&
+          this.event.price &&
+          this.event.pay_method &&
+          this.event.delivery_status
+        ) {
+          const data = {
+            id: Math.floor(Math.random() * 100 + 20) - 20,
+            img: multiUser,
+            delivery_date: "--",
+            ratings: "--",
+            ...this.event,
+          };
+          this.orders.unshift(data);
+          this.orderModal = false;
+        }
+      }
+    },
+
+    editDetails(data) {
+      this.dataEdit = true;
+      this.orderModal = true;
+      this.event = { ...data };
+
+      this.submitted = false;
+    },
+
+    toggleModal() {
+      this.orderModal = true;
+      this.dataEdit = false;
+      this.event = {};
+
+      this.submitted = false;
+    },
+    csvUpload() {
+      this.csvModal = true;
+    },
+
+    deleteModalToggle(data) {
+      this.deleteModal = true;
+      this.event.id = data.id;
+    },
+
+    deleteData() {
+      if (this.event.id) {
+        this.orders = this.orders.filter((item) => {
+          return item.id != this.event.id;
+        });
+        this.deleteModal = false;
+      }
+    },
+    addnewRecord() {
+      this.pagedata.actionurl
+        ? this.$router.push(this.pagedata.actionurl + "/aNA")
+        : this.$router.push("/common/pages/" + this.propsdata.pageId + "/aNA");
+    },
+    editRecord(id) {
+      console.log("id: ", id);
+
+      this.pagedata.actionurl
+        ? this.$router.push(this.pagedata.actionurl + "/e" + id)
+        : this.$router.push("/common/pages/" + this.propsdata.pageId + "/e" + id);
+    },
+    viewRecord(id) {
+      this.pagedata.actionurl
+        ? this.$router.push(this.pagedata.actionurl + "/v" + id)
+        : this.$router.push("/common/pages/" + this.propsdata.pageId + "/v" + id);
+      // this.$router.push("/common/pages/" + this.propsdata.pageId + "/v" + id);
+      // this.$router.push("/common/pageDesigner/" + this.propsdata.pageId);
+    },
+    async deleteRecord(id, index) {
+
+      const swalWithBootstrapButtons = this.$swal.mixin({
+          customClass: {
+              confirmButton: "btn btn-success me-2",
+              cancelButton: "btn btn-danger ml-2",
+          },
+          buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+          .fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              confirmButtonText: "Yes, delete it!",
+              cancelButtonText: "No, cancel!",
+              confirmButton: "me-2",
+              showCancelButton: true,
+          })
+          .then(async(result) => {
+              if (result.value) {
+
+                  const resultpagedata = await $fetch(`/api/v1/pageDesigner/pageDesignHandler`, {
+                    baseURL: this.$config.public.baseURL,
+                    method: "POST",
+                    body: {
+                      operation:"R",
+                      tableName: this.pagedata.table,
+                      deleteId: id
+                    },
+                  });
+                  console.log("resultpagedata>>>", resultpagedata);
+                  if (resultpagedata.statusCode == 200) {
+                    await this.getInitialPageData()
+                    swalWithBootstrapButtons.fire(
+                      "Deleted!",
+                        "Record has been deleted.",
+                        "success"
+                    );
+                  }else{
+                    this.$swal.fire("Error While Delete TableData !!", "error");
+                  }
+              }
+          });
+     
+    },
+
+    evaluateProp(prop, data) {
+      try {
+        // const getValue = (data) => eval(prop);
+        // return getValue(data);
+
+        // Split the propName into an array of keys
+        const keys = prop.split('.');
+        console.log('keys: ', keys);
+
+        // Use reduce to traverse the object using the keys
+        return keys.reduce((acc, key) => (acc && acc[key] !== undefined ? acc[key] : undefined), data);
+      } catch (error) {
+        console.error(`Error evaluating prop "${prop}": ${error.message}`);
+        return 0;
+      }
+    },
+
+    csvDowload(){
+      try {
+        console.log("called>>>>>>>>>>..")
+      } catch (error) {
+        console.error(`Error evaluating prop "${prop}": ${error.message}`);
+      }
+    }
+
+    // createOrUpdateData(id) {
+    //   console.log("ID AT CLICK ::: ", id);
+    //   if (id) {
+    //     this.$router.push("/common/pageDesigner/" + this.propsdata.pageId + "/" + id);
+    //   } else {
+    //     this.$router.push("/common/pageDesigner/" + this.propsdata.pageId);
+    //   }
+    // },
+  },
+  mounted() {},
+};
+</script>
+
+<template>
+  <div>
+    <b-row>
+      <b-col lg="12">
+        <b-card no-body id="orderList">
+          <b-card-header>
+            <!-- {{ pagedata }} -->
+            <b-row class="align-items-center gy-3">
+              <b-col lg="3" md="6">
+                <div class="search-box">
+                  <input
+                    type="text"
+                    class="form-control search"
+                    placeholder="Search Here..."
+                    v-model="searchQuery"
+                  />
+                  <i class="ri-search-line search-icon"></i>
+                </div>
+               
+              </b-col>
+              <b-col lg="3" md="6">
+                 <b-button
+                  title="Search"
+                  type="button"
+                  variant="subtle-primary"
+                  class="btn-icon btn-md"
+                  @click="() => searchQuery ? searchClick = true : searchClick = false"
+                  ><i class="ri-search-line search-icon"></i
+                ></b-button>
+              </b-col>
+
+              <b-col md="auto" class="ms-md-auto">
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                  <b-button
+                    variant="subtle-danger"
+                    class="d-none"
+                    id="remove-actions"
+                    onClick="deleteMultiple()"
+                    ><i class="ri-delete-bin-2-line"></i
+                  ></b-button>
+                  <div
+                    class="dropdown card-header-dropdown sortble-dropdown flex-shrink-0"
+                  >
+                    <b-link
+                      class="text-reset dropdown-btn"
+                      href="#"
+                      data-bs-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <span class="text-muted dropdown-title">Order By Date</span>
+                      <i class="mdi mdi-chevron-down ms-1"></i>
+                    </b-link>
+                    <div class="dropdown-menu dropdown-menu-end">
+                      <b-link href="#" class="dropdown-item sort" data-sort="order_date"
+                        >Order By ID</b-link
+                      >
+                      <!-- <b-link href="#" class="dropdown-item sort" data-sort="order_id"
+                        >Order ID</b-link
+                      >
+                      <b-link href="#" class="dropdown-item sort" data-sort="amount"
+                        >Amount</b-link
+                      >
+                      <b-link href="#" class="dropdown-item sort" data-sort="status"
+                        >Status</b-link
+                      > -->
+                    </div>
+                  </div>
+
+                  <b-button-group class="me-2 ms-auto">
+                    <b-dropdown variant="primary">
+                      <template v-slot:button-content> {{ exportType }} </template>
+                      <b-dropdown-item
+                        href="javascript: void(0);"
+                        v-if="pagedata?.export?.pdf"
+                        >Pdf</b-dropdown-item
+                      >
+                      <b-dropdown-item
+                        href="javascript: void(0);"
+                        v-if="pagedata?.export?.excel"
+                        >Excel</b-dropdown-item
+                      >
+                      <b-dropdown-item
+                        href="javascript: void(0);"
+                        v-if="pagedata?.export?.csv"
+                        @click="csvDowload"
+                        >Csv</b-dropdown-item
+                      >
+
+                      <b-dropdown-item
+                        href="javascript: void(0);"
+                        v-if="pagedata?.export?.print"
+                        >Print</b-dropdown-item
+                      >
+                    </b-dropdown>
+                  </b-button-group>
+
+                  <b-button
+                  v-if="pagedata?.options?.add"
+                    type="button"
+                    variant="info"
+                    class="add-btn ms-auto"
+                    @click="addnewRecord()"
+                    ><i class="bi bi-plus-circle align-baseline me-1"></i> Add
+                    {{ pagedata?.name }}</b-button
+                  >
+                  <b-button
+                    type="button"
+                    variant="success"
+                    class="add-btn ms-auto"
+                    @click="csvUpload"
+                    v-if="pagedata?.import?.bulkupload"
+                    ><i class="bi bi-cloud-arrow-up align-baseline me-1"></i> Import
+                    csv</b-button
+                  >
+                </div>
+              </b-col>
+            </b-row>
+          </b-card-header>
+          <b-card-body>
+            <div class="table-responsive">
+              <table
+                class="table table-borderless table-centered align-middle table-nowrap mb-0"
+              >
+                <thead class="text-muted table-light">
+                  <tr>
+                    <th
+                      v-for="listfields in pagedata?.listfields"
+                      :key="listfields"
+                      scope="col"
+                      class="sort cursor-pointer"
+                      data-sort="order_id"
+                    >
+                      {{ listfields.label }}
+                    </th>
+
+                    <th scope="col" v-if="pagedata.options?.view || pagedata.options?.edit || pagedata.options?.delete">{{ options }}</th>
+                  </tr>
+                </thead>
+                <tbody class="list form-check-all">
+                  <tr v-for="(data, index) of resultQuery" :key="index">
+                    <td v-for="rows in pagedata?.listfields" :key="rows">
+                      <span v-if="rows.link != ''">
+                        <a :href="rows.link">{{ rows.link }}</a>
+                      </span>
+
+                      <span
+                        v-else-if="rows.tablereffield"
+                        :class="
+                          rows.isbadge
+                            ? data[rows.field]
+                              ? 'badge bg-success'
+                              : 'badge bg-danger'
+                            : ''
+                        "
+                      >
+                        {{ rows?.prefix }} {{  data[rows.field]?.[rows.tabledisplayfield] }}  
+                        {{ rows?.postfix }}
+                      </span>
+                      <span
+                        v-else
+                        :class="
+                          rows.isbadge
+                            ? data[rows.field]
+                              ? 'badge bg-success'
+                              : 'badge bg-danger'
+                            : ''
+                        "
+                      >
+                        {{ rows?.prefix }} {{ rows.field.includes(".") ? evaluateProp(rows.field, data) : data[rows.field] }} {{ rows?.postfix }} 
+                      </span>
+                    </td>
+                    <td v-if="pagedata.options?.view || pagedata.options?.edit || pagedata.options?.delete">
+                      <span v-if="pagedata.options.view">
+                        <b-button
+                          title="View"
+                          type="button"
+                          variant="subtle-primary"
+                          class="btn-icon btn-sm"
+                          @click="viewRecord(data[pagedata.options.field])"
+                          ><i class="ph-eye"></i
+                        ></b-button>
+                      </span>
+                      <span v-if="pagedata.options.edit">
+                        <b-button
+                          title="Edit"
+                          type="button"
+                          variant="subtle-info"
+                          class="btn-icon btn-sm mx-2"
+                          @click="editRecord(data[pagedata.options.field])"
+                          ><i class="ph-pencil"></i
+                        ></b-button>
+                      </span>
+                      <span v-if="pagedata.options.delete">
+                        <b-button
+                          title="Delete"
+                          type="button"
+                          variant="subtle-danger"
+                          class="btn-icon btn-sm"
+                          @click="deleteRecord(data[pagedata.options.field],index)"
+                          ><i class="ph-trash"></i
+                        ></b-button>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="noresult" v-if="resultQuery.length <= 0 && !loading">
+                <div class="text-center py-4">
+                  <i class="ph-magnifying-glass fs-1 text-primary"></i>
+                  <h5 class="mt-2">Sorry! No Result Found</h5>
+                  <p class="text-muted mb-0">
+                    We've searched more than 150+ orders We did not find any orders for
+                    you search.
+                  </p>
+                </div>
+              </div>
+              <div class="noresult loading" v-if="loading" >
+              </div>
+            </div>
+          </b-card-body>
+        </b-card>
+      </b-col>
+    </b-row>
+    <b-row id="pagination-element">
+      <b-col>
+        <div
+          class="d-flex justify-content-center justify-content-sm-end mt-2"
+          v-if="resultQuery.length >= 1"
+        >
+          <div class="pagination-wrap hstack gap-2">
+            <b-link
+              class="page-item pagination-prev"
+              href="#"
+              :disabled="page <= 1"
+              @click="page--"
+            >
+              <i class="mdi mdi-chevron-left align-middle"></i>
+            </b-link>
+            <ul class="pagination listjs-pagination mb-0">
+              <li @click="page = 1" v-if="page > 3">
+                <b-link class="page" href="#">{{ pages[0] }}</b-link>
+              </li>
+              <li v-if="page > 3">...</li>
+              <li
+                :class="{ active: pageNumber == page, disabled: pageNumber == '...' }"
+                v-for="(pageNumber,index1) in pages.slice(page - 1, page + 3)"
+                :key="index1"
+                @click="page = pageNumber"
+              >
+                <b-link class="page" href="#" data-i="1" data-page="10">{{
+                  pageNumber
+                }}</b-link>
+              </li>
+              <li v-if="page < pages.length - 3">...</li>
+              <li
+                class="page__numbers"
+                @click="page = pages.length"
+                v-if="page < pages.length - 3"
+              >
+                <b-link class="page" href="#">{{ pages[pages.length - 1] }}</b-link>
+              </li>
+            </ul>
+            <b-link
+              class="page-item pagination-next"
+              href="#"
+              :disabled="page >= pages.length"
+              @click="page++"
+            >
+              <i class="mdi mdi-chevron-right align-middle"></i>
+            </b-link>
+          </div>
+        </div>
+      </b-col>
+    </b-row>
+
+    <b-modal
+      v-model="csvModal"
+      class="fade"
+      id="modalShow"
+      hide-footer
+      title="CSV Upload"
+      header-class="bg-light p-3"
+    >
+      <b-form
+        class="tablelist-form"
+        novalidate
+        autocomplete="off"
+        @submit.prevent="handleSubmit"
+      >
+        <div class="mb-3">
+          <label for="customername-field" class="form-label">Select file here</label>
+          <input type="file" class="form-control" placeholder="Select file" />
+        </div>
+
+        <div>
+          <div class="hstack gap-2 justify-content-end">
+            <b-button type="button" variant="light" @click="csvModal = false"
+              >Close</b-button
+            >
+            <b-button type="submit" variant="success" id="add-btn"> Upload </b-button>
+          </div>
+        </div>
+      </b-form>
+    </b-modal>
+
+    <!-- Order Modal Show -->
+    <b-modal
+      v-model="orderModal"
+      class="fade"
+      id="modalShow"
+      hide-footer
+      :title="dataEdit ? 'Edit Order' : 'Add Order'"
+      header-class="bg-light p-3"
+    >
+      <b-form
+        class="tablelist-form"
+        novalidate
+        autocomplete="off"
+        @submit.prevent="handleSubmit"
+      >
+        <div class="mb-3">
+          <label for="customername-field" class="form-label">Customer Name</label>
+          <input
+            type="text"
+            id="customername-field"
+            class="form-control"
+            placeholder="Enter name"
+            v-model="event.customer"
+            :class="{ 'is-invalid': submitted && !event.customer }"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="productname-field" class="form-label">Product</label>
+          <select
+            class="form-control"
+            data-trigger
+            name="productname-field"
+            id="productname-field"
+            v-model="event.product"
+            :class="{ 'is-invalid': submitted && !event.product }"
+          >
+            <option value="">Product</option>
+            <option value="Cotton collar t-shirts for men">
+              Cotton collar t-shirts for men
+            </option>
+            <option value="Like style travel black handbag">
+              Like style travel black handbag
+            </option>
+            <option value="Fossil gen 5E smart watch">Fossil gen 5E smart watch</option>
+            <option value="Super bass bluetooth wireless headphone">
+              Super bass bluetooth wireless headphone
+            </option>
+            <option value="Willage volleyball ball size 4">
+              Willage volleyball ball size 4
+            </option>
+            <option value="Branded T-Shirts">Branded T-Shirts</option>
+            <option value="Flip-Flops and house slippers">
+              Flip-Flops and house slippers
+            </option>
+            <option value="Jeans blue men boxer">Jeans blue men boxer</option>
+            <option value="MAG back to the future shoes">
+              MAG back to the future shoes
+            </option>
+            <option value="Super bass bluetooth wireless headphone">
+              Super bass bluetooth wireless headphone
+            </option>
+          </select>
+        </div>
+
+        <b-row>
+          <b-col lg="6">
+            <div class="mb-3">
+              <label for="date-field" class="form-label">Order Date</label>
+              <flat-pickr
+                v-model="event.order_date"
+                :config="orderDateConfig"
+                class="form-control"
+                :class="{ 'is-invalid': submitted && !event.order_date }"
+              ></flat-pickr>
+            </div>
+            <div class="mb-3">
+              <label for="shopName-input" class="form-label">Shop</label>
+              <input
+                type="text"
+                id="shopName-input"
+                class="form-control"
+                placeholder="Enter shop name"
+                v-model="event.name"
+                :class="{ 'is-invalid': submitted && !event.name }"
+              />
+            </div>
+          </b-col>
+
+          <b-col lg="6">
+            <label class="form-label mb-3">Shop logo</label>
+            <div class="text-center mb-3">
+              <div class="position-relative d-inline-block">
+                <div class="position-absolute top-100 start-100 translate-middle">
+                  <label
+                    for="companyLogo-image-input"
+                    class="mb-0"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="right"
+                    title="Select company logo"
+                  >
+                    <span class="avatar-xs d-inline-block">
+                      <span
+                        class="avatar-title bg-light border rounded-circle text-muted cursor-pointer"
+                      >
+                        <i class="ri-image-fill"></i>
+                      </span>
+                    </span>
+                  </label>
+                  <input
+                    class="form-control d-none"
+                    id="companyLogo-image-input"
+                    type="file"
+                    accept="image/png, image/gif, image/jpeg"
+                  />
+                </div>
+                <div class="avatar-lg">
+                  <div class="avatar-title bg-light rounded-3">
+                    <img
+                      src="@/assets/images/users/multi-user.jpg"
+                      alt=""
+                      id="companyLogo-img"
+                      class="avatar-md h-auto rounded-3 object-fit-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </b-col>
+        </b-row>
+
+        <b-row class="gy-4 mb-3">
+          <b-col md="6">
+            <div>
+              <label for="amount-field" class="form-label">Amount</label>
+              <input
+                type="text"
+                id="amount-field"
+                class="form-control"
+                placeholder="Total amount"
+                v-model="event.price"
+                :class="{ 'is-invalid': submitted && !event.price }"
+              />
+            </div>
+          </b-col>
+          <b-col md="6">
+            <div>
+              <label for="payment-field" class="form-label">Payment Method</label>
+              <select
+                class="form-control"
+                data-trigger
+                name="payment-method"
+                id="payment-field"
+                v-model="event.pay_method"
+                :class="{ 'is-invalid': submitted && !event.pay_method }"
+              >
+                <option value="">Payment Method</option>
+                <option value="Mastercard">Mastercard</option>
+                <option value="Visa">Visa</option>
+                <option value="COD">COD</option>
+                <option value="Paypal">Paypal</option>
+              </select>
+            </div>
+          </b-col>
+        </b-row>
+
+        <div class="mb-3">
+          <label for="delivered-status" class="form-label">Delivery Status</label>
+          <select
+            class="form-control"
+            data-trigger
+            name="delivered-status"
+            id="delivered-status"
+            v-model="event.delivery_status"
+            :class="{ 'is-invalid': submitted && !event.delivery_status }"
+          >
+            <option value="">Delivery Status</option>
+            <option value="New">New</option>
+            <option value="Pending">Pending</option>
+            <option value="Out of Delivered">Out of Delivered</option>
+            <option value="Shipping">Shipping</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+        </div>
+        <input type="hidden" id="delivery-status-field" />
+        <input type="hidden" id="rating-field" />
+        <div>
+          <div class="hstack gap-2 justify-content-end">
+            <b-button type="button" variant="light" @click="orderModal = false"
+              >Close</b-button
+            >
+            <b-button type="submit" variant="success" id="add-btn">
+              {{ dataEdit ? "update" : "Add Order" }}
+            </b-button>
+          </div>
+        </div>
+      </b-form>
+    </b-modal>
+
+    <!-- delete modal -->
+    <b-modal
+      v-model="deleteModal"
+      body-class="p-md-5"
+      modal-class="zoomIn"
+      hide-footer
+      no-close-on-backdrop
+      centered
+    >
+      <div class="text-center">
+        <div class="text-danger">
+          <i class="bi bi-trash display-4"></i>
+        </div>
+        <div class="mt-4">
+          <h3 class="mb-2">Are you sure ?</h3>
+          <p class="text-muted fs-lg mx-3 mb-0">
+            Are you sure you want to remove this record ?
+          </p>
+        </div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center mt-4 mb-2">
+        <b-button
+          type="button"
+          variant="light"
+          class="w-sm btn-hover"
+          @click="deleteModal = false"
+          >Close</b-button
+        >
+        <b-button
+          type="button"
+          variant="danger"
+          class="w-sm btn-hover"
+          id="delete-record"
+          @click="deleteData"
+          >Yes,Delete It!</b-button
+        >
+      </div>
+    </b-modal>
+  </div>
+</template>

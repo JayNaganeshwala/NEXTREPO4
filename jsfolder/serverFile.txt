@@ -1,0 +1,1253 @@
+login as: iotadmin
+iotadmin@4.247.131.73's password:
+Last login: Fri Feb  2 11:11:26 2024 from 182.70.123.104
+
+Thank you for choosing this Microsoft sponsored CentOS image from OpenLogic!
+_______                    ______               _____
+__  __ \______________________  / _____________ ___(_)______
+_  / / /__  __ \  _ \_  __ \_  /  _  __ \_  __ `/_  /_  ___/
+/ /_/ /__  /_/ /  __/  / / /  /___/ /_/ /  /_/ /_  / / /__
+\____/ _  .___/\___//_/ /_//_____/\____/_\__, / /_/  \___/
+       /_/                              /____/  by Perforce
+                           ____           _    ___  ____    _____ ___
+                          / ___|___ _ __ | |_ / _ \/ ___|  |___  / _ \
+                         | |   / _ \ '_ \| __| | | \___ \     / / (_) |
+                         | |__|  __/ | | | |_| |_| |___) |   / / \__, |
+                          \____\___|_| |_|\__|\___/|____/   /_(_)  /_/
+                                                              (2009)
+
+While OpenLogic support is not including with this image, OpenLogic does
+offer Silver (12x5) & Gold (24x7) support options and consulting for
+enterprise and/or mission critical systems as well as over 400 open-source
+packages.  If interested, email info@perforce.com or call +1 612.517.2100.
+
+[iotadmin@acsaasiotappact ~]$ pm2 ls
+┌────┬────────────────────┬──────────┬──────┬───────────┬──────────┬──────────┐
+│ id │ name               │ mode     │ ↺    │ status    │ cpu      │ memory   │
+├────┼────────────────────┼──────────┼──────┼───────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platfo… │ fork     │ 104  │ online    │ 0%       │ 276.5mb  │
+│ 1  │ EvolveDelicia-Tes… │ fork     │ 1    │ stopped   │ 0%       │ 0b       │
+│ 5  │ EvolveDeliciav3: … │ fork     │ 0    │ online    │ 0%       │ 159.9mb  │
+│ 2  │ EvolvePartEng-Tes… │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 4  │ EvolvePoojaTrades… │ fork     │ 0    │ stopped   │ 0%       │ 0b       │
+│ 3  │ EvolveRBForging-T… │ fork     │ 0    │ online    │ 0%       │ 150.5mb  │
+└────┴────────────────────┴──────────┴──────┴───────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2                                                                              save' to synchronize.
+[iotadmin@acsaasiotappact ~]$ pm2 ls
+┌────┬──────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platform : 5161       │ default     │ 1.0.0   │ fork    │ 27517    │ 4h     │ 104  │ online    │ 0%       │ 276.5mb  │ iotadmin │ disabled │
+│ 1  │ EvolveDelicia-Test : 5145        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 5  │ EvolveDeliciav3: 5146            │ default     │ 1.0.0   │ fork    │ 21552    │ 3D     │ 0    │ online    │ 0%       │ 159.9mb  │ iotadmin │ disabled │
+│ 2  │ EvolvePartEng-Test : 5142        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 4  │ EvolvePoojaTrades-Test : 5144    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 3  │ EvolveRBForging-Test : 5143      │ default     │ 1.0.0   │ fork    │ 16835    │ 24D    │ 0    │ online    │ 0%       │ 150.5mb  │ iotadmin │ disabled │
+└────┴──────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
+[iotadmin@acsaasiotappact ~]$ pm2 monit
+[iotadmin@acsaasiotappact ~]$ cd /iot/evolve-business-platform/evolve-server/
+[iotadmin@acsaasiotappact evolve-server]$ pwd
+/iot/evolve-business-platform/evolve-server
+[iotadmin@acsaasiotappact evolve-server]$ pm2 stop 0
+[PM2] Applying action stopProcessId on app [0](ids: [ '0' ])
+[PM2] [Evolve-IOT-Platform : 5161](0) ✓
+┌────┬──────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platform : 5161       │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 104  │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 1  │ EvolveDelicia-Test : 5145        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 5  │ EvolveDeliciav3: 5146            │ default     │ 1.0.0   │ fork    │ 21552    │ 3D     │ 0    │ online    │ 0%       │ 160.5mb  │ iotadmin │ disabled │
+│ 2  │ EvolvePartEng-Test : 5142        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 4  │ EvolvePoojaTrades-Test : 5144    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 3  │ EvolveRBForging-Test : 5143      │ default     │ 1.0.0   │ fork    │ 16835    │ 24D    │ 0    │ online    │ 0%       │ 149.7mb  │ iotadmin │ disabled │
+└────┴──────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
+[iotadmin@acsaasiotappact evolve-server]$ top
+top - 18:02:39 up 51 days,  7:57,  4 users,  load average: 0.00, 0.02, 0.05
+Tasks: 158 total,   1 running, 157 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.5 us,  0.5 sy,  0.0 ni, 99.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+KiB Mem :  3879680 total,   896016 free,   909584 used,  2074080 buff/cache
+KiB Swap:        0 total,        0 free,        0 used.  2482844 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND
+  930 root      20   0   11596   1408    840 S   0.3  0.0  15:26.62 hypervkvpd
+16835 iotadmin  20   0 1065260 153664  10784 S   0.3  4.0 193:17.23 node /iot/Evolv
+21552 iotadmin  20   0 1066028 164088  20628 S   0.3  4.2  31:12.90 node /iot/Evolv
+32347 root      20   0       0      0      0 S   0.3  0.0   0:00.06 kworker/0:0
+    1 root      20   0  191192   3680   2060 S   0.0  0.1   2:01.90 systemd
+    2 root      20   0       0      0      0 S   0.0  0.0   0:01.13 kthreadd
+    4 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H
+    6 root      20   0       0      0      0 S   0.0  0.0   1:56.08 ksoftirqd/0
+    7 root      rt   0       0      0      0 S   0.0  0.0   0:08.71 migration/0
+    8 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcu_bh
+    9 root      20   0       0      0      0 S   0.0  0.0   4:25.84 rcu_sched
+   10 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 lru-add-drain
+   11 root      rt   0       0      0      0 S   0.0  0.0   0:19.01 watchdog/0
+   12 root      rt   0       0      0      0 S   0.0  0.0   0:18.31 watchdog/1
+   13 root      rt   0       0      0      0 S   0.0  0.0   0:07.84 migration/1
+   14 root      20   0       0      0      0 S   0.0  0.0   2:03.80 ksoftirqd/1
+   16 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/1:0H
+   18 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kdevtmpfs
+   19 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 netns
+   20 root      20   0       0      0      0 S   0.0  0.0   0:01.05 khungtaskd
+   21 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 writeback
+   22 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kintegrityd
+   23 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 bioset
+   24 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 bioset
+   25 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 bioset
+   26 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kblockd
+   27 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 md
+   28 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 edac-poller
+   29 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 watchdogd
+   35 root      20   0       0      0      0 S   0.0  0.0   0:06.38 kswapd0
+   36 root      25   5       0      0      0 S   0.0  0.0   0:00.00 ksmd
+   37 root      39  19       0      0      0 S   0.0  0.0   0:06.04 khugepaged
+   38 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 crypto
+   46 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kthrotld
+   48 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kmpath_rdacd
+   49 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kaluad
+   51 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kpsmoused
+[iotadmin@acsaasiotappact evolve-server]$ ^C
+[iotadmin@acsaasiotappact evolve-server]$ pm2 describe
+
+  error: missing required argument `name|id'
+
+[iotadmin@acsaasiotappact evolve-server]$ pm2 describe 0
+ Describing process with id 0 - name Evolve-IOT-Platform : 5161
+┌───────────────────┬───────────────────────────────────────────────────────────────┐
+│ status            │ stopped                                                       │
+│ name              │ Evolve-IOT-Platform : 5161                                    │
+│ namespace         │ default                                                       │
+│ version           │ 1.0.0                                                         │
+│ restarts          │ 104                                                           │
+│ uptime            │ 0                                                             │
+│ script path       │ /iot/evolve-business-platform/evolve-server/index.js          │
+│ script args       │ N/A                                                           │
+│ error log path    │ /home/iotadmin/.pm2/logs/Evolve-IOT-Platform---5161-error.log │
+│ out log path      │ /home/iotadmin/.pm2/logs/Evolve-IOT-Platform---5161-out.log   │
+│ pid path          │ /home/iotadmin/.pm2/pids/Evolve-IOT-Platform---0.pid          │
+│ interpreter       │ node                                                          │
+│ interpreter args  │ N/A                                                           │
+│ script id         │ 0                                                             │
+│ exec cwd          │ /iot/evolve-business-platform/evolve-server                   │
+│ exec mode         │ fork_mode                                                     │
+│ node.js version   │ 14.21.3                                                       │
+│ node env          │ N/A                                                           │
+│ watch & reload    │ ✘                                                             │
+│ unstable restarts │ 0                                                             │
+│ created at        │ 2024-02-02T07:28:25.840Z                                      │
+└───────────────────┴───────────────────────────────────────────────────────────────┘
+ Revision control metadata
+┌──────────────────┬────────────────────────────────────────────────────────────────────────────────────┐
+│ revision control │ git                                                                                │
+│ remote url       │ http://codelab.alitersolutions.com:1436/evolve-business-platform/evolve-server.git │
+│ repository root  │ /iot/evolve-business-platform/evolve-server                                        │
+│ last update      │ 2024-02-02T07:28:25.976Z                                                           │
+│ revision         │ 8f63fbc7abb47b0f5259301f51e9561afad65911                                           │
+│ comment          │ Merge branch 'gaurav-songara' into 'master'                                        │
+│                  │                                                                                    │
+│                  │ Gaurav songara                                                                     │
+│                  │                                                                                    │
+│ branch           │ master                                                                             │
+└──────────────────┴────────────────────────────────────────────────────────────────────────────────────┘
+ Divergent env variables from local env
+┌────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ XDG_SESSION_ID │ 3                                                                                                 │
+│ PATH           │ /home/iotadmin/.nvm/versions/node/v14.21.3/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/ │
+└────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+ Add your own code metrics: http://bit.ly/code-metrics
+ Use `pm2 logs Evolve-IOT-Platform : 5161 [--lines 1000]` to display logs
+ Use `pm2 env 0` to display environment variables
+ Use `pm2 monit` to monitor CPU and Memory usage Evolve-IOT-Platform : 5161
+[iotadmin@acsaasiotappact evolve-server]$ pm2 ls
+┌────┬──────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platform : 5161       │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 104  │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 1  │ EvolveDelicia-Test : 5145        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 5  │ EvolveDeliciav3: 5146            │ default     │ 1.0.0   │ fork    │ 21552    │ 3D     │ 0    │ online    │ 0%       │ 160.7mb  │ iotadmin │ disabled │
+│ 2  │ EvolvePartEng-Test : 5142        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 4  │ EvolvePoojaTrades-Test : 5144    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 3  │ EvolveRBForging-Test : 5143      │ default     │ 1.0.0   │ fork    │ 16835    │ 24D    │ 0    │ online    │ 0%       │ 149.6mb  │ iotadmin │ disabled │
+└────┴──────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
+[iotadmin@acsaasiotappact evolve-server]$ ls -la
+total 415696
+drwxrwxr-x.  32 iotadmin iotadmin     4096 Feb  2 18:07 .
+drwxr-xr-x.   3 iotadmin iotadmin       27 Dec  6 15:27 ..
+-rw-rw-r--    1 iotadmin iotadmin 23153160 Jan 18 18:34 24012024oldbuild.zip
+drwxrwxr-x.   7 iotadmin iotadmin       88 Dec  6 15:31 App
+drwxrwxr-x.   2 iotadmin iotadmin       40 Jan 11 13:56 Boot
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 29 10:52 build_020124
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 31 16:49 build_020224
+-rw-rw-r--    1 iotadmin iotadmin 22465011 Feb  2 18:07 build_020224.zip
+-rw-rw-r--    1 iotadmin iotadmin 19220128 Jan  4 12:16 build-040124.zip
+-rw-rw-r--    1 iotadmin iotadmin 19269193 Jan  5 14:40 build-050124-https-subdomain-master.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  4 23:17 build-050124-https-subdomain-running
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 13:04 build-050124-https-subdomain-running-
+-rw-rw-r--    1 iotadmin iotadmin 19269285 Jan  5 13:04 build-050124-https-subdomain.zip
+-rw-rw-r--    1 iotadmin iotadmin 19269076 Jan  5 18:06 build-050124-http-subdomain1800.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 18:07 build_060124
+-rw-rw-r--    1 iotadmin iotadmin 22258054 Jan  6 17:40 build_060124_5-40.zip
+-rw-rw-r--    1 iotadmin iotadmin 17203689 Jan  6 18:32 build_060124_6-30.zip
+-rw-rw-r--    1 iotadmin iotadmin 22258219 Jan  6 13:26 build_060124_new.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  6 10:07 build_060124_old
+-rw-rw-r--    1 iotadmin iotadmin 22258237 Jan  6 10:07 build_060124.zip
+-rw-rw-r--    1 iotadmin iotadmin 22283632 Jan 10 19:25 build_100124.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 11 14:01 build_120124
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 14:41 build-18-00
+-rw-rw-r--    1 iotadmin iotadmin 19265124 Jan 17 18:59 build18012024old
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 19 14:24 build_201223
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 20 19:14 build_211223
+-rw-rw-r--    1 iotadmin iotadmin 22891534 Dec 21 18:34 build_211223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 21 18:38 build_221223
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 25 11:03 build-250124-b2
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 24 11:12 build-250124-nrv
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 22 17:33 build_271223
+-rw-rw-r--    1 iotadmin iotadmin 22111184 Dec 27 15:43 build_271223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 27 15:44 build_281223
+-rw-rw-r--    1 iotadmin iotadmin 22118826 Dec 28 19:14 build_281223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 29 14:13 build-29012024
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 28 19:15 build_291223
+-rw-rw-r--    1 iotadmin iotadmin 22119010 Dec 29 10:52 build_291223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 29 19:18 build_310124
+-rw-rw-r--    1 iotadmin iotadmin 22407136 Jan 31 16:48 build_310124.zip
+-rw-rw-r--    1 iotadmin iotadmin 22891473 Dec 20 19:13 build_new_201223.zip
+-rw-rw-r--    1 iotadmin iotadmin 23151656 Jan 12 14:41 build_old.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 12:15 build-subdomain-http-running
+-rw-rw-r--    1 iotadmin iotadmin 19314293 Jan 29 14:13 build.zip
+drwxrwxr-x.   2 iotadmin iotadmin       55 Dec  6 15:31 Config
+drwxrwxr-x.   2 iotadmin iotadmin       21 Dec  6 15:31 Custom
+-rw-rw-r--.   1 iotadmin iotadmin     6148 Dec  6 15:31 .DS_Store
+-rw-rw-r--.   1 iotadmin iotadmin      326 Dec  8 15:05 .env
+-rw-rw-r--    1 iotadmin iotadmin    42824 Dec 13 15:07 evolve-iot-platform.EvolveConfig.json
+drwxrwxr-x.   8 iotadmin iotadmin      198 Feb  2 12:58 .git
+-rw-rw-r--.   1 iotadmin iotadmin       43 Dec  6 15:31 index.js
+drwxrwxr-x.   2 iotadmin iotadmin     4096 Jan 31 17:03 Library
+-rw-rw-r--.   1 iotadmin iotadmin    35147 Dec  6 15:31 LICENSE
+drwxrwxr-x.   2 iotadmin iotadmin     4096 Feb  2 00:00 Log
+drwxrwxr-x. 550 iotadmin iotadmin    16384 Dec  6 15:35 node_modules
+-rw-rw-r--    1 iotadmin iotadmin     2769 Jan 31 16:26 package.json
+-rw-rw-r--.   1 iotadmin iotadmin   284589 Dec  6 15:35 package-lock.json
+drwxrwxr-x.   9 iotadmin iotadmin      152 Jan 31 17:05 public
+-rw-rw-r--.   1 iotadmin iotadmin     6224 Dec  6 15:31 README.md
+drwxrwxr-x.   5 iotadmin iotadmin       52 Dec  6 15:31 Server
+drwxrwxr-x.   5 iotadmin iotadmin       53 Dec  6 23:38 Static
+[iotadmin@acsaasiotappact evolve-server]$ ^C
+[iotadmin@acsaasiotappact evolve-server]$ unzip build_020224.zip
+Archive:  build_020224.zip
+   creating: build/_nuxt/
+  inflating: build/_nuxt/_config_.29495b0e.js
+  inflating: build/_nuxt/_config_.dc90b810.css
+  inflating: build/_nuxt/_designer_.12476ba5.css
+  inflating: build/_nuxt/_designer_.33e37cdd.js
+ extracting: build/_nuxt/_id_.087c3013.css
+  inflating: build/_nuxt/_id_.0b78e5a6.js
+  inflating: build/_nuxt/_id_.49168be5.js
+  inflating: build/_nuxt/_id_.5bd6357a.js
+  inflating: build/_nuxt/_id_.a1c6d5d6.js
+  inflating: build/_nuxt/_id_.c54b4655.js
+  inflating: build/_nuxt/_id_.d2089da8.js
+  inflating: build/_nuxt/_list_.08ade7ad.js
+  inflating: build/_nuxt/_list_.08d70beb.js
+  inflating: build/_nuxt/_list_.0faf6b0d.js
+  inflating: build/_nuxt/_list_.259ff915.js
+  inflating: build/_nuxt/_list_.d974fbc2.js
+  inflating: build/_nuxt/_list_.e03254c1.css
+  inflating: build/_nuxt/_list_.eba0809c.js
+  inflating: build/_nuxt/_mac_.b5fce294.js
+  inflating: build/_nuxt/_mac_.d24612f6.css
+  inflating: build/_nuxt/_option_id_.12844e48.js
+  inflating: build/_nuxt/_option_id_.303a461b.js
+  inflating: build/_nuxt/_option_id_.75a7ed1e.js
+  inflating: build/_nuxt/_option_id_.9767d328.js
+  inflating: build/_nuxt/_option_id_.9c449ee6.js
+  inflating: build/_nuxt/_option_id_.b23ebfd5.js
+  inflating: build/_nuxt/_option_id_.d38385e5.css
+ extracting: build/_nuxt/_option_id_.d4b34b20.css
+  inflating: build/_nuxt/_options_id_.0c789f17.js
+  inflating: build/_nuxt/_options_id_.135a8889.js
+  inflating: build/_nuxt/_options_id_.5aa504f4.js
+  inflating: build/_nuxt/_options_id_.b708811d.js
+  inflating: build/_nuxt/_options_id_.e9301fd3.js
+  inflating: build/_nuxt/_screen_.4a928271.js
+  inflating: build/_nuxt/404.2e78a7ed.js
+  inflating: build/_nuxt/404.9951c46a.png
+  inflating: build/_nuxt/500.699f8066.js
+  inflating: build/_nuxt/500.ebdfdea5.png
+  inflating: build/_nuxt/503.0237be98.png
+  inflating: build/_nuxt/503.72920f31.js
+  inflating: build/_nuxt/ActiveUsers.eff7ba73.js
+  inflating: build/_nuxt/ae.f96ac8f1.svg
+  inflating: build/_nuxt/apexarea.b0b0501d.js
+  inflating: build/_nuxt/apexbar.08c5d887.js
+  inflating: build/_nuxt/apexline.1287f482.js
+  inflating: build/_nuxt/apexpie.cd009219.js
+  inflating: build/_nuxt/app.config.bda96bd2.js
+  inflating: build/_nuxt/areachart.6d70abd0.js
+  inflating: build/_nuxt/areawise.9d008b98.png
+  inflating: build/_nuxt/areawise.beb0309f.js
+  inflating: build/_nuxt/areawise.ce699d11.js
+  inflating: build/_nuxt/areawithfilter.4a8ba87c.js
+  inflating: build/_nuxt/avatar-1.5918e379.js
+  inflating: build/_nuxt/avatar-1.7e128c6a.jpg
+  inflating: build/_nuxt/avatar-10.1aeafbd2.js
+  inflating: build/_nuxt/avatar-10.32b2e74c.jpg
+  inflating: build/_nuxt/avatar-2.036539d9.js
+  inflating: build/_nuxt/avatar-2.26521f4e.jpg
+  inflating: build/_nuxt/avatar-3.36d71352.js
+  inflating: build/_nuxt/avatar-3.62d66768.jpg
+  inflating: build/_nuxt/avatar-4.6ca825f6.jpg
+  inflating: build/_nuxt/avatar-4.f7b5c870.js
+  inflating: build/_nuxt/avatar-5.e48da6ba.js
+  inflating: build/_nuxt/avatar-5.eb47a757.jpg
+  inflating: build/_nuxt/avatar-6.e7b44760.js
+  inflating: build/_nuxt/avatar-6.f16a7813.jpg
+  inflating: build/_nuxt/avatar-7.2e539fe5.jpg
+  inflating: build/_nuxt/avatar-7.9b4c29c7.js
+  inflating: build/_nuxt/avatar-8.6032eb95.js
+  inflating: build/_nuxt/avatar-8.8566178e.jpg
+  inflating: build/_nuxt/avatar-9.77bdc53d.jpg
+  inflating: build/_nuxt/avatar-9.ece5b162.js
+  inflating: build/_nuxt/barchart.08aeca35.js
+  inflating: build/_nuxt/barchart.423c4ba6.js
+  inflating: build/_nuxt/barchart.6974dbc9.png
+  inflating: build/_nuxt/barcode.198c7c5b.svg
+  inflating: build/_nuxt/barwithfilter.e024ef6e.js
+  inflating: build/_nuxt/basicline.91752e18.png
+  inflating: build/_nuxt/basicline.c749a6d8.js
+  inflating: build/_nuxt/basicline.c7577fe5.js
+  inflating: build/_nuxt/bootstrap-icons.966620f9.woff2
+  inflating: build/_nuxt/bootstrap-icons.c6569d46.woff
+  inflating: build/_nuxt/boxicons.38a9542a.ttf
+  inflating: build/_nuxt/boxicons.5ba91d51.woff
+  inflating: build/_nuxt/boxicons.dec58953.woff2
+  inflating: build/_nuxt/boxicons.e6c956eb.eot
+  inflating: build/_nuxt/boxicons.eaa696a4.svg
+  inflating: build/_nuxt/brand-mode.7ee43a51.png
+  inflating: build/_nuxt/cfd_cycle_time.493b5cf6.js
+  inflating: build/_nuxt/cfd_cycle_time.8ecb6908.png
+  inflating: build/_nuxt/cfd_cycle_time.e2bad11d.js
+  inflating: build/_nuxt/cfd_heading_time.937703cb.js
+  inflating: build/_nuxt/cfd_heading_time.ad118e16.js
+  inflating: build/_nuxt/cfd_live_card.0602adbd.js
+  inflating: build/_nuxt/cfd_live_card.c5ad0732.js
+  inflating: build/_nuxt/cfd_trip_signal.346acac6.png
+  inflating: build/_nuxt/cfd_trip_signal.5359d40e.js
+  inflating: build/_nuxt/cfd_trip_signal.739532ac.js
+  inflating: build/_nuxt/charts.e0ab04f1.js
+  inflating: build/_nuxt/chartsData.cfba0d6b.js
+  inflating: build/_nuxt/chartsData.e2b11166.js
+  inflating: build/_nuxt/chat-user.2a28da73.jpeg
+  inflating: build/_nuxt/china.b4bb01ae.svg
+ extracting: build/_nuxt/chrome.c8c5336b.png
+  inflating: build/_nuxt/client-db.c65fd052.js
+  inflating: build/_nuxt/client-only.8a5099a1.js
+  inflating: build/_nuxt/coming-soon.759746fe.js
+  inflating: build/_nuxt/comingsoon.fd1c060a.png
+  inflating: build/_nuxt/component.0e7c2a8f.js
+  inflating: build/_nuxt/componentloading.1d4ef599.js
+  inflating: build/_nuxt/container.5f4d8f5f.css
+  inflating: build/_nuxt/container.8289eb2d.js
+  inflating: build/_nuxt/ContentDoc.e2b55fb3.js
+  inflating: build/_nuxt/ContentList.6844ed61.js
+  inflating: build/_nuxt/ContentNavigation.7d004e6b.js
+  inflating: build/_nuxt/ContentQuery.36c93bc1.js
+  inflating: build/_nuxt/ContentRenderer.964e0407.js
+  inflating: build/_nuxt/ContentRendererMarkdown.f0b45760.js
+  inflating: build/_nuxt/ContentRendererMarkdown.vue.763eecdc.js
+  inflating: build/_nuxt/ContentSlot.9ffc3dc6.js
+  inflating: build/_nuxt/core.ec7856d5.png
+  inflating: build/_nuxt/cpm_downtime.5b158e36.js
+  inflating: build/_nuxt/cpm_downtime.a07f10d9.js
+  inflating: build/_nuxt/cpm_es_card.7c2ada04.js
+  inflating: build/_nuxt/cpm_es_card.a515dc04.js
+  inflating: build/_nuxt/cpm_perfomance.7bf88fae.js
+  inflating: build/_nuxt/cpm_perfomance.8d0a3a02.png
+  inflating: build/_nuxt/cpm_perfomance.a259f499.js
+  inflating: build/_nuxt/cpm_running.3c7e3eef.png
+  inflating: build/_nuxt/cpm_running.f1b2f5c4.js
+  inflating: build/_nuxt/cpm_running.f7833855.js
+  inflating: build/_nuxt/cpm_runningtemprature.3b2fb811.js
+  inflating: build/_nuxt/cpm_runningtemprature.3cc197d0.png
+  inflating: build/_nuxt/cpm_runningtemprature.c22586df.js
+  inflating: build/_nuxt/creative.5dcff689.png
+  inflating: build/_nuxt/Crud.7c200298.js
+  inflating: build/_nuxt/cummulative.765e1793.js
+  inflating: build/_nuxt/custom.8bdba068.js
+  inflating: build/_nuxt/dark-mode.e14653bf.png
+  inflating: build/_nuxt/default.617d9471.js
+  inflating: build/_nuxt/default.85562c36.js
+  inflating: build/_nuxt/del_counter.097b2c82.js
+  inflating: build/_nuxt/del_counter.c9c80f07.css
+  inflating: build/_nuxt/del_counter.f4e6c875.js
+  inflating: build/_nuxt/del_temperature.11cde098.css
+  inflating: build/_nuxt/del_temperature.456f262e.js
+  inflating: build/_nuxt/del_temperature.7040b644.js
+  inflating: build/_nuxt/demo.39a6a6d2.js
+  inflating: build/_nuxt/DocumentDrivenEmpty.91e7027d.js
+  inflating: build/_nuxt/DocumentDrivenNotFound.1d19b735.js
+  inflating: build/_nuxt/dropZone.febe5473.js
+  inflating: build/_nuxt/dynamic-import-helper.be004503.js
+  inflating: build/_nuxt/email.a1636089.js
+  inflating: build/_nuxt/email-verify.935076db.png
+  inflating: build/_nuxt/energyMission.f61e426c.js
+  inflating: build/_nuxt/entry.21842ff1.js
+  inflating: build/_nuxt/error-404.651d0ae1.js
+  inflating: build/_nuxt/error-404.7fc72018.css
+  inflating: build/_nuxt/error-500.76273190.js
+  inflating: build/_nuxt/error-500.c5df6088.css
+  inflating: build/_nuxt/error-message.29d1e816.png
+  inflating: build/_nuxt/evolve-logo-dark.8fdd2858.png
+  inflating: build/_nuxt/evolve-logo-HD.9f24bc95.png
+  inflating: build/_nuxt/evolve-logo-light.06427530.js
+  inflating: build/_nuxt/evolve-logo-light.c1df5f88.png
+  inflating: build/_nuxt/FancyTree.5c35db33.js
+  inflating: build/_nuxt/FancyTree.b9d6adb3.css
+ extracting: build/_nuxt/firefox.ee0e3296.png
+  inflating: build/_nuxt/flask.eb339776.png
+  inflating: build/_nuxt/flatpickr.299ba9cf.css
+  inflating: build/_nuxt/forgot-password.1bf69aa6.js
+  inflating: build/_nuxt/french.8a8eb643.svg
+  inflating: build/_nuxt/Gantari-300-1.761879b8.woff2
+  inflating: build/_nuxt/Gantari-300-2.483986e9.woff2
+  inflating: build/_nuxt/germany.b211b681.svg
+  inflating: build/_nuxt/gridBasicLine.49697fd1.js
+  inflating: build/_nuxt/gridBasicLine.c7577fe5.js
+  inflating: build/_nuxt/gridScreenList.810c8f16.js
+  inflating: build/_nuxt/hoseTubeExtruder.07a3db8a.js
+  inflating: build/_nuxt/hoseTubeExtruder.6b2f9153.js
+  inflating: build/_nuxt/hoseTubeExtruder.de81ea8c.png
+  inflating: build/_nuxt/im_downtime.322628a7.js
+  inflating: build/_nuxt/im_downtime.89724053.png
+  inflating: build/_nuxt/im_downtime.d4cf84e0.js
+  inflating: build/_nuxt/im_temprature.0a2a0054.js
+  inflating: build/_nuxt/im_temprature.2004702f.js
+  inflating: build/_nuxt/im_temprature.b79aaaae.png
+  inflating: build/_nuxt/ImageComponent.d5dac7e9.js
+  inflating: build/_nuxt/img-01.846b5a71.jpg
+  inflating: build/_nuxt/img-02.52cc15a1.jpg
+  inflating: build/_nuxt/img-03.c91e2d69.jpg
+  inflating: build/_nuxt/img-04.c61459c0.jpg
+  inflating: build/_nuxt/img-05.e34428fb.jpg
+  inflating: build/_nuxt/img-06.a5f2464b.jpg
+  inflating: build/_nuxt/img-08.7d05d2f3.jpg
+  inflating: build/_nuxt/img-1.6f6a9dc6.png
+  inflating: build/_nuxt/img-1.9896fad1.jpg
+  inflating: build/_nuxt/img-1.c5f0e1bf.png
+  inflating: build/_nuxt/img-10.42298a32.png
+  inflating: build/_nuxt/img-11.bdcb061c.png
+  inflating: build/_nuxt/img-12.4face7b1.png
+  inflating: build/_nuxt/img-2.19c87807.jpg
+  inflating: build/_nuxt/img-2.257e2534.png
+  inflating: build/_nuxt/img-2.5c5ea332.png
+  inflating: build/_nuxt/img-3.0ef58516.jpg
+  inflating: build/_nuxt/img-3.1991b7b2.png
+  inflating: build/_nuxt/img-3.c4bf165a.png
+  inflating: build/_nuxt/img-3.e42e2748.jpg
+  inflating: build/_nuxt/img-4.1f4498d1.jpg
+  inflating: build/_nuxt/img-4.2a0768ea.png
+  inflating: build/_nuxt/img-4.f05e74e1.png
+  inflating: build/_nuxt/img-5.32c42ae8.png
+  inflating: build/_nuxt/img-5.3bdebd04.png
+  inflating: build/_nuxt/img-5.cb78568c.jpg
+  inflating: build/_nuxt/img-6.156c77fb.png
+  inflating: build/_nuxt/img-6.a4152cf8.png
+  inflating: build/_nuxt/img-7.0c4d9836.png
+  inflating: build/_nuxt/img-7.2e783a3d.png
+  inflating: build/_nuxt/img-7.41788d46.jpg
+  inflating: build/_nuxt/img-7.79d8b767.js
+  inflating: build/_nuxt/img-8.c6530e90.png
+  inflating: build/_nuxt/img-9.82c0823a.png
+  inflating: build/_nuxt/img-9.c34aa323.jpg
+  inflating: build/_nuxt/in.d5a7b107.svg
+  inflating: build/_nuxt/index.03ea2bd9.js
+  inflating: build/_nuxt/index.04a813bb.js
+  inflating: build/_nuxt/index.15b5eb88.js
+  inflating: build/_nuxt/index.213ede1c.js
+  inflating: build/_nuxt/index.2240c1af.js
+  inflating: build/_nuxt/index.2351c0ac.js
+  inflating: build/_nuxt/index.25933e62.js
+  inflating: build/_nuxt/index.2d906100.js
+  inflating: build/_nuxt/index.31fe0c99.js
+  inflating: build/_nuxt/index.39951115.js
+  inflating: build/_nuxt/index.3baa972c.js
+  inflating: build/_nuxt/index.40e7a4c4.js
+  inflating: build/_nuxt/index.4173612e.js
+  inflating: build/_nuxt/index.61f6c306.js
+  inflating: build/_nuxt/index.62f1499f.js
+  inflating: build/_nuxt/index.6d1c8281.js
+  inflating: build/_nuxt/index.77746e15.js
+  inflating: build/_nuxt/index.82103619.js
+  inflating: build/_nuxt/index.8483d162.css
+  inflating: build/_nuxt/index.8932e50e.js
+  inflating: build/_nuxt/index.91e40712.js
+  inflating: build/_nuxt/index.94ee2be8.css
+  inflating: build/_nuxt/index.9ca67ee0.js
+  inflating: build/_nuxt/index.a12ee23d.js
+  inflating: build/_nuxt/index.a41137d1.js
+  inflating: build/_nuxt/index.a527fc17.js
+  inflating: build/_nuxt/index.a6ef77ff.js
+  inflating: build/_nuxt/index.a782bb1d.js
+  inflating: build/_nuxt/index.a9666b37.js
+  inflating: build/_nuxt/index.b74a9847.js
+  inflating: build/_nuxt/index.bf24a0e3.css
+  inflating: build/_nuxt/index.cc01516d.css
+ extracting: build/_nuxt/index.d55bc66a.css
+  inflating: build/_nuxt/index.e2cfdd6d.js
+  inflating: build/_nuxt/index.e6f5575f.js
+  inflating: build/_nuxt/index.e847a373.js
+  inflating: build/_nuxt/index.e9e2a126.js
+  inflating: build/_nuxt/index.ea6430cf.js
+  inflating: build/_nuxt/index.ecd651dc.js
+  inflating: build/_nuxt/index.esm.fd4742cc.js
+  inflating: build/_nuxt/index.f758c832.js
+  inflating: build/_nuxt/index.fe884769.js
+  inflating: build/_nuxt/Inter-300-11.1c3007b8.woff2
+  inflating: build/_nuxt/Inter-300-12.eba94878.woff2
+  inflating: build/_nuxt/Inter-300-13.81f77e51.woff2
+  inflating: build/_nuxt/Inter-300-14.d92c6cbc.woff2
+ extracting: build/_nuxt/Inter-300-15.15df7612.woff2
+  inflating: build/_nuxt/Inter-300-16.a2bfd9fe.woff2
+  inflating: build/_nuxt/Inter-300-17.88df0b5a.woff2
+  inflating: build/_nuxt/interaction.e875a530.png
+  inflating: build/_nuxt/invoice-signature.4a9a3d06.svg
+  inflating: build/_nuxt/iot.1c5160e1.js
+  inflating: build/_nuxt/iot-logo.8eb69e1f.png
+  inflating: build/_nuxt/italy.a90c4215.svg
+  inflating: build/_nuxt/join-community.aad9ff4b.png
+ extracting: build/_nuxt/Karla-300-46.b2e0aab4.woff2
+  inflating: build/_nuxt/Karla-300-47.612f86f9.woff2
+  inflating: build/_nuxt/language.d672763b.js
+  inflating: build/_nuxt/laravel.d36a6a2c.png
+  inflating: build/_nuxt/layout.a466cc93.js
+  inflating: build/_nuxt/light-mode.6a0d892f.png
+  inflating: build/_nuxt/linewithfilter.1cfcf6c6.js
+  inflating: build/_nuxt/list.155f8bfd.js
+  inflating: build/_nuxt/list.39d46f67.css
+  inflating: build/_nuxt/list.4a90cb8b.js
+  inflating: build/_nuxt/list.4b67e22d.js
+  inflating: build/_nuxt/list.525a11df.js
+  inflating: build/_nuxt/list.58d35227.js
+  inflating: build/_nuxt/list.8af4f7e5.js
+  inflating: build/_nuxt/list.9470bc21.js
+  inflating: build/_nuxt/list.a5cca634.js
+  inflating: build/_nuxt/list.c6c0e6e9.js
+  inflating: build/_nuxt/list.dce795c5.js
+  inflating: build/_nuxt/list.fc1079fb.js
+  inflating: build/_nuxt/liveline.a12a4931.js
+  inflating: build/_nuxt/lockscreen.0f7b9853.js
+  inflating: build/_nuxt/login.865b55cc.js
+  inflating: build/_nuxt/login.aca94c2c.css
+  inflating: build/_nuxt/logo.61897912.png
+  inflating: build/_nuxt/logo-light.92a96058.png
+  inflating: build/_nuxt/logout.f515f76b.js
+  inflating: build/_nuxt/logout.f5715ad6.js
+  inflating: build/_nuxt/machineLiveCards.1c7292c7.js
+  inflating: build/_nuxt/machineLiveCards.36f902d9.js
+  inflating: build/_nuxt/machineLiveCards.a6fd1f09.png
+  inflating: build/_nuxt/maintenance.2a6092d2.png
+  inflating: build/_nuxt/maintenance.7d5eb164.js
+  inflating: build/_nuxt/Markdown.ca8908b6.js
+  inflating: build/_nuxt/material.593721f4.png
+  inflating: build/_nuxt/materialdesignicons-webfont.04fb6e8b.woff
+  inflating: build/_nuxt/materialdesignicons-webfont.11e3d4ca.woff2
+  inflating: build/_nuxt/materialdesignicons-webfont.4de2dae5.eot
+  inflating: build/_nuxt/materialdesignicons-webfont.9e94d4db.ttf
+  inflating: build/_nuxt/menu.7dc915f1.js
+  inflating: build/_nuxt/menu.9e3e29be.css
+ extracting: build/_nuxt/microsoft.5751020e.png
+  inflating: build/_nuxt/minimal.870a544d.png
+  inflating: build/_nuxt/modal-bg.6b6cf042.jpg
+  inflating: build/_nuxt/modern.94402252.png
+  inflating: build/_nuxt/moment.fbc5633a.js
+  inflating: build/_nuxt/mouldinglinechart.6a44bbe7.js
+  inflating: build/_nuxt/mouldinglinechart.6b95e50a.js
+  inflating: build/_nuxt/multiselect.6abf47f8.js
+  inflating: build/_nuxt/multi-user.b50a91e1.jpg
+  inflating: build/_nuxt/multi-user.b7dce291.js
+  inflating: build/_nuxt/mysql.dfd922dd.png
+  inflating: build/_nuxt/notification.76f545e5.js
+  inflating: build/_nuxt/notificationBar.0c0760ac.js
+  inflating: build/_nuxt/notificationBar.b348753b.js
+  inflating: build/_nuxt/notification-message.3c1c6786.png
+  inflating: build/_nuxt/Nunito-300-56.e82ee1d4.woff2
+  inflating: build/_nuxt/Nunito-300-57.76baf7dd.woff2
+ extracting: build/_nuxt/Nunito-300-58.b13b3f5f.woff2
+  inflating: build/_nuxt/Nunito-300-59.f682eec1.woff2
+  inflating: build/_nuxt/Nunito-300-60.1a48b70f.woff2
+  inflating: build/_nuxt/nuxt-link.ac17cd6c.js
+  inflating: build/_nuxt/ocpua_feed_temperatue.65739303.js
+  inflating: build/_nuxt/offline.41aeb2d4.js
+  inflating: build/_nuxt/offline-page.1c00f1fd.gif
+  inflating: build/_nuxt/opcua_avg_cycle.82c7722f.js
+  inflating: build/_nuxt/opcua_avg_cycle.e3944076.js
+  inflating: build/_nuxt/opcua_machine_count.2d94806d.js
+  inflating: build/_nuxt/opcua_machine_count.ca17dcd8.js
+  inflating: build/_nuxt/opcua_machine_count.f71572e4.png
+  inflating: build/_nuxt/opcua_machine_mode.6b91c03a.js
+  inflating: build/_nuxt/opcua_machine_mode.d8126736.js
+  inflating: build/_nuxt/opcua_mold_name.0ca88662.js
+  inflating: build/_nuxt/opcua_mold_name.3098d9f7.js
+  inflating: build/_nuxt/opcua_oee_overview.82502ca3.js
+  inflating: build/_nuxt/opcua_oee_overview.bb676731.js
+  inflating: build/_nuxt/opcua_status_card.c734fd14.js
+  inflating: build/_nuxt/opcua_status_card.cd235f7c.js
+  inflating: build/_nuxt/Open_Sans-300-81.ee63fd6e.woff2
+  inflating: build/_nuxt/Open_Sans-300-82.8f76526e.woff2
+ extracting: build/_nuxt/Open_Sans-300-83.fb96390b.woff2
+  inflating: build/_nuxt/Open_Sans-300-84.131c390d.woff2
+  inflating: build/_nuxt/Open_Sans-300-85.dc0387c8.woff2
+  inflating: build/_nuxt/Open_Sans-300-86.6b0dab53.woff2
+  inflating: build/_nuxt/Open_Sans-300-87.7e510e61.woff2
+  inflating: build/_nuxt/Open_Sans-300-88.35e5eea8.woff2
+  inflating: build/_nuxt/Open_Sans-300-89.adfa4526.woff2
+  inflating: build/_nuxt/Open_Sans-300-90.3c4d6a14.woff2
+  inflating: build/_nuxt/options.63fe7ce0.css
+  inflating: build/_nuxt/options.ac18c7d5.css
+  inflating: build/_nuxt/options.c9709508.js
+  inflating: build/_nuxt/options.cbd91a86.js
+  inflating: build/_nuxt/options.dd15dff5.js
+  inflating: build/_nuxt/options.ebe03184.js
+  inflating: build/_nuxt/options.ec7bd86f.js
+  inflating: build/_nuxt/page-header.bb650417.js
+  inflating: build/_nuxt/parthlinechart.8fa942a9.png
+  inflating: build/_nuxt/parthlinechart.e7c2a1cf.js
+  inflating: build/_nuxt/parthlinechart.f7fd29c4.js
+  inflating: build/_nuxt/pass-change.080beba4.js
+  inflating: build/_nuxt/pass-Reset.3027b586.js
+  inflating: build/_nuxt/pattern.08dac293.png
+ extracting: build/_nuxt/permission.225dcaf4.png
+  inflating: build/_nuxt/Phosphor.47263841.woff
+  inflating: build/_nuxt/Phosphor.6b7f2b73.svg
+  inflating: build/_nuxt/Phosphor.73b3edfc.woff2
+  inflating: build/_nuxt/Phosphor.a0742044.ttf
+  inflating: build/_nuxt/Phosphor.cb679d69.eot
+  inflating: build/_nuxt/piechart.f144ba3e.js
+  inflating: build/_nuxt/Poppins-300-131.d531423e.woff2
+ extracting: build/_nuxt/Poppins-300-132.32282e10.woff2
+ extracting: build/_nuxt/Poppins-300-133.78bc3aa7.woff2
+  inflating: build/_nuxt/Poppins-400-134.478b3ab7.woff2
+ extracting: build/_nuxt/Poppins-400-135.cb8bdeab.woff2
+ extracting: build/_nuxt/Poppins-400-136.7d93459d.woff2
+  inflating: build/_nuxt/Poppins-500-137.721c714f.woff2
+ extracting: build/_nuxt/Poppins-500-138.5f9d6298.woff2
+ extracting: build/_nuxt/Poppins-500-139.cd36de20.woff2
+  inflating: build/_nuxt/Poppins-600-140.d036ece3.woff2
+ extracting: build/_nuxt/Poppins-600-141.9c15f7b0.woff2
+ extracting: build/_nuxt/Poppins-600-142.f4e80d9d.woff2
+  inflating: build/_nuxt/Poppins-700-143.6197a412.woff2
+ extracting: build/_nuxt/Poppins-700-144.4ce2c84c.woff2
+ extracting: build/_nuxt/Poppins-700-145.9338e65f.woff2
+  inflating: build/_nuxt/preview.1953d36f.js
+  inflating: build/_nuxt/ProseA.d14b22d3.js
+  inflating: build/_nuxt/ProseBlockquote.ba9d4b73.js
+  inflating: build/_nuxt/ProseCode.bd6b255e.js
+ extracting: build/_nuxt/ProseCode.e63e49c6.css
+  inflating: build/_nuxt/ProseCode.vue.7985410e.js
+  inflating: build/_nuxt/ProseCodeInline.607b1f6b.js
+  inflating: build/_nuxt/ProseEm.ed6cb723.js
+  inflating: build/_nuxt/ProseH1.08d63e7d.js
+  inflating: build/_nuxt/ProseH2.449301f2.js
+  inflating: build/_nuxt/ProseH3.fb8bd89b.js
+  inflating: build/_nuxt/ProseH4.b5953178.js
+  inflating: build/_nuxt/ProseH5.cb090a36.js
+  inflating: build/_nuxt/ProseH6.b6355397.js
+  inflating: build/_nuxt/ProseHr.d935e828.js
+  inflating: build/_nuxt/ProseImg.890dce0a.js
+  inflating: build/_nuxt/ProseLi.f5662bcf.js
+  inflating: build/_nuxt/ProseOl.1a445e1c.js
+  inflating: build/_nuxt/ProseP.6d80aec4.js
+  inflating: build/_nuxt/ProsePre.5a3265f8.js
+  inflating: build/_nuxt/ProseStrong.f09aca18.js
+  inflating: build/_nuxt/ProseTable.239790ed.js
+  inflating: build/_nuxt/ProseTbody.7adae29e.js
+  inflating: build/_nuxt/ProseTd.b7a24f3f.js
+  inflating: build/_nuxt/ProseTh.1b04de3f.js
+  inflating: build/_nuxt/ProseThead.22c4c444.js
+  inflating: build/_nuxt/ProseTr.ff286dec.js
+  inflating: build/_nuxt/ProseUl.f070b1fd.js
+  inflating: build/_nuxt/query.37b7ab0a.js
+  inflating: build/_nuxt/rb_cycle_card.2f493ede.js
+  inflating: build/_nuxt/rb_cycle_card.4409db26.js
+  inflating: build/_nuxt/rb_cycle_card.771f3e88.png
+  inflating: build/_nuxt/rb_filter_card.03662224.js
+  inflating: build/_nuxt/rb_filter_card.65fb1be7.js
+  inflating: build/_nuxt/rb_filter_card.bdc289e7.png
+  inflating: build/_nuxt/react.75411487.png
+  inflating: build/_nuxt/register.705ff7ae.js
+  inflating: build/_nuxt/remixicon.0ac8bc3c.ttf
+  inflating: build/_nuxt/remixicon.64bb3a0f.eot
+  inflating: build/_nuxt/remixicon.aab59b7b.svg
+  inflating: build/_nuxt/remixicon.c2dacfbc.woff
+  inflating: build/_nuxt/remixicon.e61f0d10.woff2
+  inflating: build/_nuxt/RTHD_evo_angle_1.dc53dd09.jpg
+  inflating: build/_nuxt/russia.47a7b107.svg
+  inflating: build/_nuxt/screenDesigner.11e7f271.css
+  inflating: build/_nuxt/screenDesigner.f4266bfe.js
+  inflating: build/_nuxt/setPropsData.74cf6fd6.js
+  inflating: build/_nuxt/settings.819b8650.js
+  inflating: build/_nuxt/shiftfilterline.0578e9ce.js
+  inflating: build/_nuxt/shiftfilterline.84816f8d.png
+  inflating: build/_nuxt/shiftfilterline.fdfc14f3.js
+  inflating: build/_nuxt/shopify.c3da1284.png
+  inflating: build/_nuxt/signIn.75c9c202.js
+  inflating: build/_nuxt/signup.6cf63c04.js
+  inflating: build/_nuxt/sketch.fd376bcb.png
+  inflating: build/_nuxt/spw_metal.888231b6.js
+  inflating: build/_nuxt/spw_metal.b15e6d30.js
+  inflating: build/_nuxt/spw_metal.bd9ba88a.png
+  inflating: build/_nuxt/starter.967d25a9.js
+  inflating: build/_nuxt/style.259cd745.css
+  inflating: build/_nuxt/success-img.90443262.png
+  inflating: build/_nuxt/success-message.b116a127.png
+  inflating: build/_nuxt/success-msg.11e3fd90.js
+  inflating: build/_nuxt/sweetalerts.8725744b.js
+  inflating: build/_nuxt/symfony.2f97b0d4.png
+  inflating: build/_nuxt/tableList.7e8a131b.js
+  inflating: build/_nuxt/tableList.b8f11d77.js
+  inflating: build/_nuxt/tableList.fe2992e2.png
+  inflating: build/_nuxt/tailwindcss.cf5856aa.png
+  inflating: build/_nuxt/temp.6499f93e.js
+  inflating: build/_nuxt/temp.8ce8962e.png
+  inflating: build/_nuxt/temp.e33da691.js
+  inflating: build/_nuxt/testApiCard.3c64abe4.js
+  inflating: build/_nuxt/testApiCard.583bc075.png
+  inflating: build/_nuxt/testApiCard.61a2f7f9.js
+  inflating: build/_nuxt/testTableCard.183a4c67.png
+  inflating: build/_nuxt/testTableCard.3ae5e46f.js
+  inflating: build/_nuxt/testTableCard.f6d34151.js
+  inflating: build/_nuxt/twoStep.1388e51b.js
+  inflating: build/_nuxt/us.e8272934.svg
+  inflating: build/_nuxt/userdata.2b89f56f.js
+  inflating: build/_nuxt/user-dummy-img.b97dac0c.js
+  inflating: build/_nuxt/v1.7572e808.js
+  inflating: build/_nuxt/v1.ccc965ff.js
+  inflating: build/_nuxt/v10.145569ea.js
+  inflating: build/_nuxt/v10.8d0ed9f4.png
+  inflating: build/_nuxt/v10.cfe3b5f7.js
+  inflating: build/_nuxt/v11.884db60e.png
+  inflating: build/_nuxt/v11.aca0ee1e.js
+  inflating: build/_nuxt/v11.c5f85984.js
+  inflating: build/_nuxt/v12.01ea3216.js
+  inflating: build/_nuxt/v12.396f0b73.js
+  inflating: build/_nuxt/v12.dfa425f9.png
+  inflating: build/_nuxt/v13.59d8bfb1.js
+  inflating: build/_nuxt/v13.e4c6fe30.png
+  inflating: build/_nuxt/v13.f1c1a2e2.js
+  inflating: build/_nuxt/v14.66e5b7b5.js
+  inflating: build/_nuxt/v14.a8b7afae.png
+  inflating: build/_nuxt/v14.d328ff71.js
+  inflating: build/_nuxt/v15.767fcc28.js
+  inflating: build/_nuxt/v15.bf3d091e.js
+  inflating: build/_nuxt/v15.cad2157e.png
+  inflating: build/_nuxt/v16.279a4f98.js
+  inflating: build/_nuxt/v16.acdf2bed.png
+  inflating: build/_nuxt/v16.eb0fd8a6.js
+  inflating: build/_nuxt/v17.1046180e.png
+  inflating: build/_nuxt/v17.60da8e2c.js
+  inflating: build/_nuxt/v17.8426a34c.js
+  inflating: build/_nuxt/v18.3d3c7e6f.js
+  inflating: build/_nuxt/v18.6633142d.js
+  inflating: build/_nuxt/v18.d4e64fc8.png
+  inflating: build/_nuxt/v19.1bd33a67.js
+  inflating: build/_nuxt/v19.3370a4b0.js
+  inflating: build/_nuxt/v19.878246be.png
+  inflating: build/_nuxt/v2.16aabfa1.js
+  inflating: build/_nuxt/v2.3e1d26c3.png
+  inflating: build/_nuxt/v2.8446b061.js
+  inflating: build/_nuxt/v20.53d4fb36.png
+  inflating: build/_nuxt/v20.6b404321.js
+  inflating: build/_nuxt/v20.d3516c6a.js
+  inflating: build/_nuxt/v21.6b95696a.js
+  inflating: build/_nuxt/v21.9fd6d8f0.js
+  inflating: build/_nuxt/v21.e155a7c0.png
+  inflating: build/_nuxt/v22.20e313f4.png
+  inflating: build/_nuxt/v22.a1586208.js
+  inflating: build/_nuxt/v22.a71e3d7b.js
+  inflating: build/_nuxt/v23.5c3b494b.png
+  inflating: build/_nuxt/v23.a0710079.js
+  inflating: build/_nuxt/v23.dadd1b53.js
+  inflating: build/_nuxt/v24.04779aff.js
+  inflating: build/_nuxt/v24.38dd6b22.js
+  inflating: build/_nuxt/v24.76565f3a.png
+  inflating: build/_nuxt/v25.00ffb120.js
+  inflating: build/_nuxt/v25.51251c64.png
+  inflating: build/_nuxt/v25.a5925945.js
+  inflating: build/_nuxt/v26.338a0fe8.js
+  inflating: build/_nuxt/v26.be6eeffd.js
+  inflating: build/_nuxt/v26.d584fc3e.png
+  inflating: build/_nuxt/v27.2b651674.png
+  inflating: build/_nuxt/v27.997d588b.js
+  inflating: build/_nuxt/v27.ad5f52e0.js
+  inflating: build/_nuxt/v28.56ad2f27.js
+  inflating: build/_nuxt/v28.69d9ca96.png
+  inflating: build/_nuxt/v28.bb045797.js
+  inflating: build/_nuxt/v29.0006eefd.png
+  inflating: build/_nuxt/v29.77b6398e.js
+  inflating: build/_nuxt/v29.d2c1b465.js
+  inflating: build/_nuxt/v3.12d98c91.png
+  inflating: build/_nuxt/v3.59b23c9a.js
+  inflating: build/_nuxt/v3.de643f9a.js
+  inflating: build/_nuxt/v30.09827b57.js
+  inflating: build/_nuxt/v30.9f001679.png
+  inflating: build/_nuxt/v30.d2ac616a.js
+  inflating: build/_nuxt/v31.03d2131d.js
+  inflating: build/_nuxt/v31.05f1bf0a.png
+  inflating: build/_nuxt/v31.36f94e62.js
+  inflating: build/_nuxt/v32.34360ab4.js
+  inflating: build/_nuxt/v32.e9a91956.js
+  inflating: build/_nuxt/v33.77ed5395.png
+  inflating: build/_nuxt/v33.db1a38f5.js
+  inflating: build/_nuxt/v33.fab0f856.js
+  inflating: build/_nuxt/v34.7d102088.js
+  inflating: build/_nuxt/v34.7fdd3ca0.png
+  inflating: build/_nuxt/v34.b2dfb92a.js
+  inflating: build/_nuxt/v35.41bc223b.js
+  inflating: build/_nuxt/v35.b4864cac.js
+  inflating: build/_nuxt/v35.c14a225f.png
+  inflating: build/_nuxt/v36.6f026a60.js
+  inflating: build/_nuxt/v36.8a80f34a.js
+  inflating: build/_nuxt/v37.0d75aedd.js
+ extracting: build/_nuxt/v37.7d24742d.css
+  inflating: build/_nuxt/v37.f07dd2f8.js
+  inflating: build/_nuxt/v38.0d332cf0.png
+  inflating: build/_nuxt/v38.5b54e8b7.js
+  inflating: build/_nuxt/v38.70e4fcc5.js
+  inflating: build/_nuxt/v39.2e2aff63.js
+  inflating: build/_nuxt/v39.cd1e13c0.png
+  inflating: build/_nuxt/v39.fde1e4b9.js
+  inflating: build/_nuxt/v4.a72ba33b.js
+  inflating: build/_nuxt/v4.e02a7178.png
+  inflating: build/_nuxt/v4.eed61ee1.js
+  inflating: build/_nuxt/v40.2a3c9a3e.js
+  inflating: build/_nuxt/v40.3c1d5a3b.js
+  inflating: build/_nuxt/v5.134dca7d.js
+  inflating: build/_nuxt/v5.5e8c6710.png
+  inflating: build/_nuxt/v5.b1f68748.js
+  inflating: build/_nuxt/v6.1ce6ef62.png
+  inflating: build/_nuxt/v6.22c9ed6e.js
+  inflating: build/_nuxt/v6.660ef7b7.js
+  inflating: build/_nuxt/v7.0bdf3f49.js
+  inflating: build/_nuxt/v7.733080b9.png
+  inflating: build/_nuxt/v7.b3d2dde7.js
+  inflating: build/_nuxt/v8.24443428.js
+  inflating: build/_nuxt/v8.6aee3965.png
+  inflating: build/_nuxt/v8.81f55f19.js
+  inflating: build/_nuxt/v9.1bc99b6d.png
+  inflating: build/_nuxt/v9.2b19ea23.js
+  inflating: build/_nuxt/v9.bf7a136f.js
+  inflating: build/_nuxt/vue3-count-to.esm.98256e39.js
+  inflating: build/_nuxt/warning-message.aa577230.png
+  inflating: build/_nuxt/webpack.f7f76a74.png
+  inflating: build/200.html
+  inflating: build/404.html
+   creating: build/api/
+   creating: build/api/_content/
+  inflating: build/api/_content/cache.1706876613324.json
+   creating: build/css/
+  inflating: build/css/nuxt-google-fonts.css
+   creating: build/fonts/
+  inflating: build/fonts/Gantari-300-1.woff2
+  inflating: build/fonts/Gantari-300-2.woff2
+  inflating: build/fonts/Gantari-400-3.woff2
+  inflating: build/fonts/Gantari-400-4.woff2
+  inflating: build/fonts/Gantari-500-5.woff2
+  inflating: build/fonts/Gantari-500-6.woff2
+  inflating: build/fonts/Gantari-600-7.woff2
+  inflating: build/fonts/Gantari-600-8.woff2
+  inflating: build/fonts/Gantari-700-10.woff2
+  inflating: build/fonts/Gantari-700-9.woff2
+  inflating: build/fonts/Inter-300-11.woff2
+  inflating: build/fonts/Inter-300-12.woff2
+  inflating: build/fonts/Inter-300-13.woff2
+  inflating: build/fonts/Inter-300-14.woff2
+ extracting: build/fonts/Inter-300-15.woff2
+  inflating: build/fonts/Inter-300-16.woff2
+  inflating: build/fonts/Inter-300-17.woff2
+  inflating: build/fonts/Inter-400-18.woff2
+  inflating: build/fonts/Inter-400-19.woff2
+  inflating: build/fonts/Inter-400-20.woff2
+  inflating: build/fonts/Inter-400-21.woff2
+ extracting: build/fonts/Inter-400-22.woff2
+  inflating: build/fonts/Inter-400-23.woff2
+  inflating: build/fonts/Inter-400-24.woff2
+  inflating: build/fonts/Inter-500-25.woff2
+  inflating: build/fonts/Inter-500-26.woff2
+  inflating: build/fonts/Inter-500-27.woff2
+  inflating: build/fonts/Inter-500-28.woff2
+ extracting: build/fonts/Inter-500-29.woff2
+  inflating: build/fonts/Inter-500-30.woff2
+  inflating: build/fonts/Inter-500-31.woff2
+  inflating: build/fonts/Inter-600-32.woff2
+  inflating: build/fonts/Inter-600-33.woff2
+  inflating: build/fonts/Inter-600-34.woff2
+  inflating: build/fonts/Inter-600-35.woff2
+ extracting: build/fonts/Inter-600-36.woff2
+  inflating: build/fonts/Inter-600-37.woff2
+  inflating: build/fonts/Inter-600-38.woff2
+  inflating: build/fonts/Inter-700-39.woff2
+  inflating: build/fonts/Inter-700-40.woff2
+  inflating: build/fonts/Inter-700-41.woff2
+  inflating: build/fonts/Inter-700-42.woff2
+ extracting: build/fonts/Inter-700-43.woff2
+  inflating: build/fonts/Inter-700-44.woff2
+  inflating: build/fonts/Inter-700-45.woff2
+ extracting: build/fonts/Karla-300-46.woff2
+  inflating: build/fonts/Karla-300-47.woff2
+ extracting: build/fonts/Karla-400-48.woff2
+  inflating: build/fonts/Karla-400-49.woff2
+ extracting: build/fonts/Karla-500-50.woff2
+  inflating: build/fonts/Karla-500-51.woff2
+ extracting: build/fonts/Karla-600-52.woff2
+  inflating: build/fonts/Karla-600-53.woff2
+ extracting: build/fonts/Karla-700-54.woff2
+  inflating: build/fonts/Karla-700-55.woff2
+  inflating: build/fonts/Nunito-300-56.woff2
+  inflating: build/fonts/Nunito-300-57.woff2
+ extracting: build/fonts/Nunito-300-58.woff2
+  inflating: build/fonts/Nunito-300-59.woff2
+  inflating: build/fonts/Nunito-300-60.woff2
+  inflating: build/fonts/Nunito-400-61.woff2
+  inflating: build/fonts/Nunito-400-62.woff2
+ extracting: build/fonts/Nunito-400-63.woff2
+  inflating: build/fonts/Nunito-400-64.woff2
+  inflating: build/fonts/Nunito-400-65.woff2
+  inflating: build/fonts/Nunito-500-66.woff2
+  inflating: build/fonts/Nunito-500-67.woff2
+ extracting: build/fonts/Nunito-500-68.woff2
+  inflating: build/fonts/Nunito-500-69.woff2
+  inflating: build/fonts/Nunito-500-70.woff2
+  inflating: build/fonts/Nunito-600-71.woff2
+  inflating: build/fonts/Nunito-600-72.woff2
+ extracting: build/fonts/Nunito-600-73.woff2
+  inflating: build/fonts/Nunito-600-74.woff2
+  inflating: build/fonts/Nunito-600-75.woff2
+  inflating: build/fonts/Nunito-700-76.woff2
+  inflating: build/fonts/Nunito-700-77.woff2
+ extracting: build/fonts/Nunito-700-78.woff2
+  inflating: build/fonts/Nunito-700-79.woff2
+  inflating: build/fonts/Nunito-700-80.woff2
+  inflating: build/fonts/Open_Sans-300-81.woff2
+  inflating: build/fonts/Open_Sans-300-82.woff2
+ extracting: build/fonts/Open_Sans-300-83.woff2
+  inflating: build/fonts/Open_Sans-300-84.woff2
+  inflating: build/fonts/Open_Sans-300-85.woff2
+  inflating: build/fonts/Open_Sans-300-86.woff2
+  inflating: build/fonts/Open_Sans-300-87.woff2
+  inflating: build/fonts/Open_Sans-300-88.woff2
+  inflating: build/fonts/Open_Sans-300-89.woff2
+  inflating: build/fonts/Open_Sans-300-90.woff2
+  inflating: build/fonts/Open_Sans-400-100.woff2
+  inflating: build/fonts/Open_Sans-400-91.woff2
+  inflating: build/fonts/Open_Sans-400-92.woff2
+ extracting: build/fonts/Open_Sans-400-93.woff2
+  inflating: build/fonts/Open_Sans-400-94.woff2
+  inflating: build/fonts/Open_Sans-400-95.woff2
+  inflating: build/fonts/Open_Sans-400-96.woff2
+  inflating: build/fonts/Open_Sans-400-97.woff2
+  inflating: build/fonts/Open_Sans-400-98.woff2
+  inflating: build/fonts/Open_Sans-400-99.woff2
+  inflating: build/fonts/Open_Sans-500-101.woff2
+  inflating: build/fonts/Open_Sans-500-102.woff2
+ extracting: build/fonts/Open_Sans-500-103.woff2
+  inflating: build/fonts/Open_Sans-500-104.woff2
+  inflating: build/fonts/Open_Sans-500-105.woff2
+  inflating: build/fonts/Open_Sans-500-106.woff2
+  inflating: build/fonts/Open_Sans-500-107.woff2
+  inflating: build/fonts/Open_Sans-500-108.woff2
+  inflating: build/fonts/Open_Sans-500-109.woff2
+  inflating: build/fonts/Open_Sans-500-110.woff2
+  inflating: build/fonts/Open_Sans-600-111.woff2
+  inflating: build/fonts/Open_Sans-600-112.woff2
+ extracting: build/fonts/Open_Sans-600-113.woff2
+  inflating: build/fonts/Open_Sans-600-114.woff2
+  inflating: build/fonts/Open_Sans-600-115.woff2
+  inflating: build/fonts/Open_Sans-600-116.woff2
+  inflating: build/fonts/Open_Sans-600-117.woff2
+  inflating: build/fonts/Open_Sans-600-118.woff2
+  inflating: build/fonts/Open_Sans-600-119.woff2
+  inflating: build/fonts/Open_Sans-600-120.woff2
+  inflating: build/fonts/Open_Sans-700-121.woff2
+  inflating: build/fonts/Open_Sans-700-122.woff2
+ extracting: build/fonts/Open_Sans-700-123.woff2
+  inflating: build/fonts/Open_Sans-700-124.woff2
+  inflating: build/fonts/Open_Sans-700-125.woff2
+  inflating: build/fonts/Open_Sans-700-126.woff2
+  inflating: build/fonts/Open_Sans-700-127.woff2
+  inflating: build/fonts/Open_Sans-700-128.woff2
+  inflating: build/fonts/Open_Sans-700-129.woff2
+  inflating: build/fonts/Open_Sans-700-130.woff2
+  inflating: build/fonts/Poppins-300-131.woff2
+ extracting: build/fonts/Poppins-300-132.woff2
+ extracting: build/fonts/Poppins-300-133.woff2
+  inflating: build/fonts/Poppins-400-134.woff2
+ extracting: build/fonts/Poppins-400-135.woff2
+ extracting: build/fonts/Poppins-400-136.woff2
+  inflating: build/fonts/Poppins-500-137.woff2
+ extracting: build/fonts/Poppins-500-138.woff2
+ extracting: build/fonts/Poppins-500-139.woff2
+  inflating: build/fonts/Poppins-600-140.woff2
+ extracting: build/fonts/Poppins-600-141.woff2
+ extracting: build/fonts/Poppins-600-142.woff2
+  inflating: build/fonts/Poppins-700-143.woff2
+ extracting: build/fonts/Poppins-700-144.woff2
+ extracting: build/fonts/Poppins-700-145.woff2
+  inflating: build/index.html
+[iotadmin@acsaasiotappact evolve-server]$ ls -la
+total 415696
+drwxrwxr-x.  33 iotadmin iotadmin     4096 Feb  2 18:09 .
+drwxr-xr-x.   3 iotadmin iotadmin       27 Dec  6 15:27 ..
+-rw-rw-r--    1 iotadmin iotadmin 23153160 Jan 18 18:34 24012024oldbuild.zip
+drwxrwxr-x.   7 iotadmin iotadmin       88 Dec  6 15:31 App
+drwxrwxr-x.   2 iotadmin iotadmin       40 Jan 11 13:56 Boot
+drwxrwxr-x    6 iotadmin iotadmin      104 Feb  2 18:09 build
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 29 10:52 build_020124
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 31 16:49 build_020224
+-rw-rw-r--    1 iotadmin iotadmin 22465011 Feb  2 18:07 build_020224.zip
+-rw-rw-r--    1 iotadmin iotadmin 19220128 Jan  4 12:16 build-040124.zip
+-rw-rw-r--    1 iotadmin iotadmin 19269193 Jan  5 14:40 build-050124-https-subdomain-master.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  4 23:17 build-050124-https-subdomain-running
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 13:04 build-050124-https-subdomain-running-
+-rw-rw-r--    1 iotadmin iotadmin 19269285 Jan  5 13:04 build-050124-https-subdomain.zip
+-rw-rw-r--    1 iotadmin iotadmin 19269076 Jan  5 18:06 build-050124-http-subdomain1800.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 18:07 build_060124
+-rw-rw-r--    1 iotadmin iotadmin 22258054 Jan  6 17:40 build_060124_5-40.zip
+-rw-rw-r--    1 iotadmin iotadmin 17203689 Jan  6 18:32 build_060124_6-30.zip
+-rw-rw-r--    1 iotadmin iotadmin 22258219 Jan  6 13:26 build_060124_new.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  6 10:07 build_060124_old
+-rw-rw-r--    1 iotadmin iotadmin 22258237 Jan  6 10:07 build_060124.zip
+-rw-rw-r--    1 iotadmin iotadmin 22283632 Jan 10 19:25 build_100124.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 11 14:01 build_120124
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 14:41 build-18-00
+-rw-rw-r--    1 iotadmin iotadmin 19265124 Jan 17 18:59 build18012024old
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 19 14:24 build_201223
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 20 19:14 build_211223
+-rw-rw-r--    1 iotadmin iotadmin 22891534 Dec 21 18:34 build_211223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 21 18:38 build_221223
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 25 11:03 build-250124-b2
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 24 11:12 build-250124-nrv
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 22 17:33 build_271223
+-rw-rw-r--    1 iotadmin iotadmin 22111184 Dec 27 15:43 build_271223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 27 15:44 build_281223
+-rw-rw-r--    1 iotadmin iotadmin 22118826 Dec 28 19:14 build_281223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 29 14:13 build-29012024
+drwxrwxr-x    6 iotadmin iotadmin      104 Dec 28 19:15 build_291223
+-rw-rw-r--    1 iotadmin iotadmin 22119010 Dec 29 10:52 build_291223.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan 29 19:18 build_310124
+-rw-rw-r--    1 iotadmin iotadmin 22407136 Jan 31 16:48 build_310124.zip
+-rw-rw-r--    1 iotadmin iotadmin 22891473 Dec 20 19:13 build_new_201223.zip
+-rw-rw-r--    1 iotadmin iotadmin 23151656 Jan 12 14:41 build_old.zip
+drwxrwxr-x    6 iotadmin iotadmin      104 Jan  5 12:15 build-subdomain-http-running
+-rw-rw-r--    1 iotadmin iotadmin 19314293 Jan 29 14:13 build.zip
+drwxrwxr-x.   2 iotadmin iotadmin       55 Dec  6 15:31 Config
+drwxrwxr-x.   2 iotadmin iotadmin       21 Dec  6 15:31 Custom
+-rw-rw-r--.   1 iotadmin iotadmin     6148 Dec  6 15:31 .DS_Store
+-rw-rw-r--.   1 iotadmin iotadmin      326 Dec  8 15:05 .env
+-rw-rw-r--    1 iotadmin iotadmin    42824 Dec 13 15:07 evolve-iot-platform.EvolveConfig.json
+drwxrwxr-x.   8 iotadmin iotadmin      198 Feb  2 12:58 .git
+-rw-rw-r--.   1 iotadmin iotadmin       43 Dec  6 15:31 index.js
+drwxrwxr-x.   2 iotadmin iotadmin     4096 Jan 31 17:03 Library
+-rw-rw-r--.   1 iotadmin iotadmin    35147 Dec  6 15:31 LICENSE
+drwxrwxr-x.   2 iotadmin iotadmin     4096 Feb  2 00:00 Log
+drwxrwxr-x. 550 iotadmin iotadmin    16384 Dec  6 15:35 node_modules
+-rw-rw-r--    1 iotadmin iotadmin     2769 Jan 31 16:26 package.json
+-rw-rw-r--.   1 iotadmin iotadmin   284589 Dec  6 15:35 package-lock.json
+drwxrwxr-x.   9 iotadmin iotadmin      152 Jan 31 17:05 public
+-rw-rw-r--.   1 iotadmin iotadmin     6224 Dec  6 15:31 README.md
+drwxrwxr-x.   5 iotadmin iotadmin       52 Dec  6 15:31 Server
+drwxrwxr-x.   5 iotadmin iotadmin       53 Dec  6 23:38 Static
+[iotadmin@acsaasiotappact evolve-server]$ git pull origin master
+Username for 'http://codelab.alitersolutions.com:1436': jaynaganeshwala@alitersolutions.com
+Password for 'http://jaynaganeshwala@alitersolutions.com@codelab.alitersolutions.com:1436':
+fatal: Authentication failed for 'http://codelab.alitersolutions.com:1436/evolve-business-platform/evolve-server.git/'
+[iotadmin@acsaasiotappact evolve-server]$ git pull origin master
+Username for 'http://codelab.alitersolutions.com:1436': roshan@alitersolutions.com
+Password for 'http://roshan@alitersolutions.com@codelab.alitersolutions.com:1436':
+remote: Enumerating objects: 111, done.
+remote: Counting objects: 100% (111/111), done.
+remote: Compressing objects: 100% (50/50), done.
+remote: Total 75 (delta 45), reused 40 (delta 15), pack-reused 0
+Unpacking objects: 100% (75/75), done.
+From http://codelab.alitersolutions.com:1436/evolve-business-platform/evolve-server
+ * branch            master     -> FETCH_HEAD
+Updating 8f63fbc..aa96187
+Fast-forward
+ App/Controllers/Common/ConCommon.js                               | 254 ++++++++++++++---------
+ App/Controllers/Common/IotCustomFunction.js                       | 436 ++++++++++++++++++++++++++++++++++++++--
+ App/Controllers/Common/pageDesigner/ConList.js                    |  43 ++--
+ App/Controllers/Mdm/componentDataMaster/ConList.js                |   4 +-
+ App/Controllers/Mdm/componentMaster/ConList.js                    |   7 +-
+ App/Controllers/Mdm/deviceFieldsTemplate/ConList.js               |   7 +-
+ App/Controllers/Mdm/serialMaster/ConList.js                       | 916 +++++++++++++++++++++++++++++++++++++++++++----------------------------------------
+ App/Controllers/iotPlatform/iotDeviceMaster/ConList.js            |  41 ++--
+ App/Controllers/iotPlatform/iotPlatformController.js              |  52 ++++-
+ App/Controllers/iotPlatform/screensDesigner/ConScreensDesigner.js |  14 +-
+ App/Models/EvolveFieldsTemplate.js                                |   4 +-
+ App/Models/EvolveGridScreen.js                                    |   2 +-
+ App/Models/EvolvePage.js                                          |   1 +
+ App/Routes/EvolveIot.js                                           |   7 +-
+ App/Services/Mdm/serialMaster/SrvList.js                          | 423 +++++++++++++++++++-------------------
+ App/Services/iotPlatform/iotDeviceMaster/SrvList.js               |   4 +-
+ Library/devicesSchema.js                                          |   4 +
+ Library/mqtt.js                                                   |  17 +-
+ Server/Controllers/MqttController.js                              |  19 +-
+ 19 files changed, 1434 insertions(+), 821 deletions(-)
+[iotadmin@acsaasiotappact evolve-server]$ pm2 restart 0
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [0](ids: [ '0' ])
+[PM2] [Evolve-IOT-Platform : 5161](0) ✓
+┌────┬──────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platform : 5161       │ default     │ 1.0.0   │ fork    │ 1033     │ 0s     │ 104  │ online    │ 0%       │ 5.9mb    │ iotadmin │ disabled │
+│ 1  │ EvolveDelicia-Test : 5145        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 5  │ EvolveDeliciav3: 5146            │ default     │ 1.0.0   │ fork    │ 21552    │ 3D     │ 0    │ online    │ 0%       │ 160.9mb  │ iotadmin │ disabled │
+│ 2  │ EvolvePartEng-Test : 5142        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 4  │ EvolvePoojaTrades-Test : 5144    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 3  │ EvolveRBForging-Test : 5143      │ default     │ 1.0.0   │ fork    │ 16835    │ 24D    │ 0    │ online    │ 0%       │ 150.1mb  │ iotadmin │ disabled │
+└────┴──────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
+[iotadmin@acsaasiotappact evolve-server]$ pm2 log 0
+[TAILING] Tailing last 15 lines for [0] process (change the value with --lines option)
+/home/iotadmin/.pm2/logs/Evolve-IOT-Platform---5161-error.log last 15 lines:
+0|Evolve-I |     at new NodeError (internal/errors.js:322:7)
+0|Evolve-I |     at ServerResponse.setHeader (_http_outgoing.js:561:11)
+0|Evolve-I |     at ServerResponse.header (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:794:10)
+0|Evolve-I |     at ServerResponse.send (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:174:12)
+0|Evolve-I |     at ServerResponse.json (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:278:15)
+0|Evolve-I |     at ServerResponse.send (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:162:21)
+0|Evolve-I |     at /iot/evolve-business-platform/evolve-server/Boot/Server.js:312:23
+0|Evolve-I |     at /iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:450:22
+0|Evolve-I |     at onaborted (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:1054:5)
+0|Evolve-I |     at Immediate._onImmediate (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/response.js:1094:9)
+0|Evolve-I |     at processImmediate (internal/timers.js:464:21) {
+0|Evolve-I |   code: 'ERR_HTTP_HEADERS_SENT'
+0|Evolve-I | }
+0|Evolve-I | (node:1033) DeprecationWarning: Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated. See: https://mongoosejs.com/docs/5.x/docs/deprecations.html#findandmodify
+0|Evolve-I | (Use `node --trace-deprecation ...` to show where the warning was created)
+
+/home/iotadmin/.pm2/logs/Evolve-IOT-Platform---5161-out.log last 15 lines:
+0|Evolve-I |     at Writable.write (/iot/evolve-business-platform/evolve-server/node_modules/mqtt/node_modules/readable-stream/lib/_stream_writable.js:334:11)
+0|Evolve-I |     at Socket.ondata (internal/streams/readable.js:731:22)
+0|Evolve-I |     at Socket.emit (events.js:400:28)
+0|Evolve-I |     at addChunk (internal/streams/readable.js:293:12)
+0|Evolve-I |     at readableAddChunk (internal/streams/readable.js:267:9)
+0|Evolve-I |     at Socket.Readable.push (internal/streams/readable.js:206:10)
+0|Evolve-I |     at TCP.onStreamRead (internal/stream_base_commons.js:188:23)
+0|Evolve-I | 2024-02-02 18:36:52 [info]: Error in device Stored Data : SyntaxError: Unexpected end of JSON input
+0|Evolve-I | customFnName:: sendDataToNatroyal
+0|Evolve-I | customFnName:: lengthTubeExtruder
+0|Evolve-I | deviceData?.Length:  339
+0|Evolve-I | customFnName:: lengthTubeExtruder
+0|Evolve-I | deviceData?.Length:  29
+0|Evolve-I | customFnName:: lengthTubeExtruder
+0|Evolve-I | deviceData?.Length:  253
+
+0|Evolve-IOT-Platform : 5161  | customFnName:: Emission
+0|Evolve-IOT-Platform : 5161  | customFnName:: sendDataToNatroyal
+0|Evolve-IOT-Platform : 5161  | Error in Load Devices Schema Library! MissingSchemaError: Schema hasn't been registered for model "DATALOGGER:DOORINSTUSION:62_06/1925".
+0|Evolve-IOT-Platform : 5161  | Use mongoose.model(name, schema)
+0|Evolve-IOT-Platform : 5161  |     at Mongoose.model (/iot/evolve-business-platform/evolve-server/node_modules/mongoose/lib/index.js:526:13)
+0|Evolve-IOT-Platform : 5161  |     at Object.storeAllTablesData (/iot/evolve-business-platform/evolve-server/Server/Controllers/MqttController.js:383:59)
+0|Evolve-IOT-Platform : 5161  |     at Object.deviceReqData (/iot/evolve-business-platform/evolve-server/Server/Controllers/MqttController.js:267:16)
+0|Evolve-IOT-Platform : 5161  |     at runMicrotasks (<anonymous>)
+0|Evolve-IOT-Platform : 5161  |     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+0|Evolve-IOT-Platform : 5161  | 2024-02-02 18:37:03 [error]: Error in store All Tables data : MissingSchemaError: Schema hasn't been registered for model "DATALOGGER:DOORINSTUSION:62_06/1925".
+0|Evolve-IOT-Platform : 5161  | Use mongoose.model(name, schema)
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  339
+0|Evolve-IOT-Platform : 5161  | matchDay== FRI
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  254
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  29
+0|Evolve-IOT-Platform : 5161  | customFnName:: sendDataToNatroyal
+0|Evolve-IOT-Platform : 5161  | customFnName:: Emission
+0|Evolve-IOT-Platform : 5161  | data while update device offline:::::  DATALOGGER:DOORINSTUSION:62
+0|Evolve-IOT-Platform : 5161  | data while update device offline:::::  DATALOGGER:DOORINSTUSION:61
+0|Evolve-IOT-Platform : 5161  | 2024-02-02 18:37:09 [info]: Some One Connected :mvYcLJkcI0VIMXO4AACV
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  339
+0|Evolve-IOT-Platform : 5161  | data:  {
+0|Evolve-IOT-Platform : 5161  |   operation: 'L',
+0|Evolve-IOT-Platform : 5161  |   startFrom: 0,
+0|Evolve-IOT-Platform : 5161  |   displayRecord: 10,
+0|Evolve-IOT-Platform : 5161  |   filterArray: [],
+0|Evolve-IOT-Platform : 5161  |   searchQuery: ''
+0|Evolve-IOT-Platform : 5161  | }
+0|Evolve-IOT-Platform : 5161  | data.dispalyRecord undefined
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  254
+0|Evolve-IOT-Platform : 5161  | customFnName:: sendDataToNatroyal
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  30
+0|Evolve-IOT-Platform : 5161  | customFnName:: Emission
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  339
+0|Evolve-IOT-Platform : 5161  | customFnName:: sendDataToNatroyal
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  255
+0|Evolve-IOT-Platform : 5161  | Error in Load Devices Schema Library! MissingSchemaError: Schema hasn't been registered for model "DATALOGGER:DOORINSTUSION:62_06/1925".
+0|Evolve-IOT-Platform : 5161  | Use mongoose.model(name, schema)
+0|Evolve-IOT-Platform : 5161  |     at Mongoose.model (/iot/evolve-business-platform/evolve-server/node_modules/mongoose/lib/index.js:526:13)
+0|Evolve-IOT-Platform : 5161  |     at Object.storeAllTablesData (/iot/evolve-business-platform/evolve-server/Server/Controllers/MqttController.js:383:59)
+0|Evolve-IOT-Platform : 5161  |     at Object.deviceReqData (/iot/evolve-business-platform/evolve-server/Server/Controllers/MqttController.js:267:16)
+0|Evolve-IOT-Platform : 5161  |     at runMicrotasks (<anonymous>)
+0|Evolve-IOT-Platform : 5161  |     at processTicksAndRejections (internal/process/task_queues.js:95:5)
+0|Evolve-IOT-Platform : 5161  | 2024-02-02 18:37:23 [error]: Error in store All Tables data : MissingSchemaError: Schema hasn't been registered for model "DATALOGGER:DOORINSTUSION:62_06/1925".
+0|Evolve-IOT-Platform : 5161  | Use mongoose.model(name, schema)
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  31
+0|Evolve-IOT-Platform : 5161  | matchDay== FRI
+0|Evolve-IOT-Platform : 5161  | customFnName:: Emission
+0|Evolve-IOT-Platform : 5161  | TypeError: Evolve.App.Services.iotPlatform.deviceActivationMaster.SrvList.getSingleDeviceData is not a function
+0|Evolve-IOT-Platform : 5161  |     at Object.activateIotDevice (/iot/evolve-business-platform/evolve-server/App/Controllers/iotPlatform/deviceActivationMaster/ConList.js:53:102)
+0|Evolve-IOT-Platform : 5161  |     at deviceActivationHandler (/iot/evolve-business-platform/evolve-server/App/Controllers/iotPlatform/deviceActivationMaster/ConList.js:12:113)
+0|Evolve-IOT-Platform : 5161  |     at Layer.handle [as handle_request] (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/layer.js:95:5)
+0|Evolve-IOT-Platform : 5161  |     at next (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/route.js:144:13)
+0|Evolve-IOT-Platform : 5161  |     at apiAuthorization (/iot/evolve-business-platform/evolve-server/App/Middlewares/EvolveCommonApiValidator.js:232:33)
+0|Evolve-IOT-Platform : 5161  |     at Layer.handle [as handle_request] (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/layer.js:95:5)
+0|Evolve-IOT-Platform : 5161  |     at next (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/route.js:144:13)
+0|Evolve-IOT-Platform : 5161  |     at Route.dispatch (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/route.js:114:3)
+0|Evolve-IOT-Platform : 5161  |     at Layer.handle [as handle_request] (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/layer.js:95:5)
+0|Evolve-IOT-Platform : 5161  |     at /iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:284:15
+0|Evolve-IOT-Platform : 5161  |     at Function.process_params (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:346:12)
+0|Evolve-IOT-Platform : 5161  |     at next (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:280:10)
+0|Evolve-IOT-Platform : 5161  |     at Function.handle (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:175:3)
+0|Evolve-IOT-Platform : 5161  |     at router (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:47:12)
+0|Evolve-IOT-Platform : 5161  |     at Layer.handle [as handle_request] (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/layer.js:95:5)
+0|Evolve-IOT-Platform : 5161  |     at trim_prefix (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:328:13)
+0|Evolve-IOT-Platform : 5161  |     at /iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:286:9
+0|Evolve-IOT-Platform : 5161  |     at Function.process_params (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:346:12)
+0|Evolve-IOT-Platform : 5161  |     at next (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:280:10)
+0|Evolve-IOT-Platform : 5161  |     at urlencodedParser (/iot/evolve-business-platform/evolve-server/node_modules/body-parser/lib/types/urlencoded.js:82:7)
+0|Evolve-IOT-Platform : 5161  |     at Layer.handle [as handle_request] (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/layer.js:95:5)
+0|Evolve-IOT-Platform : 5161  |     at trim_prefix (/iot/evolve-business-platform/evolve-server/node_modules/express/lib/router/index.js:328:13)
+0|Evolve-IOT-Platform : 5161  | 2024-02-02 18:37:26 [info]: Error while activate device con !! TypeError: Evolve.App.Services.iotPlatform.deviceActivationMaster.SrvList.getSingleDeviceData is not a function
+0|Evolve-IOT-Platform : 5161  | customFnName:: sendDataToNatroyal
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  339
+0|Evolve-IOT-Platform : 5161  | data while update device offline:::::  DATALOGGER:DOORINSTUSION:62
+0|Evolve-IOT-Platform : 5161  | data while update device offline:::::  DATALOGGER:DOORINSTUSION:61
+0|Evolve-IOT-Platform : 5161  | customFnName:: lengthTubeExtruder
+0|Evolve-IOT-Platform : 5161  | deviceData?.Length:  255
+^C
+[iotadmin@acsaasiotappact evolve-server]$ pm2 restart 0
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [0](ids: [ '0' ])
+[PM2] [Evolve-IOT-Platform : 5161](0) ✓
+┌────┬──────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                             │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼──────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ Evolve-IOT-Platform : 5161       │ default     │ 1.0.0   │ fork    │ 1553     │ 0s     │ 105  │ online    │ 0%       │ 4.8mb    │ iotadmin │ disabled │
+│ 1  │ EvolveDelicia-Test : 5145        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 1    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 5  │ EvolveDeliciav3: 5146            │ default     │ 1.0.0   │ fork    │ 21552    │ 3D     │ 0    │ online    │ 0%       │ 160.5mb  │ iotadmin │ disabled │
+│ 2  │ EvolvePartEng-Test : 5142        │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 4  │ EvolvePoojaTrades-Test : 5144    │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ iotadmin │ disabled │
+│ 3  │ EvolveRBForging-Test : 5143      │ default     │ 1.0.0   │ fork    │ 16835    │ 24D    │ 0    │ online    │ 0%       │ 149.0mb  │ iotadmin │ disabled │
+└────┴──────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2][WARN] Current process list is not synchronized with saved list. Type 'pm2 save' to synchronize.
+[iotadmin@acsaasiotappact evolve-server]$

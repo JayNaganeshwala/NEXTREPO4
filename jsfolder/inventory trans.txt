@@ -1,0 +1,352 @@
+'use strict';
+const Evolve = require('../../../../Boot/Evolve');
+module.exports = {
+
+    InventoryTransHandler: async function (req, res) {
+        try {
+            let error = false;
+            let message = '';
+            let result = null;
+            
+              if (req.body.operation == 'L') {
+                let InventoryTransList = await Evolve.App.Controllers.eSmartFactory.InventoryTrans.ConList.getAllInventortTransList(req.body);
+
+                if (InventoryTransList.statusCode == 200) {
+                    result = {
+
+                        noOfRecord: InventoryTransList.result.noOfRecord,
+                        records: InventoryTransList.result.records
+                    }
+                    if ((!isNaN(InventoryTransList.messageCode)) && (InventoryTransList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(InventoryTransList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = InventoryTransList.messageCode;
+                    }
+
+                } else {
+                    error = true;
+                    if ((!isNaN(InventoryTransList.messageCode)) && (InventoryTransList.messageCode != '')) {
+                        message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(InventoryTransList.messageCode, req.body.EvolveLanguage_Code);
+                    } else {
+                        message = InventoryTransList.messageCode;
+                    }
+                }
+            } else if (req.body.operation == 'CSV') {
+                let csvExport = await Evolve.App.Controllers.eSmartFactory.InventoryTrans.ConList.csvDownload(req.body);
+                if (csvExport.statusCode == 400) {
+                    error = true;
+                } else {
+
+                    result = csvExport.result;
+                }
+
+            }
+            let obj = {
+                statusCode: error ? 400 : 200,
+                status: error ? "Fail" : "Success",
+                message: message,
+                result: result
+            };
+            res.send(obj);
+        } catch (error) {
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, req.body.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            res.send(obj);
+        }
+    },
+
+    // getAllInventortTransList: async function (data) {
+    //     return new Promise(async function (resolve, reject) {
+    //         try {
+    //             let filterobj = {}
+    //             data.filterobj = {}
+    //             filterobj.tableName = 'EvolveInventoryTransaction'
+    //             filterobj.filterArray = []
+    //             filterobj.populateTables = [
+    //                 {
+    //                     'fieldName': 'createdUser',
+    //                     'filterArray': []
+    //                 },
+    //             ];
+    //             if (data.filterArray.length > 0) {
+    //                 for (let i = 0; i < data.filterArray.length; i++) {
+    //                     if (data.filterArray[i].field != '' && data.filterArray[i].operator != '' && data.filterArray[i].value != '' && data.filterArray[i].collectionName != '') {
+    //                         if (data.filterArray[i].collectionName == 'EvolveUser') {
+    //                             const index = filterobj.populateTables.findIndex(populateTables => populateTables.fieldName == 'createdUser');
+    //                             if (index == -1) {
+    //                                 let obj = {
+    //                                     'fieldName': 'createdUser',
+    //                                     'filterArray': [{
+    //                                         field: data.filterArray[i].field,
+    //                                         operator: data.filterArray[i].operator,
+    //                                         value: data.filterArray[i].value,
+    //                                     }]
+    //                                 }
+    //                                 filterobj.populateTables.push(obj)
+    //                             } else {
+    //                                 let obj = {
+    //                                     field: data.filterArray[i].field,
+    //                                     operator: data.filterArray[i].operator,
+    //                                     value: data.filterArray[i].value,
+    //                                 }
+    //                                 filterobj.populateTables[index].filterArray.push(obj)
+    //                             }
+    //                         } else {
+    //                             let obj = {
+    //                                 field: data.filterArray[i].field,
+    //                                 operator: data.filterArray[i].operator,
+    //                                 value: data.filterArray[i].value,
+    //                             }
+    //                             filterobj.filterArray.push(obj)
+    //                         }
+    //                     }
+
+    //                 }
+    //             }
+    //             let getFinelFilterObj = await Evolve.App.Controllers.Common.ConCommon.getFinelFilterObj(filterobj)
+    //             console.log("getFinelFilterObj>>>>>>>>>>>>>>>>>>>>",getFinelFilterObj);
+    //             let getAllInventortTransList = await Evolve.App.Services.eSmartFactory.InventoryTrans.SrvList.getAllInventortTransList(getFinelFilterObj.result, data);
+    //             let list =  getAllInventortTransList.records
+    //             for (let i = 0; i < list.length; i++) {
+    //                 list[i].EvolveInventory_Qty = (parseFloat(list[i].EvolveInventory_Qty)).toFixed(Evolve.CONFIG.EvolveToFixedConfig).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    //                 list[i].EvolveUser_Name =  list[i].createdUser != null && list[i].createdUser != undefined && list[i].createdUser != '' ? list[i].createdUser.EvolveUser_Name : '-';
+    //                 list[i].createdDate = list[i].createdAt != null || list[i].createdAt != undefined || list[i].createdAt != "" ? Evolve.moment(list[i].createdAt).format('DD-MM-YYYY') :  "-" 
+    //             }
+                
+    //             getAllInventortTransList.records = list;
+              
+    //             resolve(getAllInventortTransList);
+
+    //         } catch (error) {
+    //             Evolve.Console.log(" Error In Get All Inventory Transaction List !! " + error.message);
+    //             let obj = {
+    //                 statusCode: 400,
+    //                 messageCode: 111,
+    //                 var: [],
+    //             };
+    //             resolve(obj);
+    //         }
+    //     })
+    // },
+
+  
+    getAllInventortTransList: async function (data) {
+        try {
+            let error = false;
+            let errorCode = null;
+            let msgInfo = [];
+            let result = {
+                records: [],
+                noOfRecord: 0
+            };
+            data.filterObj = {};
+            let isUserUnwind = true; 
+
+            let pipeline = [{ $match : {$and : [
+                    { 
+                        EvolveUnit_Code : data.EvolveUnit_Code,
+                    }
+                ]}},
+            ];
+
+            
+            if(isUserUnwind){
+                isUserUnwind = false
+                pipeline.push(
+                    {
+                        "$lookup": {
+                            "from": "EvolveUser",
+                            "localField": "createdUser",
+                            "foreignField": "_id",
+                            "as": "createdUser",
+    
+                        }
+                    },
+                    {
+                        $unwind: {
+                            path: "$createdUser",
+                            preserveNullAndEmptyArrays: true
+                        }
+                    },
+                )
+            }
+
+            console.log("quert>>>>>>>>>>>>>>>",pipeline)
+
+            let matchObj = await Evolve.App.Controllers.Common.ConCommon.getMatchObjForAggregate(data)
+            if (matchObj.statusCode != 400) {
+                data.filterObj = matchObj.result;
+                data.addFieldObj = matchObj.resultAddField;
+            }
+
+
+            let count = 0;
+            let pipeline2;
+            if (data.isPaginateClick) {
+                /* count = [{
+                    count : data.noOfRecord
+                }] */
+
+                console.log("in the paginateclick>>>>>>",data.noOfRecord)
+                result.noOfRecord  = data.noOfRecord
+
+            } else {
+                pipeline2 = pipeline.map(function(c){ return{...c}});//distinguish bet pipeline1 and pipeline2
+                pipeline2.push({"$addFields" : data.addFieldObj} ,{"$match":data.filterObj},{"$facet":{totalCount : [{$count:'count'}]}});
+
+                console.log("pipeline2<<<<<<<<<<<<<",pipeline2)
+
+                count = await Evolve.App.Services.eSmartFactory.InventoryTrans.SrvList.getAllInventortTransCount(pipeline2);
+                result.noOfRecord = count[0].totalCount.length == 0 ? 0 : count[0].totalCount[0].count;
+
+                console.log("no of r3ecodrd??????????????????,",count)
+            }
+
+            pipeline.push(
+                {"$addFields": data.addFieldObj},
+                {$match: data.filterObj},
+                {$sort: { _id:-1}},
+                { $skip: data.startFrom }, 
+                { $limit: data.dispalyRecord },
+                {$facet: {result: []}}
+            )
+
+
+            // let count = await Evolve.App.Services.eSmartFactory.InventoryTrans.SrvList.getAllInventortTransCount(data);
+
+            if (count instanceof Error) {
+                error = true;
+                errorCode = '120'
+                msgInfo = ['Inventory Transaction list']
+            } else {
+                // result.noOfRecord = count[0].totalCount.length == 0 ? 0 : count[0].totalCount[0].count;
+
+                let list = await Evolve.App.Services.eSmartFactory.InventoryTrans.SrvList.getAllInventortTransList(pipeline);
+
+                console.log("list>>>>>>>>>>>>>>>>>>>>",list)
+                console.log("licountst>>>>>>>>>>>>>>>>>>>>",result.noOfRecord)
+                if (list instanceof Error) {
+                    error = true;
+                    errorCode = '120'
+                    msgInfo = ['Inventory Transaction list']
+                }else {
+                    
+                    result.records = list[0].result
+                    result.records.map((data) => {
+                        data.EvolveInventory_Qty = (parseFloat(data.EvolveInventory_Qty)).toFixed(Evolve.CONFIG.EvolveToFixedConfig).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                        data.EvolveUser_Name =  data.createdUser != null && data.createdUser != undefined && data.createdUser != '' ? data.createdUser.EvolveUser_Name : '-';
+                        data.createdDate = data.createdAt != null || data.createdAt != undefined || data.createdAt != "" ? Evolve.moment(data.createdAt).format('DD-MM-YYYY HH:mm:ss') :  "-" 
+                    })
+                }
+            }
+            let getMessage = error == true ? await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(errorCode, data.EvolveLanguage_Code, msgInfo) : '';
+            let obj = {
+                statusCode: error ? 400 : 200,
+                status: error ? "fail" : "success",
+                message: getMessage,
+                result: result
+            };
+
+            return (obj)
+        } catch (error) {
+            Evolve.Console.log("Error While Get Inventory Transaction List " + error.message, 'error', 'INVENTORYTRANSACTION');
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(120, data.EvolveLanguage_Code, ["QC Templete list"]);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            return (obj)
+        }
+
+    },
+    csvDownload: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+                let error = false;
+                let errorCode = null;
+                let msgInfo = [];
+                let result = {
+                    records: [],
+                    noOfRecord: 0
+                };
+                data.filterObj = {};
+                let  today = Evolve.moment(new Date()).format('DD-MM-YYYY');
+                if(data.filterArray.length == 0){
+                    let obj = {
+                        field: "createdAt",
+                        operator: "da",
+                        value: today,
+                        collectionName: "EvolveInventoryTransaction",
+                    }
+                    data.filterArray.push(obj)
+                }
+                let matchObj = await Evolve.App.Controllers.Common.ConCommon.getMatchObjForAggregate(data)
+                if (matchObj.statusCode != 400) {
+                    data.filterObj = matchObj.result;
+                    data.addFieldObj = matchObj.resultAddField;
+                }
+
+                
+                
+                let list = await Evolve.App.Services.eSmartFactory.InventoryTrans.SrvList.downloadCsvExport(data);
+                if (list instanceof Error) {
+                    error = true;
+                    errorCode = '120'
+                    msgInfo = ['Inventory Transaction CSV']
+                }else {
+
+                let filedata = []
+
+                filedata.push(["Primary Number", "Transaction Type", "Item Code", "Uom", "Location Code", "Inventory LotNo", "Inventory RefNo", "Inventory Qty", "Created Time"])
+
+                for (let j = 0; j < list.length; j++) {
+                    let element = list[j]
+                    filedata.push([element.EvolveInventoryPrimary_Number, element.EvolveInventoryTransaction_Type, element.EvolveItem_Code, element.EvolveUom_Uom, element.EvolveLocation_Code, element.EvolveInventory_LotSerial, element.EvolveInventory_RefNumber, element.EvolveInventory_Qty,element.createdAt ? Evolve.moment(element.createdAt).format('DD-MM-YYYY HH:mm:ss'):"" ])
+                }
+
+                let date = new Date();
+                date = date.getDate() + "_" + (date.getMonth() + 1) + "_" + date.getFullYear();
+                let fileName =Evolve.OUTBOUNDFILEPATH +"Transaction_Report_"+date + '.csv';
+                let ws = Evolve.Xlsx.utils.aoa_to_sheet(filedata);
+                let wb = Evolve.Xlsx.utils.book_new();
+                Evolve.Xlsx.utils.book_append_sheet(wb, ws, "Sheet1");
+                await Evolve.Xlsx.writeFile(wb,fileName);
+                fileName = fileName.replace("./OUTBOUNDFILE", "");
+
+                let obj = {
+                    statusCode: 200,
+                    status: "success",
+                    result: { fileName }
+                };
+
+                resolve(obj);
+                }
+
+               
+            } catch (error) {
+                Evolve.Console.log("Error While Download CSV " + error.message);
+                let obj = {
+                    statusCode: 400,
+                    status: "fail",
+                    messageCode: 111,
+                    var: [],
+                    result: null
+                };
+                resolve(obj);
+
+            }
+        })
+    }
+
+   
+
+
+
+}

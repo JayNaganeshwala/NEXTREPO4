@@ -1,0 +1,481 @@
+<template>
+	<div class="evolve-page">
+		<PageHeaderBar 
+			:menuid="EvolveMenu_Id"
+			:pageurl="pageURL" 
+			:buttons="buttonsList"
+			:mastercode="helpMasterCode"
+			:keywordslist="keywords"
+			:optionheader="false"
+			@onClickBtn="onClickBtn"
+			@onRefresh="getAllInventortTransList()"
+		/>
+
+		<client-only>
+			<div id="sc-page-content" class="evolve-page-body">
+				<div class="uk-child-width-1-1@m uk-grid" data-uk-grid>
+					<div class="evolve_table_list">
+						<DaynamicSearch v-model="filterArray"
+							name="Serch Page"
+							:list="fieldList"
+							@filerClick="getAllInventortTransList()"
+						/>
+						<client-only>
+							<div class="responsive-table">
+								<table id="EvolveBusinessGroup" class="uk-table uk-table-striped" :class="loading?'loading' +((inventoryTransactionList.length==0) ?' no-data':''):'no-loading'+((inventoryTransactionList.length==0) ?' no-data':'')">
+									<thead>
+										<tr>
+											<th :data-uk-tooltip="keywords.primary_number.ttps">
+												{{ keywords.primary_number.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.transaction_type.ttps">
+												{{ keywords.transaction_type.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.item_code.ttps">
+												{{ keywords.item_code.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.uom_code.ttps">
+												{{ keywords.uom_code.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.location_code.ttps">
+												{{ keywords.location_code.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.inventory_LotNumber.ttps">
+												{{ keywords.inventory_LotNumber.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.inventory_RefNumber.ttps">
+												{{ keywords.inventory_RefNumber.val }}
+											</th>
+											<!-- <th :data-uk-tooltip="keywords.unit_code.ttps">
+												{{ keywords.unit_code.val }}
+											</th> -->
+											<th :data-uk-tooltip="keywords.inventory_Qty.ttps">
+												{{ keywords.inventory_Qty.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.createdDate.ttps">
+												{{ keywords.createdDate.val }}
+											</th>
+											<th :data-uk-tooltip="keywords.createdBy.ttps">
+												{{ keywords.createdBy.val }}
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr v-for="(it, index) in inventoryTransactionList" :key="index">
+											<td>{{ it.EvolveInventoryPrimary_Number }}</td>
+											<td>{{ it.EvolveInventoryTransaction_Type }}</td>
+											<td>{{ it.EvolveItem_Code }}</td>
+											<td>{{ it.EvolveUom_Uom }}</td>
+											<td>{{ it.EvolveLocation_Code }}</td>
+											<td>{{ it.EvolveInventory_LotSerial }}</td>
+											<td>{{ it.EvolveInventory_RefNumber }}</td>
+											<!-- <td>{{ it.EvolveUnit_Code }}</td> -->
+											<td>
+												<span :class="parseFloat(it.EvolveInventory_Qty) < 0 ? 'uk-label uk-label-danger' : 'uk-label uk-label-success'">
+													{{ it.EvolveInventory_Qty }}
+												</span>
+												<!-- <span v-else class="uk-label uk-label-success">
+													{{ it.EvolveInventory_Qty }}
+												</span> -->
+											</td>
+											<td>{{ it.createdDate }}</td>
+											<td>{{ it.EvolveUser_Name }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="uk-grid fixed-footer">
+								<div class="uk-width-1-2">
+									<select v-model="displayRecord" @change="onDisplayRecordChange($event)">
+										<option v-for="dr in displayRow" :key="dr" :value="dr">
+											{{ dr }}
+										</option>
+									</select>
+								</div>
+								<div class="uk-width-1-2">
+									<div class="paginate">
+										<Paginate :page-count="pageCount"
+											:click-handler="paginateClick"
+											:prev-text="'<<'"
+											:next-text="'>>'"
+											:value="currentPage"
+											:container-class="'evolve_paginate'"
+										>
+										</Paginate>
+									</div>
+								</div>
+							</div>
+							
+							<client-only>
+								<EvolvePDF :reqdata="pdfData"></EvolvePDF>
+							</client-only>
+						</client-only>
+					</div>
+				</div>
+			</div>
+		</client-only>
+	</div>
+</template>
+<style>
+.uk-position-top-right {
+	top: 24px;
+}
+
+.icons_selections {
+	height: 200px !important;
+	overflow: auto;
+}
+.paginate{
+    position: inherit !important;
+}
+
+#EvolveBusinessGroup tbody td {
+    white-space: nowrap;
+    padding: 4px 0px 5px 3px;
+}
+</style>
+<script>
+
+import { validationMixin } from "vuelidate";
+import DaynamicSearch from "~/components/cust/DaynamicSearch";
+import PageHeaderBar from "~/components/cust/PageHeaderBar";
+if (process.client) {
+	var Paginate = require("vuejs-paginate");
+}
+export default {
+	head () {
+		return {
+			title: "Evolve - " + this.$route.name,
+		};
+	},
+	components: {
+		DaynamicSearch,
+		Paginate,
+		PageHeaderBar,
+		EvolvePDF: process.client
+			? () => import("~/components/jspdf/evolvePDF")
+			: null,
+	},
+
+	mixins: [validationMixin],
+	props: {
+		params: {
+			type: Object,
+			default: () => { }
+		}
+	},
+	layout: "eDefaultV2",
+	data () {
+		return {
+			EvolveMenu_Id: this.$route.query.EvolveMenu_Id,
+			pageURL: '/eSmartFactory/InventoryTrans/list/',
+			userId: this.$store.state.auth.user.EvolveUser_ID,
+			token: this.$auth.getToken("local"),
+			baseURL: this.$axios.defaults.baseURL,
+			
+			keywords: {
+				transaction_type :	{
+					val: "Inventory Transaction Type",
+					ttps: "",
+				},
+				primary_number :	{
+					val: "Primary Number",
+					ttps: "Primary Number",
+				},
+				item_code :	{
+					val: "Item Code",
+					ttps: "",
+				},
+				uom_code :	{
+					val: "Uom Code",
+					ttps: "",
+				},
+				location_code :	{
+					val: "Location Code",
+					ttps: "",
+				},
+				unit_code :	{
+					val: "Unit Code",
+					ttps: "",
+				},
+				
+				inventory_LotNumber :	{
+					val: "Inventory LotNo.",
+					ttps: "",
+				},
+				inventory_RefNumber :	{
+					val: "Inventory RefNumber",
+					ttps: "",
+				},
+				inventory_Qty :	{
+					val: "Inventory Quantity",
+					ttps: "",
+				},
+				createdDate:	{
+					val: "Created Date",
+					ttps: "",
+				},
+				createdBy:	{
+					val: "Created By",
+					ttps: "",
+				},
+				
+
+			},
+
+			helpMasterCode : 'INVENTORYTRANSACTIONLIST',
+			/** Start : EvolveDataTable */
+			search: "", // For making dynamic search
+			currentPage: 1,
+			pageCount: 0,
+			displayRecord: 10,
+			noOfRecord: 0,
+			startFrom: 0,
+			displayRow: [10, 25, 50, 100, 200],
+			pdfData: {},
+			csvExportColums: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+			pdfExportColums: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+			/** End : EvolveDataTable */
+
+			inventoryTransactionList: [],
+			showHelpMsg: '',
+			reInitialize : 0,
+			loading : true,
+			fieldList: [
+				{
+					value: "Inventory Primary Number",
+					key: "EvolveInventoryPrimary_Number",
+					collectionName : "EvolveInventoryTransaction",
+				},
+				{
+					value: "Inventory Transaction Type",
+					key: "EvolveInventoryTransaction_Type",
+					collectionName : "EvolveInventoryTransaction",
+				},
+				// {
+				// 	value: "Unit Code",
+				// 	key: " EvolveUnit_Code",
+				// 	collectionName : "EvolveInventoryTransaction",
+				// },
+				{
+					value: "Item Code",
+					key: "EvolveItem_Code",
+					collectionName : "EvolveInventoryTransaction",
+				},
+				{
+					value: "Uom Code",
+					key: "EvolveUom_Uom",
+					collectionName : "EvolveInventoryTransaction",
+				}, {
+					value: "Location Code",
+					key: "EvolveLocation_Code",
+					collectionName : "EvolveInventoryTransaction",
+				}, {
+					value: "Inventory LotNo.",
+					key: "EvolveInventory_LotSerial",
+					collectionName : "EvolveInventoryTransaction",
+				}, {
+					value: "Inventory RefNumber",
+					key: "EvolveInventory_RefNumber",
+					collectionName : "EvolveInventoryTransaction",
+				}, {
+					value: "Inventory Quantity",
+					key: "EvolveInventory_Qty",
+					collectionName : "EvolveInventoryTransaction",
+				},
+				{
+					value: "Created Date",
+					key: "createdAt",
+					collectionName : "EvolveInventoryTransaction",
+				},
+				{
+					value: "Created User",
+					key: "createdUser.EvolveUser_Name",
+					collectionName : "EvolveInventoryTransaction",
+				},
+			],
+			filterArray: [],
+			buttonsList: [
+				{
+					lable: 'CSV Export',
+					code: 'CSVExportDownload'
+				},
+			],
+			
+		};
+	},
+	computed: {},
+	watch: {
+		mdIconsSearch (val) {
+			this.mdIcons.forEach((icon) => {
+				if (val !== "" && val.length > 2) {
+					icon.visible = icon.name.toLowerCase().includes(val.toLowerCase());
+				} else {
+					icon.visible = true;
+				}
+			});
+		},
+	},
+	mounted () {
+		this.$root.$on(this.helpMasterCode, (data) => {
+			let thisObj = this;
+			Object.keys(this.keywords).forEach(function (key) {
+				data.forEach(function (obj) {
+					if (obj[key] != undefined) {
+						thisObj.keywords[key].val = obj[key].tran; // Translated
+						thisObj.keywords[key].ttps = obj[key].ttps; // Tooltips
+					}
+				});
+			});
+		});
+		
+
+	},
+	created: async function () {
+
+		
+		try {this.$store.dispatch("loadPageData", {
+			masterCode: this.helpMasterCode, // Master code
+			keywords: this.keywords,
+		});
+
+		await // this.removeModal();
+
+		await this.getAllInventortTransList();
+		} catch (error) {
+			console.log("Error in "+this.helpMasterCode+" :", error.message);
+			this.$store.dispatch("evolveNotification", {
+				code: 111, 
+				type: 2 
+			});
+		}
+	},
+	validations: {
+
+	},
+
+	methods: {
+		// Evolve defult functions
+
+		// Evolve defult functions end
+		/* Datatable Methods -- Start */
+		async onDisplayRecordChange (displayRecord) {
+			try {
+				this.startFrom = parseInt(
+					this.currentPage * this.displayRecord - this.displayRecord
+				);
+				this.getAllInventortTransList();
+			} catch (error) {
+				console.log("Error : onDisplayRecordChange>>>>", error.message)
+
+			}
+		},
+		async paginateClick (pageNum) {
+			try {
+				this.currentPage = pageNum;
+				this.startFrom = parseInt(
+					pageNum * this.displayRecord - this.displayRecord
+				);
+				this.getAllInventortTransList(true);
+			} catch (error) {
+				console.log("Error : paginateClick>>>>", error.message)
+
+			}
+
+		},
+		onClickBtn: async function (code) {
+			try {
+				this[code]()
+
+			} catch (error) {
+				console.log('Error Come in Catch : ', error.message);
+				this.$store.dispatch('evolveNotification', { code: 111, type: 2 });
+			}
+		},
+		
+		
+		/* Datatable Methods -- End */
+		async getAllInventortTransList (isPaginateClick = false) {
+			try {
+				this.loading = true;
+				let list = await this.$axios
+					.$post("/api/v3/eSmartFactory/InventoryTrans/InventoryTransHandler", {
+						"operation": "L",
+						"startFrom": parseInt(this.startFrom),
+						"dispalyRecord": parseInt(this.displayRecord),
+						"isPaginateClick" : isPaginateClick,
+						"filterArray": this.filterArray,
+						"noOfRecord" : this.noOfRecord
+
+					})
+					.catch((e) => {
+						this.loading = false;
+						this.$store.dispatch('evolveNotification', {code: 117, type: 2});
+					});
+				if (list) {
+					if (list.statusCode == 200) {
+						this.inventoryTransactionList = list.result.records;
+						if (list.result.noOfRecord > 0) {
+							this.pageCount = Math.ceil(
+								list.result.noOfRecord / this.displayRecord
+							);
+							this.noOfRecord = list.result.noOfRecord
+						} else {
+							this.noOfRecord = 0;
+							this.pageCount = 0;
+						}
+					} else {
+						this.$store.dispatch('evolveNotification', list.message);
+					}
+				}
+				this.loading = false;
+			} catch (error) {
+				this.loading = false;
+				console.log("Error : getAllInventortTransList>>>>", error.message)
+
+			}
+
+
+
+		},
+		CSVExportDownload:async function (){
+			try {
+				// this.loading = true;
+				let downloadCsv = await this.$axios
+					.$post("/api/v3/eSmartFactory/InventoryTrans/InventoryTransHandler", {
+						"operation": "CSV",
+						"filterArray": this.filterArray
+					})
+					.catch((e) => {
+						this.loading = false;
+						this.$store.dispatch('evolveNotification', { code: 117, type: 2 });
+					});
+				if (downloadCsv) {
+					if (downloadCsv.statusCode == 200) {
+						if(downloadCsv.result.fileName){
+							let path = this.baseURL + downloadCsv.result.fileName
+							window.open(path)
+						}
+					} else {
+						this.$store.dispatch('evolveNotification', downloadCsv.message);
+					}
+				}
+				// this.loading = false;
+			} catch (error) {
+				// this.loading = false;
+				console.log('Error Come in Catch : ', error.message);
+				this.$store.dispatch('evolveNotification', { code: 111, type: 2 });
+			}
+		}
+
+		
+		
+
+	},
+};
+</script>
+<style lang="scss">
+@import "assets/scss/plugins/datatables";
+@import "~pretty-checkbox/src/pretty-checkbox.scss";
+</style>\

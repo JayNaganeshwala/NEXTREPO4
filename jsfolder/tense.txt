@@ -1,0 +1,54 @@
+Tenses	Tenses Rule
+
+Past simple tense	Subject + V2 + Object 
+Past Perfect tense	Subject + had + V3 + Object 
+Past Continuous tense	Subject + was + V1 + ing + Object (Singular)
+Subject + were + V1 + ing + Object (Plural) 
+Past perfect continuous tense	Subject + had been + V1 + ing + Object 
+Present Simple tense	Subject + V1 + s/es + Object (Singular) Subject + V1 + Object (Plural)
+Present Perfect tense	Subject + has + V3 + Object (Singular) Subject + have + V3 + Object (Plural) 
+Present Continuous tense	Subject + is/am/are + V1 + ing + object 
+Present perfect continuous tense	Subject + has been + V1 + ing + Object (Singular)Subject + have been + V1 + ing + Object (Plural) 
+Future Simple tense	Subject + will/shall + V1 + Object 
+Future Perfect tense	Subject + will have/shall have + V3 + Object 
+Future Continuous tense	Subject + will be/shall be + ing + V1 + Object 
+Future Perfect Continuous tense	Subject + will have been + V1 + ing + Object 
+
+
+
+
+Present Simple
+I do, I do do
+
+Present Continuous
+I am doing
+
+Present Perfect
+I have done
+
+Present Perfect Continuous
+I have been doing
+
+Past Simple
+I did, I did do
+
+Past Continuous
+I was doing
+
+Past Perfect
+I had done
+
+Past Perfect Continuous
+I had been doing
+
+Future Simple
+I will do
+
+Future Continuous
+I will be doing
+
+Future Perfect
+I will have done
+
+Future Perfect Continuous
+I will have been doing

@@ -1,0 +1,3991 @@
+[{
+  "_id": {
+    "$oid": "650bf23d9cd70c5ed4551555"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-database-settings",
+  "EvolveApp_Url": "#",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "MDM",
+  "EvolveApp_Name": "MDM",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-line-style",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed4551556"
+      },
+      "EvolveMenu_SrNo": "12345678",
+      "EvolveMenu_Name": "Generic Masters",
+      "EvolveMenu_Url": "#",
+      "createdAt": {
+        "$date": "2022-06-08T13:27:08.549Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-08T13:27:08.549Z"
+      },
+      "EvolveSubMenu": [
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551557"
+          },
+          "EvolveMenu_SrNo": "88888888",
+          "EvolveMenu_Name": "Tax Type Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0003",
+          "createdAt": {
+            "$date": "2022-06-09T14:26:23.058Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:26:23.058Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551558"
+          },
+          "EvolveMenu_SrNo": "11111111",
+          "EvolveMenu_Name": "Audit Master",
+          "EvolveMenu_Url": "/mdm/AuditMaster/list",
+          "createdAt": {
+            "$date": "2022-06-08T13:27:08.548Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-08T13:27:08.548Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551559"
+          },
+          "EvolveMenu_SrNo": "66666666",
+          "EvolveMenu_Name": "Language Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0023",
+          "createdAt": {
+            "$date": "2022-06-09T14:25:16.088Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:25:16.088Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155a"
+          },
+          "EvolveMenu_SrNo": "22222222",
+          "EvolveMenu_Name": "Uom Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0038",
+          "createdAt": {
+            "$date": "2022-06-09T06:22:15.480Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T06:22:15.480Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155b"
+          },
+          "EvolveMenu_SrNo": "77777777",
+          "EvolveMenu_Name": "Tax Usage Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0004",
+          "createdAt": {
+            "$date": "2022-06-09T14:26:12.134Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:26:12.134Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155c"
+          },
+          "EvolveMenu_SrNo": "99999999",
+          "EvolveMenu_Name": "State Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0035",
+          "createdAt": {
+            "$date": "2022-06-09T14:26:49.806Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:26:49.806Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155d"
+          },
+          "EvolveMenu_SrNo": "11223344",
+          "EvolveMenu_Name": "Generic Code Master",
+          "EvolveMenu_Url": "/mdm/genCode/list",
+          "createdAt": {
+            "$date": "2022-06-09T14:26:58.578Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:26:58.578Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155e"
+          },
+          "EvolveMenu_SrNo": "55667788",
+          "EvolveMenu_Name": "Tax Class",
+          "EvolveMenu_Url": "/common/pageList/EPGE0002",
+          "createdAt": {
+            "$date": "2022-06-09T14:27:12.225Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:27:12.225Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455155f"
+          },
+          "EvolveMenu_SrNo": "11112222",
+          "EvolveMenu_Name": "Country Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0014",
+          "createdAt": {
+            "$date": "2022-06-09T14:27:27.647Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:27:27.647Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551560"
+          },
+          "EvolveMenu_SrNo": "1661859977560",
+          "EvolveMenu_Name": "Location Master",
+          "EvolveMenu_Url": "~/mdm/locationMaster/list/",
+          "createdAt": {
+            "$date": "2022-08-30T11:46:24.335Z"
+          },
+          "updatedAt": {
+            "$date": "2022-08-30T11:46:24.335Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551561"
+          },
+          "EvolveMenu_SrNo": "33334444",
+          "EvolveMenu_Name": "Credit Term",
+          "EvolveMenu_Url": "/common/pageList/EPGE0007",
+          "createdAt": {
+            "$date": "2022-06-09T14:27:34.410Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:27:34.410Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551562"
+          },
+          "EvolveMenu_SrNo": "55556666",
+          "EvolveMenu_Name": "Help Master",
+          "EvolveMenu_Url": "~/mdm/HelpMaster/list/",
+          "createdAt": {
+            "$date": "2022-06-09T14:27:43.401Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-09T14:27:43.401Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551563"
+          },
+          "EvolveMenu_SrNo": "1654856145",
+          "EvolveMenu_Name": "Company Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0006",
+          "createdAt": {
+            "$date": "2022-06-10T10:20:09.227Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-10T10:20:09.227Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551564"
+          },
+          "EvolveMenu_SrNo": "1654856241",
+          "EvolveMenu_Name": "Business Group Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0012",
+          "createdAt": {
+            "$date": "2022-06-10T10:21:25.133Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-10T10:21:25.133Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551565"
+          },
+          "EvolveMenu_SrNo": "1655444672",
+          "EvolveMenu_Name": "Attribute Master",
+          "EvolveMenu_Url": "~/mdm/AttributeMaster/list/",
+          "createdAt": {
+            "$date": "2022-06-17T05:44:42.414Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T05:44:42.414Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551566"
+          },
+          "EvolveMenu_SrNo": "1655447236",
+          "EvolveMenu_Name": "config Master",
+          "EvolveMenu_Url": "~/mdm/configMaster/list/",
+          "createdAt": {
+            "$date": "2022-06-17T06:27:31.428Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:27:31.428Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551567"
+          },
+          "EvolveMenu_SrNo": "1655447342",
+          "EvolveMenu_Name": "Currency Master",
+          "EvolveMenu_Url": "~/mdm/CurrencyMaster/list/",
+          "createdAt": {
+            "$date": "2022-06-17T06:29:17.683Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:29:17.683Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551568"
+          },
+          "EvolveMenu_SrNo": "1655447445",
+          "EvolveMenu_Name": "Message Master",
+          "EvolveMenu_Url": "~/mdm/EvolveMessage/list/",
+          "createdAt": {
+            "$date": "2022-06-17T06:30:56.480Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:30:56.480Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551569"
+          },
+          "EvolveMenu_SrNo": "1655447540",
+          "EvolveMenu_Name": "Integration Master",
+          "EvolveMenu_Url": "~/mdm/integration/list/",
+          "createdAt": {
+            "$date": "2022-06-17T06:32:34.517Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:32:34.517Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156a"
+          },
+          "EvolveMenu_SrNo": "1655447834",
+          "EvolveMenu_Name": "Project Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0030",
+          "createdAt": {
+            "$date": "2022-06-17T06:37:30.475Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:37:30.475Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156b"
+          },
+          "EvolveMenu_SrNo": "1655448237",
+          "EvolveMenu_Name": "Request Master",
+          "EvolveMenu_Url": "/mdm/RequestMaster/list",
+          "createdAt": {
+            "$date": "2022-06-17T06:44:07.788Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:44:07.788Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156c"
+          },
+          "EvolveMenu_SrNo": "1655448624",
+          "EvolveMenu_Name": "RequestType Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0001",
+          "createdAt": {
+            "$date": "2022-06-17T06:50:33.697Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:50:33.697Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156d"
+          },
+          "EvolveMenu_SrNo": "1655449029",
+          "EvolveMenu_Name": "RoundingMethod Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0033",
+          "createdAt": {
+            "$date": "2022-06-17T06:57:20.533Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:57:20.533Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156e"
+          },
+          "EvolveMenu_SrNo": "1655449116",
+          "EvolveMenu_Name": "Serial Master",
+          "EvolveMenu_Url": "~/mdm/serialMaster/list/",
+          "createdAt": {
+            "$date": "2022-06-17T06:58:55.699Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T06:58:55.699Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455156f"
+          },
+          "EvolveMenu_SrNo": "1655450306",
+          "EvolveMenu_Name": "Menu Master",
+          "EvolveMenu_Url": "/mdm/MenuMaster/menu",
+          "createdAt": {
+            "$date": "2022-06-17T07:18:45.673Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-17T07:18:45.673Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551570"
+          },
+          "EvolveMenu_SrNo": "1655734970378",
+          "EvolveMenu_Name": "Login User Details",
+          "EvolveMenu_Url": "~/mdm/LoginDetails/list/",
+          "createdAt": {
+            "$date": "2022-06-20T14:22:55.759Z"
+          },
+          "updatedAt": {
+            "$date": "2022-06-20T14:22:55.759Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551571"
+          },
+          "EvolveMenu_SrNo": "1657116262340",
+          "EvolveMenu_Name": "Page Designer",
+          "EvolveMenu_Url": "~/evolve/evolvePage/list/",
+          "createdAt": {
+            "$date": "2022-07-06T14:04:24.927Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-06T14:04:24.927Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551572"
+          },
+          "EvolveMenu_SrNo": "1657780726938",
+          "EvolveMenu_Name": "Category Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0076",
+          "createdAt": {
+            "$date": "2022-07-14T06:39:04.403Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-14T06:39:04.403Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551573"
+          },
+          "EvolveMenu_SrNo": "1657798321125",
+          "EvolveMenu_Name": "DS Token",
+          "EvolveMenu_Url": "~/mdm/dsToken/list/",
+          "createdAt": {
+            "$date": "2022-07-14T11:32:02.018Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-14T11:32:02.018Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551574"
+          },
+          "EvolveMenu_SrNo": "1657799235232",
+          "EvolveMenu_Name": "User Master",
+          "EvolveMenu_Url": "~/mdm/UserMaster/list/",
+          "createdAt": {
+            "$date": "2022-07-14T11:47:16.020Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-14T11:47:16.020Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551575"
+          },
+          "EvolveMenu_SrNo": "1657970135861",
+          "EvolveMenu_Name": "Tax Environment",
+          "EvolveMenu_Url": "/common/pageList/EPGE0039",
+          "createdAt": {
+            "$date": "2022-07-16T11:15:37.567Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-16T11:15:37.568Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551576"
+          },
+          "EvolveMenu_SrNo": "1657971493919",
+          "EvolveMenu_Name": "Sales Person",
+          "EvolveMenu_Url": "/common/pageList/EPGE0049",
+          "createdAt": {
+            "$date": "2022-07-16T11:38:17.119Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-16T11:38:17.119Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551577"
+          },
+          "EvolveMenu_SrNo": "1658467046453",
+          "EvolveMenu_Name": "Machine Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1671696087141",
+          "createdAt": {
+            "$date": "2022-07-22T05:17:45.695Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-22T05:17:45.695Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551578"
+          },
+          "EvolveMenu_SrNo": "1658467247289",
+          "EvolveMenu_Name": "Item Master",
+          "EvolveMenu_Url": "~/mdm/ItemMaster/list/",
+          "createdAt": {
+            "$date": "2022-07-22T05:20:48.508Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-22T05:20:48.508Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551579"
+          },
+          "EvolveMenu_SrNo": "1658811441512",
+          "EvolveMenu_Name": "Tool Master",
+          "EvolveMenu_Url": "~/mdm/ToolMaster_MT/list/",
+          "createdAt": {
+            "$date": "2022-07-26T04:57:29.838Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T04:57:29.839Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157a"
+          },
+          "EvolveMenu_SrNo": "1658813817134",
+          "EvolveMenu_Name": "EINV Document",
+          "EvolveMenu_Url": "/mdm/EINVDoc/list",
+          "createdAt": {
+            "$date": "2022-07-26T05:37:19.633Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T05:37:19.634Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157b"
+          },
+          "EvolveMenu_SrNo": "1658812094867",
+          "EvolveMenu_Name": "ItemSite Tool Link",
+          "EvolveMenu_Url": "~/mdm/ItemSiteToolLink/list/",
+          "createdAt": {
+            "$date": "2022-07-26T05:08:17.436Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T05:08:17.436Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157c"
+          },
+          "EvolveMenu_SrNo": "1658813952511",
+          "EvolveMenu_Name": "MachineTool Link",
+          "EvolveMenu_Url": "~/mdm/MachineToolLink/list/",
+          "createdAt": {
+            "$date": "2022-07-26T05:39:14.906Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T05:39:14.906Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157d"
+          },
+          "EvolveMenu_SrNo": "1658814507324",
+          "EvolveMenu_Name": "Tool Inspection",
+          "EvolveMenu_Url": "~/mdm/ToolQuality_MT/options/",
+          "createdAt": {
+            "$date": "2022-07-26T05:48:29.954Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T05:48:29.954Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157e"
+          },
+          "EvolveMenu_SrNo": "1658815193913",
+          "EvolveMenu_Name": "Tool Transfer",
+          "EvolveMenu_Url": "~/mdm/ToolTransfer_MT/options/",
+          "createdAt": {
+            "$date": "2022-07-26T05:59:55.913Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-26T05:59:55.913Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455157f"
+          },
+          "EvolveMenu_SrNo": "1658985566485",
+          "EvolveMenu_Name": "IO List",
+          "EvolveMenu_Url": "~/mdm/IoMaster/list/db",
+          "createdAt": {
+            "$date": "2022-07-28T05:19:27.802Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-28T05:19:27.802Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551580"
+          },
+          "EvolveMenu_SrNo": "1658987214804",
+          "EvolveMenu_Name": "IO Quee List",
+          "EvolveMenu_Url": "~/mdm/IoMaster/list/ioQuee",
+          "createdAt": {
+            "$date": "2022-07-28T05:46:56.325Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-28T05:46:56.325Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551581"
+          },
+          "EvolveMenu_SrNo": "1659070467000",
+          "EvolveMenu_Name": "Unit Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0060",
+          "createdAt": {
+            "$date": "2022-07-29T04:55:21.643Z"
+          },
+          "updatedAt": {
+            "$date": "2022-07-29T04:55:21.643Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551582"
+          },
+          "EvolveMenu_SrNo": "1660127159627",
+          "EvolveMenu_Name": "Item Group Master",
+          "EvolveMenu_Url": "~/mdm/ItemGroup/list/",
+          "createdAt": {
+            "$date": "2022-08-10T10:26:02.436Z"
+          },
+          "updatedAt": {
+            "$date": "2022-08-10T10:26:02.436Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551583"
+          },
+          "EvolveMenu_SrNo": "1660129704019",
+          "EvolveMenu_Name": "Role Master",
+          "EvolveMenu_Url": "~/mdm/RoleMaster/list/",
+          "createdAt": {
+            "$date": "2022-08-10T11:08:25.959Z"
+          },
+          "updatedAt": {
+            "$date": "2022-08-10T11:08:25.959Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551584"
+          },
+          "EvolveMenu_SrNo": "1662096244218",
+          "EvolveMenu_Name": "License Master",
+          "EvolveMenu_Url": "~/mdm/advanceLicenseModule/License/list/",
+          "createdAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551585"
+          },
+          "EvolveMenu_SrNo": "1662096269524",
+          "EvolveMenu_Name": "License Item Group Master",
+          "EvolveMenu_Url": "~/mdm/advanceLicenseModule/LicenseItemGroupList/list/",
+          "createdAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551586"
+          },
+          "EvolveMenu_SrNo": "1662096287256",
+          "EvolveMenu_Name": "Bill Of Entry Master",
+          "EvolveMenu_Url": "~/mdm/advanceLicenseModule/billOfEntry/list/",
+          "createdAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T05:24:50.463Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551587"
+          },
+          "EvolveMenu_SrNo": "1662984694998",
+          "EvolveMenu_Name": "QC Template",
+          "EvolveMenu_Url": "/eSmartFactory/qcTemplate_MT/list/",
+          "createdAt": {
+            "$date": "2022-09-12T12:24:59.430Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-12T12:24:59.430Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551588"
+          },
+          "EvolveMenu_SrNo": "1662097871894",
+          "EvolveMenu_Name": "Printer Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0072",
+          "createdAt": {
+            "$date": "2022-09-02T05:51:12.735Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T05:51:12.735Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551589"
+          },
+          "EvolveMenu_SrNo": "1662984931376",
+          "EvolveMenu_Name": "HSN Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0079",
+          "createdAt": {
+            "$date": "2022-09-12T12:24:59.431Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-12T12:24:59.431Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158a"
+          },
+          "EvolveMenu_SrNo": "1662099872311",
+          "EvolveMenu_Name": "Print Action Link Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE0073",
+          "createdAt": {
+            "$date": "2022-09-02T06:24:32.563Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T06:24:32.563Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158b"
+          },
+          "EvolveMenu_SrNo": "1662102175757",
+          "EvolveMenu_Name": "Print Queue List",
+          "EvolveMenu_Url": "~/mdm/printDetails/list/",
+          "createdAt": {
+            "$date": "2022-09-02T07:02:57.192Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-02T07:02:57.192Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158c"
+          },
+          "EvolveMenu_SrNo": "1662441228615",
+          "EvolveMenu_Name": "Attribute Template Master",
+          "EvolveMenu_Url": "~/mdm/AttributeTemplateMaster/list/",
+          "createdAt": {
+            "$date": "2022-09-06T05:13:56.491Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-06T05:13:56.492Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158d"
+          },
+          "EvolveMenu_SrNo": "1663138038649",
+          "EvolveMenu_Name": "Connection List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0085",
+          "createdAt": {
+            "$date": "2022-09-14T06:47:20.619Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T06:47:20.619Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158e"
+          },
+          "EvolveMenu_SrNo": "1663138489072",
+          "EvolveMenu_Name": "Department Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1679546769180",
+          "createdAt": {
+            "$date": "2022-09-14T06:54:49.524Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T06:54:49.524Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455158f"
+          },
+          "EvolveMenu_SrNo": "1663139201632",
+          "EvolveMenu_Name": "Favourite List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0017",
+          "createdAt": {
+            "$date": "2022-09-14T07:06:43.215Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T07:06:43.215Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551590"
+          },
+          "EvolveMenu_SrNo": "1663140058763",
+          "EvolveMenu_Name": "Product Colour List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0093",
+          "createdAt": {
+            "$date": "2022-09-14T07:20:59.599Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T07:20:59.599Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551591"
+          },
+          "EvolveMenu_SrNo": "1663140247101",
+          "EvolveMenu_Name": "Product Type List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0094",
+          "createdAt": {
+            "$date": "2022-09-14T07:24:08.182Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T07:24:08.182Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551592"
+          },
+          "EvolveMenu_SrNo": "1663145994151",
+          "EvolveMenu_Name": "Shift List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0098",
+          "createdAt": {
+            "$date": "2022-09-14T08:59:55.272Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T08:59:55.272Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551593"
+          },
+          "EvolveMenu_SrNo": "1663146327485",
+          "EvolveMenu_Name": "UomConv List",
+          "EvolveMenu_Url": "/common/pageList/EPGE0099",
+          "createdAt": {
+            "$date": "2022-09-14T09:05:27.430Z"
+          },
+          "updatedAt": {
+            "$date": "2022-09-14T09:05:27.430Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551594"
+          },
+          "EvolveMenu_SrNo": "1664801563232",
+          "EvolveMenu_Name": "IO Template Master",
+          "EvolveMenu_Url": "~/mdm/ioTemplate/list/",
+          "createdAt": {
+            "$date": "2022-10-03T12:53:43.098Z"
+          },
+          "updatedAt": {
+            "$date": "2022-10-03T12:53:43.098Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551595"
+          },
+          "EvolveMenu_SrNo": "1665048418806",
+          "EvolveMenu_Name": "Terms Conditions",
+          "EvolveMenu_Url": "~/mdm/TermsConditions/list/",
+          "createdAt": {
+            "$date": "2022-10-06T09:27:05.242Z"
+          },
+          "updatedAt": {
+            "$date": "2022-10-06T09:27:05.242Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551596"
+          },
+          "EvolveMenu_SrNo": "1665053494742",
+          "EvolveMenu_Name": "print Label List",
+          "EvolveMenu_Url": "/mdm/printLabelMaster/list/",
+          "createdAt": {
+            "$date": "2022-10-06T10:51:36.138Z"
+          },
+          "updatedAt": {
+            "$date": "2022-10-06T10:51:36.138Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551597"
+          },
+          "EvolveMenu_SrNo": "1665469859321",
+          "EvolveMenu_Name": "Connection Master",
+          "EvolveMenu_Url": "/mdm/ConnectionMaster/list",
+          "createdAt": {
+            "$date": "2022-10-11T06:31:00.931Z"
+          },
+          "updatedAt": {
+            "$date": "2022-10-11T06:31:00.932Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551598"
+          },
+          "EvolveMenu_SrNo": "1667284565189",
+          "EvolveMenu_Name": "Item Site Tool Group Link",
+          "EvolveMenu_Url": "~/mdm/ItemsiteToolGroupLink/list/",
+          "createdAt": {
+            "$date": "2022-11-01T06:36:07.957Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-01T06:36:07.958Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed4551599"
+          },
+          "EvolveMenu_SrNo": "1668584257676",
+          "EvolveMenu_Name": "Vassel Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1668589643348",
+          "createdAt": {
+            "$date": "2022-11-16T07:37:39.371Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-16T07:37:39.371Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159a"
+          },
+          "EvolveMenu_SrNo": "1669096498087",
+          "EvolveMenu_Name": "Reason Master",
+          "EvolveMenu_Url": "/mdm/ReasonMaster/list",
+          "createdAt": {
+            "$date": "2022-11-22T05:54:59.026Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-22T05:54:59.026Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159b"
+          },
+          "EvolveMenu_SrNo": "1669181680060",
+          "EvolveMenu_Name": "Address List",
+          "EvolveMenu_Url": "/common/pageList/1667893053786",
+          "createdAt": {
+            "$date": "2022-11-23T05:34:41.613Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-23T05:34:41.613Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159c"
+          },
+          "EvolveMenu_SrNo": "1669194455317",
+          "EvolveMenu_Name": "Bulk Upload List",
+          "EvolveMenu_Url": "~/mdm/bulkUploadMaster/list/",
+          "createdAt": {
+            "$date": "2022-11-23T09:07:37.219Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-23T09:07:37.219Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159d"
+          },
+          "EvolveMenu_SrNo": "1669202897526",
+          "EvolveMenu_Name": "Instruction Master",
+          "EvolveMenu_Url": "~/mdm/instructionMaster/list/",
+          "createdAt": {
+            "$date": "2022-11-23T11:28:18.923Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-23T11:28:18.923Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159e"
+          },
+          "EvolveMenu_SrNo": "1669799175000",
+          "EvolveMenu_Name": "upload master",
+          "EvolveMenu_Url": "~/mdm/bulkUploadMaster/upload/",
+          "createdAt": {
+            "$date": "2022-11-30T09:06:16.304Z"
+          },
+          "updatedAt": {
+            "$date": "2022-11-30T09:06:16.304Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed455159f"
+          },
+          "EvolveMenu_SrNo": "1670481765750",
+          "EvolveMenu_Name": "Tool Inspection Template",
+          "EvolveMenu_Url": "~/mdm/toolInspectionTemplate_MT/list/",
+          "createdAt": {
+            "$date": "2022-12-08T06:42:47.051Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-08T06:42:47.051Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a0"
+          },
+          "EvolveMenu_SrNo": "1670850917862",
+          "EvolveMenu_Name": "Transporter Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1670850874060",
+          "createdAt": {
+            "$date": "2022-12-12T13:15:19.517Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-12T13:15:19.517Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a1"
+          },
+          "EvolveMenu_SrNo": "1671083542924",
+          "EvolveMenu_Name": "Clone Job Master",
+          "EvolveMenu_Url": "~/mdm/CroneJobMaster/list/",
+          "createdAt": {
+            "$date": "2022-12-15T05:52:24.184Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-15T05:52:24.184Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a2"
+          },
+          "EvolveMenu_SrNo": "1671185846637",
+          "EvolveMenu_Name": "Email Template Master",
+          "EvolveMenu_Url": "~/common/emailTemplate/list/",
+          "createdAt": {
+            "$date": "2022-12-16T10:17:29.237Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-16T10:17:29.237Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a3"
+          },
+          "EvolveMenu_SrNo": "1672138593681",
+          "EvolveMenu_Name": "Inventory Sampling Group",
+          "EvolveMenu_Url": "~/mdm/InventorySamplingGroup/list/",
+          "createdAt": {
+            "$date": "2022-12-27T10:56:50.972Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-27T10:56:50.973Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a4"
+          },
+          "EvolveMenu_SrNo": "1672297253398",
+          "EvolveMenu_Name": "Active Tool",
+          "EvolveMenu_Url": "~/mdm/ToolMaster_MT/list/true",
+          "createdAt": {
+            "$date": "2022-12-29T07:01:06.906Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-29T07:01:06.906Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a5"
+          },
+          "EvolveMenu_SrNo": "1672297265376",
+          "EvolveMenu_Name": "DeActive Tool",
+          "EvolveMenu_Url": "~/mdm/ToolMaster_MT/list/false",
+          "createdAt": {
+            "$date": "2022-12-29T07:01:06.906Z"
+          },
+          "updatedAt": {
+            "$date": "2022-12-29T07:01:06.906Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a6"
+          },
+          "EvolveMenu_SrNo": "1674895059741",
+          "EvolveMenu_Name": "Item to QC Templet Link",
+          "EvolveMenu_Url": "~/mdm/ItemMaster/qcTempLink/",
+          "createdAt": {
+            "$date": "2023-01-28T08:37:41.550Z"
+          },
+          "updatedAt": {
+            "$date": "2023-01-28T08:37:41.550Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a7"
+          },
+          "EvolveMenu_SrNo": "1674898739018",
+          "EvolveMenu_Name": "QC ITEM",
+          "EvolveMenu_Url": "~/mdm/ItemMaster/update/",
+          "createdAt": {
+            "$date": "2023-01-28T09:39:11.417Z"
+          },
+          "updatedAt": {
+            "$date": "2023-01-28T09:39:11.417Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a8"
+          },
+          "EvolveMenu_SrNo": "1675150802820",
+          "EvolveMenu_Name": "Gst Details",
+          "EvolveMenu_Url": "/common/pageList/EPGE1678440274330",
+          "createdAt": {
+            "$date": "2023-01-31T07:40:46.296Z"
+          },
+          "updatedAt": {
+            "$date": "2023-01-31T07:40:46.297Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515a9"
+          },
+          "EvolveMenu_SrNo": "1675150831771",
+          "EvolveMenu_Name": "Gsp Api List",
+          "EvolveMenu_Url": "/common/pageList/EPGE1673438709148",
+          "createdAt": {
+            "$date": "2023-01-31T07:40:46.297Z"
+          },
+          "updatedAt": {
+            "$date": "2023-01-31T07:40:46.297Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515aa"
+          },
+          "EvolveMenu_SrNo": "1675230699492",
+          "EvolveMenu_Name": "Employee Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1674583240989",
+          "createdAt": {
+            "$date": "2023-02-01T05:51:40.788Z"
+          },
+          "updatedAt": {
+            "$date": "2023-02-01T05:51:40.789Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515ab"
+          },
+          "EvolveMenu_SrNo": "1675496933554",
+          "EvolveMenu_Name": "Reason Type Master",
+          "EvolveMenu_Url": "/common/pageList/EPGE1671018718939",
+          "createdAt": {
+            "$date": "2023-02-04T07:48:54.314Z"
+          },
+          "updatedAt": {
+            "$date": "2023-02-04T07:48:54.314Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515ac"
+          },
+          "EvolveMenu_SrNo": "1678700926078",
+          "EvolveMenu_Name": "Price List",
+          "EvolveMenu_Url": "/common/pageList/EPGE1678700898633",
+          "createdAt": {
+            "$date": "2023-03-13T09:48:47.345Z"
+          },
+          "updatedAt": {
+            "$date": "2023-03-13T09:48:47.345Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515ad"
+          },
+          "EvolveMenu_SrNo": "1679130618883",
+          "EvolveMenu_Name": "QC Order Page",
+          "EvolveMenu_Url": "/common/pageList/EPGE1679130549047",
+          "createdAt": {
+            "$date": "2023-03-18T09:10:31.391Z"
+          },
+          "updatedAt": {
+            "$date": "2023-03-18T09:10:31.391Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515ae"
+          },
+          "EvolveMenu_SrNo": "1679385957789",
+          "EvolveMenu_Name": "Gaze Master",
+          "EvolveMenu_Url": "~/mdm/ToolMaster_MT/list/Gauge",
+          "createdAt": {
+            "$date": "2023-03-21T08:07:04.374Z"
+          },
+          "updatedAt": {
+            "$date": "2023-03-21T08:07:04.375Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515af"
+          },
+          "EvolveMenu_SrNo": "1679386022806",
+          "EvolveMenu_Name": "Instrument Master",
+          "EvolveMenu_Url": "~/mdm/ToolMaster_MT/list/INSTRUMENT",
+          "createdAt": {
+            "$date": "2023-03-21T08:07:04.375Z"
+          },
+          "updatedAt": {
+            "$date": "2023-03-21T08:07:04.375Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b0"
+          },
+          "EvolveMenu_SrNo": "1680858255991",
+          "EvolveMenu_Name": "Inventory ListBy Filter",
+          "EvolveMenu_Url": "~/eWms/inventoryListByFilter/list/",
+          "createdAt": {
+            "$date": "2023-04-07T09:04:22.078Z"
+          },
+          "updatedAt": {
+            "$date": "2023-04-07T09:04:22.078Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b1"
+          },
+          "EvolveMenu_SrNo": "1680943029465",
+          "EvolveMenu_Name": "Inventory ListBy Page",
+          "EvolveMenu_Url": "/common/pageList/EPGE0091",
+          "createdAt": {
+            "$date": "2023-04-08T08:37:14.014Z"
+          },
+          "updatedAt": {
+            "$date": "2023-04-08T08:37:14.014Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b2"
+          },
+          "EvolveMenu_SrNo": "1681906277165",
+          "EvolveMenu_Name": "QC Temp Config",
+          "EvolveMenu_Url": "~/mdm/qcTemplateConfig/list/",
+          "createdAt": {
+            "$date": "2023-04-19T12:11:21.954Z"
+          },
+          "updatedAt": {
+            "$date": "2023-04-19T12:11:21.954Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b3"
+          },
+          "EvolveMenu_SrNo": "1681924903372",
+          "EvolveMenu_Name": "Product Structure",
+          "EvolveMenu_Url": "~/mdm/productStructure/list/",
+          "createdAt": {
+            "$date": "2023-04-19T17:21:47.830Z"
+          },
+          "updatedAt": {
+            "$date": "2023-04-19T17:21:47.830Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b4"
+          },
+          "EvolveMenu_SrNo": "1683092585399",
+          "EvolveMenu_Name": "Substitute Item",
+          "EvolveMenu_Url": "/common/pageList/EPGE1683092547644",
+          "createdAt": {
+            "$date": "2023-05-03T05:43:06.747Z"
+          },
+          "updatedAt": {
+            "$date": "2023-05-03T05:43:06.747Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b5"
+          },
+          "EvolveMenu_SrNo": "1686737946270",
+          "EvolveMenu_Name": "Item Route",
+          "EvolveMenu_Url": "~/mdm/ItemRoute/list/",
+          "createdAt": {
+            "$date": "2023-06-14T10:19:07.354Z"
+          },
+          "updatedAt": {
+            "$date": "2023-06-14T10:19:07.354Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b6"
+          },
+          "EvolveMenu_SrNo": "1687331826832",
+          "EvolveMenu_Name": "Update Master",
+          "EvolveMenu_Url": "~/mdm/updateMaster/list/",
+          "createdAt": {
+            "$date": "2023-06-21T07:17:22.397Z"
+          },
+          "updatedAt": {
+            "$date": "2023-06-21T07:17:22.398Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b7"
+          },
+          "EvolveMenu_SrNo": "1694603269416",
+          "EvolveMenu_Name": "BOT Master",
+          "EvolveMenu_Url": "~/mdm/botMaster/list/",
+          "createdAt": {
+            "$date": "2023-09-13T11:08:27.503Z"
+          },
+          "updatedAt": {
+            "$date": "2023-09-13T11:08:27.503Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b8"
+          },
+          "EvolveMenu_SrNo": "1694603306841",
+          "EvolveMenu_Name": "BOT IO Master",
+          "EvolveMenu_Url": "~/mdm/botIOMaster/list/",
+          "createdAt": {
+            "$date": "2023-09-13T11:08:27.503Z"
+          },
+          "updatedAt": {
+            "$date": "2023-09-13T11:08:27.503Z"
+          },
+          "EvolveSubMenu": []
+        },
+        {
+          "EvolveMenu_IsActive": true,
+          "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+          "createdUser": 0,
+          "updatedUser": 0,
+          "_id": {
+            "$oid": "650bf23d9cd70c5ed45515b9"
+          },
+          "EvolveMenu_SrNo": "1695281721805",
+          "EvolveMenu_Name": "BOT Trigger Master",
+          "EvolveMenu_Url": "~/mdm/botTriggerMaster/list/",
+          "EvolveSubMenu": [],
+          "createdAt": {
+            "$date": "2023-09-21T07:35:25.896Z"
+          },
+          "updatedAt": {
+            "$date": "2023-09-21T07:35:25.897Z"
+          }
+        }
+      ]
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ba"
+      },
+      "EvolveMenu_SrNo": "1662985412399",
+      "EvolveMenu_Name": "Design Master",
+      "EvolveMenu_Url": "~/mdm/DesignMaster/list/",
+      "createdAt": {
+        "$date": "2022-09-12T12:24:59.432Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-12T12:24:59.432Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515bb"
+      },
+      "EvolveMenu_SrNo": "1657968210503",
+      "EvolveMenu_Name": "Customer Master",
+      "EvolveMenu_Url": "~/mdm/CustomerMaster/list/",
+      "createdAt": {
+        "$date": "2022-07-16T10:44:38.595Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-16T10:44:38.595Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515bc"
+      },
+      "EvolveMenu_SrNo": "1657968961247",
+      "EvolveMenu_Name": "Supplier Master",
+      "EvolveMenu_Url": "~/mdm/SupplierMaster/list/",
+      "createdAt": {
+        "$date": "2022-07-16T10:56:04.790Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-16T10:56:04.791Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515bd"
+      },
+      "EvolveMenu_SrNo": "1671188811360",
+      "EvolveMenu_Name": "Asn List",
+      "EvolveMenu_Url": "~/mdm/asnMaster/list/",
+      "createdAt": {
+        "$date": "2022-12-16T11:06:55.319Z"
+      },
+      "updatedAt": {
+        "$date": "2022-12-16T11:06:55.319Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515be"
+      },
+      "EvolveMenu_SrNo": "1674898746483",
+      "EvolveMenu_Name": "QC ITEM",
+      "EvolveMenu_Url": "~/mdm/ItemMaster/update/",
+      "createdAt": {
+        "$date": "2023-01-28T09:39:11.420Z"
+      },
+      "updatedAt": {
+        "$date": "2023-01-28T09:39:11.421Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23d9cd70c5ed45515c0"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-apps-box",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "EAC",
+  "EvolveApp_Name": "Admin Console",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c1"
+      },
+      "EvolveMenu_SrNo": "1661332661689",
+      "EvolveMenu_Name": "Log List",
+      "EvolveMenu_Url": "/mdm/LogReport/list",
+      "createdAt": {
+        "$date": "2022-08-24T09:17:44.320Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T09:17:44.320Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c2"
+      },
+      "EvolveMenu_SrNo": "1663137023447",
+      "EvolveMenu_Name": "Attendance LIST",
+      "EvolveMenu_Url": "/common/pageList/EPGE0083",
+      "createdAt": {
+        "$date": "2022-09-14T06:30:24.489Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-14T06:30:24.489Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23d9cd70c5ed45515c4"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-security",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "Approvals",
+  "EvolveApp_Name": "Approvals",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c5"
+      },
+      "EvolveMenu_SrNo": "1656419482247",
+      "EvolveMenu_Name": "Approval Matrix",
+      "EvolveMenu_Url": "~/eDoa/approvalMatrix/list/",
+      "createdAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c6"
+      },
+      "EvolveMenu_SrNo": "1656419501363",
+      "EvolveMenu_Name": "My Approvals",
+      "EvolveMenu_Url": "~/eDoa/MyApproval/list/",
+      "createdAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c7"
+      },
+      "EvolveMenu_SrNo": "1656419521327",
+      "EvolveMenu_Name": "Approval History",
+      "EvolveMenu_Url": "~/eDoa/approvalHistory/list/",
+      "createdAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-28T12:32:03.760Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c8"
+      },
+      "EvolveMenu_SrNo": "1663136184755",
+      "EvolveMenu_Name": "Approval Autority List",
+      "EvolveMenu_Url": "/common/pageList/EPGE0009",
+      "createdAt": {
+        "$date": "2022-09-14T06:16:26.910Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-14T06:16:26.910Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515c9"
+      },
+      "EvolveMenu_SrNo": "1663136503892",
+      "EvolveMenu_Name": "Approval Matrix List",
+      "EvolveMenu_Url": "/common/pageList/EPGE0082",
+      "createdAt": {
+        "$date": "2022-09-14T06:21:45.700Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-14T06:21:45.700Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23d9cd70c5ed45515cb"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-home-city",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "WMS",
+  "EvolveApp_Name": "WMS",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515cc"
+      },
+      "EvolveMenu_SrNo": "1655656653492",
+      "EvolveMenu_Name": "Indent",
+      "EvolveMenu_Url": "~/eWms/purchaseRequest/list/",
+      "createdAt": {
+        "$date": "2022-06-19T16:37:42.517Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-19T16:37:42.518Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515cd"
+      },
+      "EvolveMenu_SrNo": "1656594690667",
+      "EvolveMenu_Name": "Purchase Requisition",
+      "EvolveMenu_Url": "~/eWms/purchaseRequisition_MT/list/",
+      "createdAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ce"
+      },
+      "EvolveMenu_SrNo": "1656594712623",
+      "EvolveMenu_Name": "Purchase Order",
+      "EvolveMenu_Url": "~/eWms/purchaseOrder/list/",
+      "createdAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515cf"
+      },
+      "EvolveMenu_SrNo": "1656594728590",
+      "EvolveMenu_Name": "Purchase Order Type",
+      "EvolveMenu_Url": "/common/pageList/EPGE0029",
+      "createdAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "updatedAt": {
+        "$date": "2022-06-30T13:12:10.945Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d0"
+      },
+      "EvolveMenu_SrNo": "1661334711618",
+      "EvolveMenu_Name": "Rack View",
+      "EvolveMenu_Url": "~/eWms/rack/view/",
+      "createdAt": {
+        "$date": "2022-08-24T09:51:55.447Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T09:51:55.448Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d1"
+      },
+      "EvolveMenu_SrNo": "1661406555408",
+      "EvolveMenu_Name": "Purchase Order Receiving",
+      "EvolveMenu_Url": "~/eWms/purchaseOrderRecieve_MT/list/",
+      "createdAt": {
+        "$date": "2022-08-25T05:49:20.859Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-25T05:49:20.860Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d2"
+      },
+      "EvolveMenu_SrNo": "1667302337809",
+      "EvolveMenu_Name": "Tool Dashboard",
+      "EvolveMenu_Url": "~/eWms/toolDashboard/list/",
+      "createdAt": {
+        "$date": "2022-11-01T11:32:19.903Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-01T11:32:19.903Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d3"
+      },
+      "EvolveMenu_SrNo": "1667302396356",
+      "EvolveMenu_Name": "Tool Transaction Dashboard",
+      "EvolveMenu_Url": "~/eWms/toolTransactionDashboard/list/",
+      "createdAt": {
+        "$date": "2022-11-01T11:33:17.655Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-01T11:33:17.655Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d4"
+      },
+      "EvolveMenu_SrNo": "1667538473232",
+      "EvolveMenu_Name": "SubCon Shipment",
+      "EvolveMenu_Url": "~/eWms/subConShipmentByPO/list/",
+      "createdAt": {
+        "$date": "2022-11-04T05:07:55.927Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-04T05:07:55.927Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d5"
+      },
+      "EvolveMenu_SrNo": "1669096403679",
+      "EvolveMenu_Name": "Issue Unplanned",
+      "EvolveMenu_Url": "/eWms/issueUnplanned/list/",
+      "createdAt": {
+        "$date": "2022-11-22T05:53:51.326Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-22T05:53:51.326Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d6"
+      },
+      "EvolveMenu_SrNo": "1669096429997",
+      "EvolveMenu_Name": "Receipt Unplanned",
+      "EvolveMenu_Url": "/eWms/receiptUnplanned/list",
+      "createdAt": {
+        "$date": "2022-11-22T05:53:51.327Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-22T05:53:51.327Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d7"
+      },
+      "EvolveMenu_SrNo": "1669184327047",
+      "EvolveMenu_Name": "SO List",
+      "EvolveMenu_Url": "~/eWms/salesOrder/list/",
+      "createdAt": {
+        "$date": "2022-11-23T06:18:48.804Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-23T06:18:48.804Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d8"
+      },
+      "EvolveMenu_SrNo": "1669184864327",
+      "EvolveMenu_Name": "SalesOrder Picklist",
+      "EvolveMenu_Url": "~/eWms/soPickList/list/",
+      "createdAt": {
+        "$date": "2022-11-23T06:27:45.504Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-23T06:27:45.504Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515d9"
+      },
+      "EvolveMenu_SrNo": "1670834232184",
+      "EvolveMenu_Name": "RGP/NRGP Challan",
+      "EvolveMenu_Url": "/eWms/challan/list",
+      "createdAt": {
+        "$date": "2022-12-12T08:37:14.327Z"
+      },
+      "updatedAt": {
+        "$date": "2022-12-12T08:37:14.327Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515da"
+      },
+      "EvolveMenu_SrNo": "1671102938173",
+      "EvolveMenu_Name": "POR",
+      "EvolveMenu_Url": "~/eWms/PurchaseOrderRecieve/list/",
+      "createdAt": {
+        "$date": "2022-12-15T11:15:39.339Z"
+      },
+      "updatedAt": {
+        "$date": "2022-12-15T11:15:39.339Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515db"
+      },
+      "EvolveMenu_SrNo": "1672049227567",
+      "EvolveMenu_Name": "Purchase Return",
+      "EvolveMenu_Url": "~/eWms/purchaseReturn/list/",
+      "createdAt": {
+        "$date": "2022-12-26T10:07:11.832Z"
+      },
+      "updatedAt": {
+        "$date": "2022-12-26T10:07:11.833Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515dc"
+      },
+      "EvolveMenu_SrNo": "1672049639443",
+      "EvolveMenu_Name": "Purchasing Control",
+      "EvolveMenu_Url": "~/eWms/purchasingControl/list/",
+      "createdAt": {
+        "$date": "2022-12-26T10:14:02.275Z"
+      },
+      "updatedAt": {
+        "$date": "2022-12-26T10:14:02.275Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515dd"
+      },
+      "EvolveMenu_SrNo": "1674974771986",
+      "EvolveMenu_Name": "RGP Challan Receive",
+      "EvolveMenu_Url": "/eWms/challan/receiveChallan",
+      "createdAt": {
+        "$date": "2023-01-29T06:46:13.863Z"
+      },
+      "updatedAt": {
+        "$date": "2023-01-29T06:46:13.863Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515de"
+      },
+      "EvolveMenu_SrNo": "1677751949137",
+      "EvolveMenu_Name": "Customer Schedule List",
+      "EvolveMenu_Url": "~/eWms/customerSchedule/list/",
+      "createdAt": {
+        "$date": "2023-03-02T10:12:30.412Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-02T10:12:30.413Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515df"
+      },
+      "EvolveMenu_SrNo": "1677998126825",
+      "EvolveMenu_Name": "Inventory BulkUpload",
+      "EvolveMenu_Url": "~/eWms/inventoryBulkUpload/option/",
+      "createdAt": {
+        "$date": "2023-03-05T06:35:28.836Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-05T06:35:28.836Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e0"
+      },
+      "EvolveMenu_SrNo": "1678882027286",
+      "EvolveMenu_Name": "SO Line List",
+      "EvolveMenu_Url": "~/eWms/salesOrder/line/",
+      "createdAt": {
+        "$date": "2023-03-15T12:07:09.344Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-15T12:07:09.344Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e1"
+      },
+      "EvolveMenu_SrNo": "1678906821258",
+      "EvolveMenu_Name": "Shipment Plan",
+      "EvolveMenu_Url": "~/eWms/shipmentPlan/options/",
+      "createdAt": {
+        "$date": "2023-03-15T19:00:23.268Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-15T19:00:23.268Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e2"
+      },
+      "EvolveMenu_SrNo": "1679115501775",
+      "EvolveMenu_Name": "DO List",
+      "EvolveMenu_Url": "~/eWms/distributionOrder/list/",
+      "createdAt": {
+        "$date": "2023-03-18T04:58:23.122Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-18T04:58:23.122Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e3"
+      },
+      "EvolveMenu_SrNo": "1679115663792",
+      "EvolveMenu_Name": "DO Transition List",
+      "EvolveMenu_Url": "~/eWms/doTransition/list/",
+      "createdAt": {
+        "$date": "2023-03-18T05:01:05.508Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-18T05:01:05.508Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e4"
+      },
+      "EvolveMenu_SrNo": "1679400525445",
+      "EvolveMenu_Name": "Mahindra SO Shipment",
+      "EvolveMenu_Url": "~/eWms/salesOrderShipment_MT/list/",
+      "createdAt": {
+        "$date": "2023-03-21T12:08:57.657Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-21T12:08:57.657Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e5"
+      },
+      "EvolveMenu_SrNo": "1679400634174",
+      "EvolveMenu_Name": "SO Shipment New",
+      "EvolveMenu_Url": "~/eWms/soShipmentByPlan/list/",
+      "createdAt": {
+        "$date": "2023-03-21T12:10:37.545Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-21T12:10:37.545Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e6"
+      },
+      "EvolveMenu_SrNo": "1679567611790",
+      "EvolveMenu_Name": "Customer Schedule Create",
+      "EvolveMenu_Url": "~/eWms/customerSchedule/option/",
+      "createdAt": {
+        "$date": "2023-03-23T10:33:45.974Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-23T10:33:45.974Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e7"
+      },
+      "EvolveMenu_SrNo": "1683267179713",
+      "EvolveMenu_Name": "Invoice Cancel",
+      "EvolveMenu_Url": "~/eWms/salesOrderShipperUnConfirm/list/",
+      "createdAt": {
+        "$date": "2023-05-05T06:13:33.360Z"
+      },
+      "updatedAt": {
+        "$date": "2023-05-05T06:13:33.360Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e8"
+      },
+      "EvolveMenu_SrNo": "1685006243174",
+      "EvolveMenu_Name": "Sales Return",
+      "EvolveMenu_Url": "~/eWms/salesReturn/list/",
+      "createdAt": {
+        "$date": "2023-05-25T09:17:25.936Z"
+      },
+      "updatedAt": {
+        "$date": "2023-05-25T09:17:25.936Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515e9"
+      },
+      "EvolveMenu_SrNo": "1686033827176",
+      "EvolveMenu_Name": "Consignment List",
+      "EvolveMenu_Url": "~/eWms/consignmentPacking_ByPallet/list/",
+      "createdAt": {
+        "$date": "2023-06-06T06:43:50.089Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-06T06:43:50.089Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ea"
+      },
+      "EvolveMenu_SrNo": "1686041705410",
+      "EvolveMenu_Name": "Create Shipment Plan",
+      "EvolveMenu_Url": "~/eWms/salesOrderShipment_Plan/list/",
+      "createdAt": {
+        "$date": "2023-06-06T08:55:07.643Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-06T08:55:07.643Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515eb"
+      },
+      "EvolveMenu_SrNo": "1686137844966",
+      "EvolveMenu_Name": "Sales Return V2",
+      "EvolveMenu_Url": "~/eWms/salesReturnV2/list/",
+      "createdAt": {
+        "$date": "2023-06-07T11:37:26.485Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-07T11:37:26.485Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ec"
+      },
+      "EvolveMenu_SrNo": "1687157019377",
+      "EvolveMenu_Name": "Distribution Order",
+      "EvolveMenu_Url": "~/eWms/distributionOrder/list/",
+      "createdAt": {
+        "$date": "2023-06-19T06:43:50.074Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-19T06:43:50.074Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ed"
+      },
+      "EvolveMenu_SrNo": "1687157028633",
+      "EvolveMenu_Name": "Distribution Order Line",
+      "EvolveMenu_Url": "~/eWms/distributionOrder/line/",
+      "createdAt": {
+        "$date": "2023-06-19T06:43:50.075Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-19T06:43:50.075Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ee"
+      },
+      "EvolveMenu_SrNo": "1688711228132",
+      "EvolveMenu_Name": "Challan Report",
+      "EvolveMenu_Url": "~/eWms/ChallanReport/list/",
+      "createdAt": {
+        "$date": "2023-07-07T06:27:09.432Z"
+      },
+      "updatedAt": {
+        "$date": "2023-07-07T06:27:09.432Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515ef"
+      },
+      "EvolveMenu_SrNo": "1690267021558",
+      "EvolveMenu_Name": "Customer Schedule Report",
+      "EvolveMenu_Url": "~/eWms/custScheduleReport/list/",
+      "createdAt": {
+        "$date": "2023-07-25T06:37:02.781Z"
+      },
+      "updatedAt": {
+        "$date": "2023-07-25T06:37:02.782Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23d9cd70c5ed45515f0"
+      },
+      "EvolveMenu_SrNo": "1693314472543",
+      "EvolveMenu_Name": "Proof of Delivery",
+      "EvolveMenu_Url": "~/eWms/proofOfDelivery/list/",
+      "createdAt": {
+        "$date": "2023-08-29T13:07:53.630Z"
+      },
+      "updatedAt": {
+        "$date": "2023-08-29T13:07:53.630Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23e9cd70c5ed45515f2"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-factory",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "Smart Factory",
+  "EvolveApp_Name": "Smart Factory",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f3"
+      },
+      "EvolveMenu_SrNo": "1661334678386",
+      "EvolveMenu_Name": "Bingo Board",
+      "EvolveMenu_Url": "~/eSmartFactory/bingoBoard/",
+      "createdAt": {
+        "$date": "2022-08-24T09:51:55.456Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T09:51:55.456Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f4"
+      },
+      "EvolveMenu_SrNo": "1665140457123",
+      "EvolveMenu_Name": "QC Order WO",
+      "EvolveMenu_Url": "~/eSmartFactory/qcOrderMultiplePatameter/list/WO",
+      "createdAt": {
+        "$date": "2022-10-07T11:00:58.937Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-07T11:00:58.938Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f5"
+      },
+      "EvolveMenu_SrNo": "1667536285424",
+      "EvolveMenu_Name": "Work Order",
+      "EvolveMenu_Url": "~/eSmartFactory/workOrderDetail/list/open",
+      "createdAt": {
+        "$date": "2022-11-04T04:31:27.431Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-04T04:31:27.431Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f6"
+      },
+      "EvolveMenu_SrNo": "1667901010840",
+      "EvolveMenu_Name": "Inventory List",
+      "EvolveMenu_Url": "~/eSmartFactory/inventoryList/list/",
+      "createdAt": {
+        "$date": "2022-11-08T09:51:02.936Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-08T09:51:02.936Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f7"
+      },
+      "EvolveMenu_SrNo": "1668000061361",
+      "EvolveMenu_Name": "Inventory Transaction",
+      "EvolveMenu_Url": "/eSmartFactory/InventoryTrans/list/",
+      "createdAt": {
+        "$date": "2022-11-09T13:21:02.920Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-09T13:21:02.920Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f8"
+      },
+      "EvolveMenu_SrNo": "1669037863617",
+      "EvolveMenu_Name": "Inventory Movement",
+      "EvolveMenu_Url": "/eSmartFactory/InventoryMovement/list/",
+      "createdAt": {
+        "$date": "2022-11-21T13:37:44.532Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-21T13:37:44.532Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515f9"
+      },
+      "EvolveMenu_SrNo": "1669115732890",
+      "EvolveMenu_Name": "WorkOrder Picklist",
+      "EvolveMenu_Url": "/eSmartFactory/workOrderPickList/list/",
+      "createdAt": {
+        "$date": "2022-11-22T11:15:34.165Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-22T11:15:34.165Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515fa"
+      },
+      "EvolveMenu_SrNo": "1669120775191",
+      "EvolveMenu_Name": "Pending QC Order",
+      "EvolveMenu_Url": "~/eSmartFactory/qcOrderMultiplePatameter/list/PO-U",
+      "createdAt": {
+        "$date": "2022-11-22T12:39:36.212Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-22T12:39:36.212Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515fb"
+      },
+      "EvolveMenu_SrNo": "1669200697218",
+      "EvolveMenu_Name": "Machine Timesheet",
+      "EvolveMenu_Url": "~/eSmartFactory/machineTimesheet/options/",
+      "createdAt": {
+        "$date": "2022-11-23T10:51:38.804Z"
+      },
+      "updatedAt": {
+        "$date": "2022-11-23T10:51:38.804Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515fc"
+      },
+      "EvolveMenu_SrNo": "1674537065086",
+      "EvolveMenu_Name": "Work Order Booking",
+      "EvolveMenu_Url": "~/eSmartFactory/workOrderBooking_lean/options/",
+      "createdAt": {
+        "$date": "2023-01-24T05:11:10.550Z"
+      },
+      "updatedAt": {
+        "$date": "2023-01-24T05:11:10.551Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515fd"
+      },
+      "EvolveMenu_SrNo": "1674828318626",
+      "EvolveMenu_Name": "QC Order PO gen",
+      "EvolveMenu_Url": "~/eSmartFactory/qcOrder/list/PO",
+      "createdAt": {
+        "$date": "2023-01-27T14:05:20.247Z"
+      },
+      "updatedAt": {
+        "$date": "2023-01-27T14:05:20.247Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515fe"
+      },
+      "EvolveMenu_SrNo": "1675672732807",
+      "EvolveMenu_Name": "operational Activity",
+      "EvolveMenu_Url": "~/eSmartFactory/operationalActivity_MT/list/",
+      "createdAt": {
+        "$date": "2023-02-06T08:39:25.171Z"
+      },
+      "updatedAt": {
+        "$date": "2023-02-06T08:39:25.171Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed45515ff"
+      },
+      "EvolveMenu_SrNo": "1675672764010",
+      "EvolveMenu_Name": "wo Operation Inv Detail",
+      "EvolveMenu_Url": "~/eSmartFactory/woOperationInvDetail/list/",
+      "createdAt": {
+        "$date": "2023-02-06T08:39:25.171Z"
+      },
+      "updatedAt": {
+        "$date": "2023-02-06T08:39:25.171Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551600"
+      },
+      "EvolveMenu_SrNo": "1675679473888",
+      "EvolveMenu_Name": "Blank Cutting Booking",
+      "EvolveMenu_Url": "~/eSmartFactory/blankcuttingWorkOrderBooking_MT/options/",
+      "createdAt": {
+        "$date": "2023-02-06T10:31:15.842Z"
+      },
+      "updatedAt": {
+        "$date": "2023-02-06T10:31:15.842Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551601"
+      },
+      "EvolveMenu_SrNo": "1678253192386",
+      "EvolveMenu_Name": "Work Order Create",
+      "EvolveMenu_Url": "~/eSmartFactory/soToWo/options/",
+      "createdAt": {
+        "$date": "2023-03-08T05:26:36.070Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-08T05:26:36.070Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551602"
+      },
+      "EvolveMenu_SrNo": "1679304385587",
+      "EvolveMenu_Name": "Submited QC Order",
+      "EvolveMenu_Url": "~/eSmartFactory/qcOrderMultiplePatameter/list/PO-S",
+      "createdAt": {
+        "$date": "2023-03-20T09:26:28.719Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-20T09:26:28.720Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551603"
+      },
+      "EvolveMenu_SrNo": "1679306683599",
+      "EvolveMenu_Name": "Completed QC Order",
+      "EvolveMenu_Url": "~/eSmartFactory/qcOrderMultiplePatameter/list/PO-C",
+      "createdAt": {
+        "$date": "2023-03-20T10:06:01.687Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-20T10:06:01.687Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551604"
+      },
+      "EvolveMenu_SrNo": "1679645797979",
+      "EvolveMenu_Name": "Inventory Movement With Lot change",
+      "EvolveMenu_Url": "~/eSmartFactory/InvMovWithLotRef/list/",
+      "createdAt": {
+        "$date": "2023-03-24T08:17:02.253Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-24T08:17:02.253Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551605"
+      },
+      "EvolveMenu_SrNo": "1679645821050",
+      "EvolveMenu_Name": "Inventory Movement With Status",
+      "EvolveMenu_Url": "~/eWms/invStatusManagement/list/",
+      "createdAt": {
+        "$date": "2023-03-24T08:17:02.253Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-24T08:17:02.253Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551606"
+      },
+      "EvolveMenu_SrNo": "1679649373265",
+      "EvolveMenu_Name": "ReWorkOrder Create",
+      "EvolveMenu_Url": "~/eSmartFactory/reWorkOrder/",
+      "createdAt": {
+        "$date": "2023-03-24T09:16:15.465Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-24T09:16:15.465Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551607"
+      },
+      "EvolveMenu_SrNo": "1680200166197",
+      "EvolveMenu_Name": "Induction Harding Setting",
+      "EvolveMenu_Url": "~/eSmartFactory/inductionHarding/list/S",
+      "createdAt": {
+        "$date": "2023-03-30T18:16:18.826Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-30T18:16:18.826Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551608"
+      },
+      "EvolveMenu_SrNo": "1680200176569",
+      "EvolveMenu_Name": "Induction Harding Opreter",
+      "EvolveMenu_Url": "~/eSmartFactory/inductionHarding/list/O",
+      "createdAt": {
+        "$date": "2023-03-30T18:16:18.826Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-30T18:16:18.826Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551609"
+      },
+      "EvolveMenu_SrNo": "1682497195606",
+      "EvolveMenu_Name": "Close Work Order",
+      "EvolveMenu_Url": "~/eSmartFactory/workOrderDetail/list/closed",
+      "createdAt": {
+        "$date": "2023-04-26T08:19:57.102Z"
+      },
+      "updatedAt": {
+        "$date": "2023-04-26T08:19:57.102Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455160a"
+      },
+      "EvolveMenu_SrNo": "1685433660410",
+      "EvolveMenu_Name": "Work Order Report",
+      "EvolveMenu_Url": "~/eSmartFactory/workOrderReport/list/",
+      "createdAt": {
+        "$date": "2023-05-30T08:01:02.132Z"
+      },
+      "updatedAt": {
+        "$date": "2023-05-30T08:01:02.132Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455160b"
+      },
+      "EvolveMenu_SrNo": "1686919707724",
+      "EvolveMenu_Name": "Department reject",
+      "EvolveMenu_Url": "~/eSmartFactory/DepartmentWiseReject_Report/list/",
+      "createdAt": {
+        "$date": "2023-06-16T12:48:29.219Z"
+      },
+      "updatedAt": {
+        "$date": "2023-06-16T12:48:29.219Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23e9cd70c5ed455160d"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-smoke-detector",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "I-Connect",
+  "EvolveApp_Name": "I-Connect",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455160e"
+      },
+      "EvolveMenu_SrNo": "1661320506507",
+      "EvolveMenu_Name": "Device Dashboard",
+      "EvolveMenu_Url": "/iotPlatform/devices",
+      "createdAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455160f"
+      },
+      "EvolveMenu_SrNo": "1661320534844",
+      "EvolveMenu_Name": "Device Type Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/deviceTypeMaster/list/",
+      "createdAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551610"
+      },
+      "EvolveMenu_SrNo": "1661320562102",
+      "EvolveMenu_Name": "Device Sub Type Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/deviceSubTypeMaster/list/",
+      "createdAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-24T05:56:03.432Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551611"
+      },
+      "EvolveMenu_SrNo": "1662966590800",
+      "EvolveMenu_Name": "Device Trigger  Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/deviceTrigger/list/",
+      "createdAt": {
+        "$date": "2022-09-12T07:09:54.632Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-12T07:09:54.632Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551612"
+      },
+      "EvolveMenu_SrNo": "1663744274122",
+      "EvolveMenu_Name": "Device Locations",
+      "EvolveMenu_Url": "/iotPlatform/devicesMaps",
+      "createdAt": {
+        "$date": "2022-09-21T07:11:15.650Z"
+      },
+      "updatedAt": {
+        "$date": "2022-09-21T07:11:15.650Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551613"
+      },
+      "EvolveMenu_SrNo": "1664801348610",
+      "EvolveMenu_Name": "Notification Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/NotificationMaster/list/",
+      "createdAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551614"
+      },
+      "EvolveMenu_SrNo": "1664801365581",
+      "EvolveMenu_Name": "Notification Template",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/NotificationTemplate/list/",
+      "createdAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551615"
+      },
+      "EvolveMenu_SrNo": "1664801440795",
+      "EvolveMenu_Name": "Device Graph Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/graphMaster/list/",
+      "createdAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551616"
+      },
+      "EvolveMenu_SrNo": "1664801530628",
+      "EvolveMenu_Name": "Device Trigger Template Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/deviceTriggerTemplate/list/",
+      "createdAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-03T12:53:43.145Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551617"
+      },
+      "EvolveMenu_SrNo": "1664801587151",
+      "EvolveMenu_Name": "Device Report Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/reportMaster/list/",
+      "createdAt": {
+        "$date": "2022-10-03T12:53:43.146Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-03T12:53:43.146Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551618"
+      },
+      "EvolveMenu_SrNo": "1665732398967",
+      "EvolveMenu_Name": "Device Master",
+      "EvolveMenu_Url": "~/iotPlatform/deviceMaster/devices/list/",
+      "createdAt": {
+        "$date": "2022-10-14T07:26:40.655Z"
+      },
+      "updatedAt": {
+        "$date": "2022-10-14T07:26:40.655Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23e9cd70c5ed455161a"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-file-multiple",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "Compliance",
+  "EvolveApp_Name": "Compliance",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-apps-box",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455161b"
+      },
+      "EvolveMenu_SrNo": "1657257480052",
+      "EvolveMenu_Name": "Invoice Process",
+      "EvolveMenu_Url": "~/compliance/invoice/process/",
+      "createdAt": {
+        "$date": "2022-07-08T05:18:56.237Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-08T05:18:56.237Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-apps-box",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455161c"
+      },
+      "EvolveMenu_SrNo": "1657257520379",
+      "EvolveMenu_Name": "Invoice History",
+      "EvolveMenu_Url": "~/Compliance/Invoice/history/",
+      "createdAt": {
+        "$date": "2022-07-08T05:18:56.238Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-08T05:18:56.238Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-apps-box",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455161d"
+      },
+      "EvolveMenu_SrNo": "1675333353519",
+      "EvolveMenu_Name": "Invoice Function",
+      "EvolveMenu_Url": "~/compliance/invoice/funcStatus/",
+      "createdAt": {
+        "$date": "2023-02-02T10:23:48.197Z"
+      },
+      "updatedAt": {
+        "$date": "2023-02-02T10:23:48.197Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-apps-box",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed455161e"
+      },
+      "EvolveMenu_SrNo": "1681160387894",
+      "EvolveMenu_Name": "Nagare Text File",
+      "EvolveMenu_Url": "~/Compliance/Invoice/list/",
+      "createdAt": {
+        "$date": "2023-04-10T20:59:49.792Z"
+      },
+      "updatedAt": {
+        "$date": "2023-04-10T20:59:49.792Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "650bf23e9cd70c5ed4551620"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-gate",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "Gate Control",
+  "EvolveApp_Name": "Gate Control",
+  "createdAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-08T13:27:08.549Z"
+  },
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551621"
+      },
+      "EvolveMenu_SrNo": "1658293257061",
+      "EvolveMenu_Name": "Gate Transactions",
+      "EvolveMenu_Url": "/eGateControl/GetInOut_MT/list/",
+      "createdAt": {
+        "$date": "2022-07-20T05:00:59.213Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-20T05:00:59.213Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551622"
+      },
+      "EvolveMenu_SrNo": "1658812253940",
+      "EvolveMenu_Name": "Gate Document Link",
+      "EvolveMenu_Url": "/eGateControl/GateTransaction/list/",
+      "createdAt": {
+        "$date": "2022-07-26T05:10:56.193Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-26T05:10:56.193Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551623"
+      },
+      "EvolveMenu_SrNo": "1658814144939",
+      "EvolveMenu_Name": "Evolve Printer List",
+      "EvolveMenu_Url": "/common/pageList/EPGE0056",
+      "createdAt": {
+        "$date": "2022-07-26T05:42:27.247Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-26T05:42:27.247Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551624"
+      },
+      "EvolveMenu_SrNo": "1658814193746",
+      "EvolveMenu_Name": "Evolve Label List",
+      "EvolveMenu_Url": "/common/pageList/EPGE0057",
+      "createdAt": {
+        "$date": "2022-07-26T05:43:15.581Z"
+      },
+      "updatedAt": {
+        "$date": "2022-07-26T05:43:15.581Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551625"
+      },
+      "EvolveMenu_SrNo": "1660109660182",
+      "EvolveMenu_Name": "Gate Master",
+      "EvolveMenu_Url": "/eGateControl/GateCreate/list/",
+      "createdAt": {
+        "$date": "2022-08-10T05:34:22.489Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-10T05:34:22.489Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551626"
+      },
+      "EvolveMenu_SrNo": "1661406667662",
+      "EvolveMenu_Name": "Material Unload",
+      "EvolveMenu_Url": "~/eGateControl/GateMaterialUnload/list/",
+      "createdAt": {
+        "$date": "2022-08-25T05:51:09.151Z"
+      },
+      "updatedAt": {
+        "$date": "2022-08-25T05:51:09.151Z"
+      },
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "_id": {
+        "$oid": "650bf23e9cd70c5ed4551627"
+      },
+      "EvolveMenu_SrNo": "1679377215989",
+      "EvolveMenu_Name": "WeBridgeEntry",
+      "EvolveMenu_Url": "/eGateControl/WeBridgeEntry/list/",
+      "createdAt": {
+        "$date": "2023-03-21T05:40:18.338Z"
+      },
+      "updatedAt": {
+        "$date": "2023-03-21T05:40:18.338Z"
+      },
+      "EvolveSubMenu": []
+    }
+  ],
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6523a454d1069910c88204d7"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-apps-box",
+  "EvolveApp_Url": "",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "Dashboards",
+  "EvolveApp_Name": "Dashboards",
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-list-bulleted-square",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "EvolveMenu_SrNo": "1661332661690",
+      "EvolveMenu_Name": "Default",
+      "EvolveMenu_Url": "/dashboard/default",
+      "EvolveSubMenu": []
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "65277eed753f4eea0738621d"
+  },
+  "EvolveApp_Description": "",
+  "EvolveApp_Current_Version": "",
+  "EvolveApp_Previous_Version": "",
+  "EvolveApp_SEQ": null,
+  "EvolveApp_Icon": "mdi mdi-database-settings",
+  "EvolveApp_Url": "#",
+  "EvolveApp_Status": true,
+  "createdUser": "",
+  "updatedUser": "",
+  "EvolveApp_Code": "IOT Platform",
+  "EvolveApp_Name": "IOT Platform",
+  "EvolveMenuData": [
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-line-style",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "EvolveMenu_SrNo": "12345679",
+      "EvolveMenu_Name": "Company Master",
+      "EvolveMenu_Url": "/iotPlatform/companyMaster/list",
+      "EvolveSubMenu": []
+    },
+    {
+      "EvolveMenu_IsActive": true,
+      "EvolveMenu_Icon": "mdi mdi-format-line-style",
+      "createdUser": 0,
+      "updatedUser": 0,
+      "EvolveMenu_SrNo": "12345679",
+      "EvolveMenu_Name": "User Master",
+      "EvolveMenu_Url": "/iotPlatform/userMaster/list",
+      "EvolveSubMenu": []
+    }
+  ]
+}]

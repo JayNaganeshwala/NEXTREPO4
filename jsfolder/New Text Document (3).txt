@@ -1,0 +1,356 @@
+'use strict';
+const Evolve = require('../../../../Boot/Evolve');
+module.exports = {
+
+    GHGReportHandler: async function (req, res) {
+        try {
+
+            if (req.body.operation == "SL") {
+                let getSingleGHG = await Evolve.App.Controllers.iotPlatform.GHGReport.ConList.getSingleGHG(req.body)
+                res.send(getSingleGHG)
+            }
+
+            if(req.body.operation == "REPORT"){
+                let getSingleGHGReport = await Evolve.App.Controllers.iotPlatform.GHGReport.ConList.getSingleGHGReport(req.body)
+                res.send(getSingleGHGReport)
+            }
+
+            if(req.body.operation == "A"){
+                let addGHGReport = await Evolve.App.Controllers.iotPlatform.GHGReport.ConList.addGHGReport(req.body)
+                res.send(addGHGReport)
+            }
+
+            if(req.body.operation == "SLR"){
+                let getSingleGHGReportByScope = await Evolve.App.Controllers.iotPlatform.GHGReport.ConList.getSingleGHGReportByScope(req.body)
+                res.send(getSingleGHGReportByScope)
+            }
+            
+        } catch (error) {
+            Evolve.Console.log("Error In GHG Report Handler !! " + error.message, 'error', 'GHGREPORT');
+
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, req.body.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            res.send(obj);
+        }
+    },
+
+    getSingleGHG: async function (data) {
+        try {
+            let getSingleGHG = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHG(data.condition);
+            console.log('getSingleGHG: ', getSingleGHG);
+            return getSingleGHG
+            
+        } catch (error) {
+            Evolve.Console.log("Error while get Single GHG con !! " + error.message, 'error', 'GHGREPORT');
+
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, dataObj.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            return (obj);
+        }
+    },
+
+    getSingleGHGReport: async function (data) {
+        try {
+            let getSingleGHGReport = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHGReport({year:data.condition.year,month:data.condition.month});
+            console.log('getSingleGHGReport: ', getSingleGHGReport);
+            return getSingleGHGReport
+            
+        } catch (error) {
+            Evolve.Console.log("Error while get Single GHG con !! " + error.message, 'error', 'GHGREPORT');
+
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, dataObj.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            retrun (obj);
+        }
+    },
+
+    getSingleGHGReportByScope: async function (dataObj) {
+        try {
+            let Active_Energy_Total = 0
+            let getSingleGHGReportByScope = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHGReportByScope({year:dataObj.condition.year,month:dataObj.condition.month});
+            console.log('getSingleGHGReportByScope: ', getSingleGHGReportByScope);
+
+            console.log('new Date().getFullYear(): ', new Date().getFullYear());
+            console.log('new Date().dataObjmoonth(): ', dataObj.condition.month);
+            console.log('new Date().dataObj(): ', dataObj.condition.year);
+            console.log('new Date().getMonth(): ', new Date().getMonth());
+            if(new Date().getMonth() ==  dataObj.condition.month && new Date().getFullYear() == dataObj.condition.year){
+                let getSingleGHGByDevice = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHGByDevice({EvolveIdentifier:`${dataObj.condition.month+1}/${dataObj.condition.year}`})
+                console.log('getSingleGHGByDevice: ', getSingleGHGByDevice);
+
+                if(getSingleGHGByDevice.records){
+                    Active_Energy_Total = getSingleGHGByDevice?.records?.data?.Active_Energy_Total
+                }
+            }
+
+            if(getSingleGHGReportByScope.records && getSingleGHGReportByScope.records.length > 0){
+                let scope1 = {}
+                let scope2 = {}
+                let scope3 = {}
+
+                for (let i = 0; i < getSingleGHGReportByScope.records.length; i++) {
+                    const element = getSingleGHGReportByScope.records[i];
+
+                    if(element.scope == "scope 1"){
+
+                        let groupedByC1 = element.data.reduce((result, item) => {
+                            const key = item.group;
+                            
+                            // If the key doesn't exist in the result, create an array for it
+                            if (!result[key]) {
+                                result[key] = [];
+                            }
+                            
+                            // Push the item to the array corresponding to the key
+                            result[key].push(item);
+                            
+                            return result;
+                        }, {});
+
+                        if(Object.keys(groupedByC1).length > 0){
+                            for (const k in groupedByC1) {
+                                if(groupedByC1[k].length > 0){
+                                    scope1[k] = groupedByC1[k]
+                                }
+                            }
+                        }
+                        // scope1.push(element.data)
+                    }
+                   
+                    if(element.scope == "scope 2"){
+                        let groupedByC2 = element.data.reduce((result, item) => {
+                            const key = item.group;
+                            
+                            // If the key doesn't exist in the result, create an array for it
+                            if (!result[key]) {
+                                result[key] = [];
+                            }
+                            
+                            // Push the item to the array corresponding to the key
+                            result[key].push(item);
+                            
+                            return result;
+                        }, {});
+
+                        console.log('groupedByC2: ', groupedByC2);
+                        if(Object.keys(groupedByC2).length > 0){
+                            for (const k in groupedByC2) {
+                                if(groupedByC2[k].length > 0){
+                                    scope2[k] = (groupedByC2[k])
+                                }
+                            }
+                        }
+                    }
+
+                    if(element.scope == "scope 3"){
+                        let groupedByC3 = element.data.reduce((result, item) => {
+                            const key = item.group;
+                            
+                            // If the key doesn't exist in the result, create an array for it
+                            if (!result[key]) {
+                                result[key] = [];
+                            }
+                            
+                            // Push the item to the array corresponding to the key
+                            result[key].push(item);
+                            
+                            return result;
+                        }, {});
+
+                        if(Object.keys(groupedByC3).length > 0){
+                            for (const k in groupedByC3) {
+                                if(groupedByC3[k].length > 0){
+                                    scope3[k] = (groupedByC3[k])
+                                }
+                            }
+                        }
+                    }
+                }
+
+                let scope1Len = Object.keys(scope1).length == 0 ? true : false
+                let scope2Len = Object.keys(scope2).length == 0 ? true : false
+                let scope3Len = Object.keys(scope3).length == 0 ? true : false
+                
+                if( scope1Len || scope2Len || scope3Len){
+                    let getSingleGHGByScope = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHG();
+                    getSingleGHGByScope.records.scope.forEach((ele,ind)=>{
+                        ele.groups.forEach((element,index) => {
+                            ind== 0 && scope1Len ? scope1[element.title] = [] : ""
+                            ind== 1 && scope2Len ? scope2[element.title] = [] : ""
+                            ind== 2 && scope3Len ? scope3[element.title] = [] : ""
+                            element.fields.map((em) => {
+                                
+                                if(ind == 0 && scope1Len){
+                                    scope1[element.title].push({
+                                        ['value'] : 0,
+                                        ['factor'] : 0,
+                                        ['field'] : em.code,
+                                        ['name'] : em.title,
+                                        ['group'] : element.title,
+                                        ['uom'] : em.uom,
+                                    })
+                                }
+                                
+                                if(ind == 1 && scope2Len){
+                                    let obj = {
+                                        ['value'] : 0,
+                                        ['factor'] : 0,
+                                        ['field'] : em.code,
+                                        ['name'] : em.title,
+                                        ['group'] : element.title,
+                                        ['uom'] : em.uom,
+                                    }
+                                    console.log('Active_Energy_Total: ', Active_Energy_Total);
+                                    if(new Date().getMonth() ==  dataObj.condition.month && new Date().getFullYear() == dataObj.condition.year && Active_Energy_Total && em.code == '4' ){
+                                        console.log('scope2[element.title].field == ', em.code == '4',scope2[element.title]);
+                                        obj.value = Active_Energy_Total
+                                        console.log('scope2[element.title].value: ', scope2[element.title].value);
+                                    }
+                                    scope2[element.title].push(obj)
+
+                                }
+            
+                                if(ind == 2 && scope3Len){
+                                    scope3[element.title].push({
+                                    ['value'] : 0,
+                                    ['factor'] : 0,
+                                    ['field'] : em.code,
+                                    ['name'] : em.title,
+                                    ['group'] : element.title,
+                                    ['uom'] : em.uom,
+                                    })
+                                }
+                            });
+                        });
+                    })
+                }
+
+                   
+                return {
+                    statusCode: 200,
+                    status: "success",
+                    records: {
+                        scope1,
+                        scope2,
+                        scope3,
+                    }
+                }
+            }else{
+
+                console.log("in the else conditino>>>>")
+
+                let scope1 = {}
+                let scope2 = {}
+                let scope3 = {}
+                let getSingleGHGByScope = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.getSingleGHG();
+
+                getSingleGHGByScope.records.scope.forEach((ele,ind)=>{
+
+                    ele.groups.forEach((element,index) => {
+                      ind== 0 ? scope1[element.title] = [] : ""
+                      ind== 1 ? scope2[element.title] = [] : ""
+                      ind== 2 ? scope3[element.title] = [] : ""
+        
+                        element.fields.map((em) => {
+        
+                          if(ind == 0){
+                            scope1[element.title].push({
+                              ['value'] : 0,
+                              ['factor'] : 0,
+                              ['field'] : em.code,
+                              ['name'] : em.title,
+                              ['group'] : element.title,
+                              ['uom'] : em.uom,
+                            })
+                          }
+        
+                          if(ind == 1){
+                            scope2[element.title].push({
+                              ['value'] : 0,
+                              ['factor'] : 0,
+                              ['field'] : em.code,
+                              ['name'] : em.title,
+                              ['group'] : element.title,
+                              ['uom'] : em.uom,
+                            })
+                            if(new Date().getMonth() ==  dataObj.condition.month && new Date().getFullYear() == dataObj.condition.year && Active_Energy_Total && em.code == '4' ){
+                                scope2[element.title].value = Active_Energy_Total
+                            }
+                          }
+        
+                          if(ind == 2){
+                            scope3[element.title].push({
+                              ['value'] : 0,
+                              ['factor'] : 0,
+                              ['field'] : em.code,
+                              ['name'] : em.title,
+                              ['group'] : element.title,
+                              ['uom'] : em.uom,
+                            })
+                          }
+        
+                        });
+                    });
+                })
+
+                return {
+                    statusCode: 200,
+                    status: "success",
+                    records: {
+                        scope1,
+                        scope2,
+                        scope3,
+                    }
+                }
+                
+            }
+            
+        } catch (error) {
+            Evolve.Console.log("Error while get Single GHG con !! " + error.message, 'error', 'GHGREPORT');
+
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, dataObj.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            return obj;
+        }
+    },
+
+    addGHGReport: async function (dataObj) {
+        try {
+            let addGHGReport = await Evolve.App.Services.iotPlatform.GHGReport.SrvList.addGHGReport(dataObj.data);
+            console.log('addGHGReport: ', addGHGReport);
+            return addGHGReport
+            
+        } catch (error) {
+            Evolve.Console.log("Error while Add GHG Report con !! " + error.message, 'error', 'GHGREPORT');
+
+            let getMessage = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, dataObj.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: getMessage,
+                result: null
+            };
+            return (obj);
+        }
+    },
+}

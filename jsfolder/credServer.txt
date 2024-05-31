@@ -1,0 +1,18 @@
+IOT Test
+ssh iotadmin@4.247.131.73 -p 22
+Aliter@2023# 
+POC Server ( IOT dev ):
+192.168.22.31
+evolvepocadmin
+Aliter@2020#
+22
+path: /evolve/evolve-business-platform-dev/evolve-server
+Nirav
+
+pm2 monit pm2 details for server
+pm2 stop 0
+pm2 ls
+pm2 restart 0
+pm2 start index.js --name ""
+ls -la
+

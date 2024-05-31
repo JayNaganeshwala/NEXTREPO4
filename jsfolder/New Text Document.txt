@@ -1,0 +1,532 @@
+
+            /* console.time('openPo')
+            let openPo = await Evolve.App.Services.Wms.purchaseOrder.SrvList.getAllOpenLinePo()
+            console.log('openPo: ', JSON.stringify(openPo));
+            // console.log('openPo: ', openPo[0].totalQTY);
+            console.timeEnd('openPo')
+
+            console.time('closePo')
+            let closePo = await Evolve.App.Services.Wms.purchaseOrder.SrvList.getAllCloseLinePo()
+            console.log('closePo: ', JSON.stringify(closePo));
+            console.timeEnd('closePo') */
+
+
+            console.time('openSo')
+            let openSo = await Evolve.App.Services.Wms.salesOrder.SrvList.getOpenSalesOrderLine()
+            console.log('openSo: ', JSON.stringify(openSo));
+            // console.log('openSo: ', openSo[0].totalQTY);
+            console.timeEnd('openSo')
+
+            console.time('closeSo')
+            let closeSo = await Evolve.App.Services.Wms.salesOrder.SrvList.getclosedSalesOrderLine()
+            console.log('closeSo: ', JSON.stringify(closeSo));
+            console.timeEnd('closeSo')
+
+
+           /*  console.time('openWo')
+            let openWo = await Evolve.App.Services.eSmartFactory.workOrderDetail.SrvList.getAllOpenWo()
+            console.log('openWo: ', JSON.stringify(openWo));
+            // console.log('openWo: ', openWo[0].totalQTY);
+            console.timeEnd('openWo')
+
+            console.time('closeWo')
+            let closeWo = await Evolve.App.Services.eSmartFactory.workOrderDetail.SrvList.getAllCloseWo()
+            console.log('closeWo: ', JSON.stringify(closeWo));
+            console.timeEnd('closeWo') */
+
+
+
+
+    getAllOpenWo: async function (data) {
+        try {
+            return await Evolve.Mongoose.model('EvolveWorkOrder').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('63eb4cffcd91fd0fd44c7ded'),
+                                'EvolveWorkOrder_Status' : {$ne : 'CLOSED'}
+                            }
+                        ]
+                    }
+                },
+                {
+                    $facet: {
+                        result: [
+                            {
+                                "$lookup": {
+                                    "from": "EvolveMachine",
+                                    "localField": "EvolveMachine_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveMachine_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveMachine_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            {
+                                "$lookup": {
+                                    "from": "EvolveDepartment",
+                                    "localField": "EvolveSection_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveSection_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveSection_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            {
+                                $addFields: {
+                                    EvolveWorkOrder_QtyRemain : { $subtract :["$EvolveWorkOrder_Qty","$EvolveWorkOrder_QtyCompleted"] },
+                                }
+                            },
+                            { $skip: 0 }, { $limit: 10 },
+                        ],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolveWorkOrder_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolveWorkOrder_QtyCompleted" },
+                                // "totalRemainingQty": { "$subtract": [ '$totalQty' , '$totalRecievedQty'] }
+                            }},
+                            {
+                                $addFields: {
+                                    totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                }
+                            }
+                        ]
+                    }
+                },
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Open Wo " + error.message);
+            return new Error("Error While get All Open Wo " + error.message);
+        }
+    },
+
+    getAllCloseWo: async function (data) {
+        try {
+            return await Evolve.Mongoose.model('EvolveWorkOrder').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('63eb4cffcd91fd0fd44c7ded'),
+                                'EvolveWorkOrder_Status' : {$eq : 'CLOSED'}
+                            }
+                        ]
+                    }
+                },
+                {
+                    $facet: {
+                        result: [
+                            {
+                                "$lookup": {
+                                    "from": "EvolveMachine",
+                                    "localField": "EvolveMachine_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveMachine_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveMachine_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            {
+                                "$lookup": {
+                                    "from": "EvolveDepartment",
+                                    "localField": "EvolveSection_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveSection_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveSection_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            {
+                                $addFields: {
+                                    EvolveWorkOrder_QtyRemain : { $subtract :["$EvolveWorkOrder_Qty","$EvolveWorkOrder_QtyCompleted"] },
+                                }
+                            },
+                            { $skip: 0 }, { $limit: 10 },
+                        ],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolveWorkOrder_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolveWorkOrder_QtyCompleted" },
+                                // "totalRemainingQty": { "$subtract": [ 'totalQty','totalRecievedQty'] },
+                            }},
+                            {
+                                $addFields: {
+                                    totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                }
+                            }
+                        ]
+                    }
+                },
+                     
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Close Wo " + error.message);
+            return new Error("Error While get All Close Wo " + error.message);
+        }
+    },
+
+  getAllOpenLinePo: async function (data) {
+        try {
+
+            // console.log("data.filterObj????", JSON.stringify(data.filterObj));
+            // console.log("data.addFieldObj?????", JSON.stringify(data.addFieldObj));
+
+            return await Evolve.Mongoose.model('EvolvePO').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('63eb4cffcd91fd0fd44c7ded'),
+                            }
+                        ]
+                    }
+                },
+                { $unwind: '$EvolvePODetails' },
+                {
+                    $match: {
+                        'EvolvePODetails.EvolvePODetails_Status' : {$eq : 'O'}
+                    }
+                },
+                
+                {
+                    $facet: {
+                        result: [
+                            {
+                                "$lookup": {
+                                    "from": "EvolveSupplier",
+                                    "localField": "EvolveSupplier_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveSupplier_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveSupplier_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            { $skip: 0 }, { $limit: 10 },
+                        ],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolvePODetails.EvolvePODetails_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolvePODetails.EvolvePODetails_ReceiveQty" }
+                            }},
+                            {
+                                $addFields: {
+                                    totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                }
+                            }
+                        ]
+                    }
+                },
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Open Line Po " + error.message);
+            return new Error("Error While get All Open Line Po " + error.message);
+        }
+    },
+
+    getAllCloseLinePo: async function (data) {
+        try {
+            return await Evolve.Mongoose.model('EvolvePO').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('63eb4cffcd91fd0fd44c7ded'),
+                            }
+                        ]
+                    }
+                },
+                { $unwind: '$EvolvePODetails' },
+                {
+                    $match: {
+                        'EvolvePODetails.EvolvePODetails_Status' : {$eq : 'C'}
+                    }
+                },
+                // { $skip: 0 }, { $limit: 10 },
+                {
+                    $facet: {
+                        result: [
+                            {
+                                "$lookup": {
+                                    "from": "EvolveSupplier",
+                                    "localField": "EvolveSupplier_ID",
+                                    "foreignField": "_id",
+                                    "as": "EvolveSupplier_ID",
+            
+                                }
+                            },
+                            {
+                                $unwind: {
+                                    path: "$EvolveSupplier_ID",
+                                    preserveNullAndEmptyArrays: true
+                                }
+                            },
+                            { $skip: 0 }, { $limit: 10 },
+                        ],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolvePODetails.EvolvePODetails_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolvePODetails.EvolvePODetails_ReceiveQty" }
+                            }},
+                            {
+                                $addFields: {
+                                    totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                }
+                            }
+                        ]
+                    }
+                },
+                     
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Close Line Po " + error.message);
+            return new Error("Error While get All Close Line Po " + error.message);
+        }
+    },
+
+getOpenSalesOrderLine: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+    
+                let openSOLines = await Evolve.Mongoose.model("EvolveSalesOrder").aggregate([
+                    {
+                        $match: {
+                            $and: [
+                                { 
+                                    EvolveUnit_ID : Evolve.Mongoose.Types.ObjectId("63eb4cffcd91fd0fd44c7ded"),
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        $unwind: '$EvolveSalesOrderDetails'
+                    },
+                    {
+                        $match: {
+                            "EvolveSalesOrderDetails.EvolveSalesOrderDetails_Status" : { $eq : "O"}
+                        }
+                    },
+                    {
+                        $facet: {
+                            result: [
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveUom",
+                                        "localField": "EvolveSalesOrderDetails.EvolveUom_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveSalesOrderDetails.EvolveUom_ID",
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveSalesOrderDetails.EvolveUom_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveCustomer",
+                                        "localField": "EvolveCustomer_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveCustomer_ID",
+                
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveCustomer_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveItem",
+                                        "localField": "EvolveSalesOrderDetails.EvolveItem_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveSalesOrderDetails.EvolveItem_ID",
+                
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveSalesOrderDetails.EvolveItem_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                { $skip: 0 }, { $limit: 10 },
+                            ],
+                            total: [
+                                {
+                                    $group: {
+                                        _id: null,
+                                        totalQty : { $sum : "$EvolveSalesOrderDetails.EvolveSalesOrderDetails_Qty"},
+                                        totalRecievedQty : { $sum : "$EvolveSalesOrderDetails.EvolveSalesOrderDetails_ShippedQty"},
+                                    }
+                                },
+                                {
+                                    $addFields: {
+                                        totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                    }
+                                }
+                            ]
+                            
+                        }
+                    },
+                ]).allowDiskUse(true)
+
+                console.log("openSOLines?????", JSON.stringify(openSOLines));
+
+                resolve(openSOLines)
+                
+            } catch (error) {
+                Evolve.Console.log(" Error while get open SO Lines srv !! " + error.message);
+                let obj = {
+                    statusCode: 400,
+                    messageCode: 101,
+                    var: [],
+                };
+                resolve(obj);
+            }
+            
+        })
+    },
+
+    getclosedSalesOrderLine: async function (data) {
+        return new Promise(async function (resolve, reject) {
+            try {
+    
+                let closedSOLines = await Evolve.Mongoose.model("EvolveSalesOrder").aggregate([
+                    {
+                        $match: {
+                            $and: [
+                                { 
+                                    EvolveUnit_ID : Evolve.Mongoose.Types.ObjectId("63eb4cffcd91fd0fd44c7ded"),
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        $unwind: '$EvolveSalesOrderDetails'
+                    },
+                    {
+                        $match: {
+                            "EvolveSalesOrderDetails.EvolveSalesOrderDetails_Status" : { $eq : "C"}
+                        }
+                    },
+                    {
+                        $facet: {
+                            result: [
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveUom",
+                                        "localField": "EvolveSalesOrderDetails.EvolveUom_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveSalesOrderDetails.EvolveUom_ID",
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveSalesOrderDetails.EvolveUom_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveCustomer",
+                                        "localField": "EvolveCustomer_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveCustomer_ID",
+                
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveCustomer_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                {
+                                    "$lookup": {
+                                        "from": "EvolveItem",
+                                        "localField": "EvolveSalesOrderDetails.EvolveItem_ID",
+                                        "foreignField": "_id",
+                                        "as": "EvolveSalesOrderDetails.EvolveItem_ID",
+                
+                                    }
+                                },
+                                {
+                                    $unwind: {
+                                        path: "$EvolveSalesOrderDetails.EvolveItem_ID",
+                                        preserveNullAndEmptyArrays: true
+                                    }
+                                },
+                                { $skip: 0 }, { $limit: 10 },
+                            ],
+                            total: [
+                                {
+                                    $group: {
+                                        _id: null,
+                                        totalQty : { $sum : "$EvolveSalesOrderDetails.EvolveSalesOrderDetails_Qty"},
+                                        totalRecievedQty : { $sum : "$EvolveSalesOrderDetails.EvolveSalesOrderDetails_ShippedQty"},
+                                    }
+                                },
+                                {
+                                    $addFields: {
+                                        totalRemainingQty: { $subtract: ["$totalQty", "$totalRecievedQty"] }
+                                    }
+                                }
+                            ]
+                            
+                        }
+                    },
+                ]).allowDiskUse(true)
+
+                console.log("closedSOLines?????", JSON.stringify(closedSOLines));
+
+                resolve(closedSOLines)
+                
+            } catch (error) {
+                Evolve.Console.log(" Error while get closed SO Lines srv !! " + error.message);
+                let obj = {
+                    statusCode: 400,
+                    messageCode: 101,
+                    var: [],
+                };
+                resolve(obj);
+            }
+            
+        })
+    }

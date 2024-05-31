@@ -1,0 +1,56 @@
+const collections = [
+"DATALOGGER:PTOL:21_12/2022", "DATALOGGER:PTOL:22_12/2022", "DATALOGGER:PTOL:23_12/2022",
+"DATALOGGER:PTOL:21_DAY", "DATALOGGER:PTOL:22_DAY", "DATALOGGER:PTOL:23_DAY",
+"DATALOGGER:PTOL:21_HOUR", "DATALOGGER:PTOL:22_HOUR", "DATALOGGER:PTOL:23_HOUR",
+"DATALOGGER:PTOL:21_MINUTE", "DATALOGGER:PTOL:22_MINUTE", "DATALOGGER:PTOL:23_MINUTE",
+"DATALOGGER:PTOL:21_YEAR", "DATALOGGER:PTOL:22_YEAR", "DATALOGGER:PTOL:23_YEAR",
+"DATALOGGER:PTOL:21_MONTH", "DATALOGGER:PTOL:22_MONTH", "DATALOGGER:PTOL:23_MONTH",
+]; // Add your collection names here
+
+collections.forEach(collectionName => {
+  db[collectionName].find().forEach(function(doc,Index) {
+    if((doc._id).toString() == "63a9605299eb7b0de990141d"){
+      print("Collection " + Index );
+    }
+  });
+});
+
+
+collections.forEach(collectionName => {
+  db[collectionName].aggregate([
+    {
+      $group: {
+        _id: "$ts",
+        count: { $sum: 1 },
+        docs: { $addToSet: "$_id" }
+      }
+    },
+    {
+      $match: {
+        count: { $gt: 1 }
+      }
+    }
+  ]).forEach(function(doc) {
+    doc.docs.shift();  // Keep the first document in each group
+    db[collectionName].deleteMany({ _id: { $in: doc.docs } });  // Delete the duplicate documents
+  });
+});
+--------------------------------------------------------------------------------------------------
+if (!res.headersSent) {
+				let errorObj = {
+					statusCode: 500,
+					status: "error",
+					message: 'Internal Server Error',
+					result: null
+				};
+				res.status(500).send(errorObj);
+			}
+-------------------------------------------------------------------------------------------------
+var searchString = 'example';
+db.getCollectionNames().forEach(function(collectionName) {
+    if (collectionName.indexOf(searchString) !== -1) {
+        db.getCollection(collectionName).drop();
+        print("Collection " + collectionName + " deleted.");
+    }
+});
+-------------------------------------------------------------------------------------------------

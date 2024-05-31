@@ -1,0 +1,470 @@
+'use strict';
+const Evolve = require('../../../../Boot/Evolve');
+module.exports = {
+
+    materialPlanningSearch: async function (req, res) {
+        try {
+            let data = req.body;
+            let isError = false;
+            let msgCode = 102;
+            let vars = [];
+            let result = [];
+
+            let usedInv = [];
+            let List = []
+
+            console.log("req.body>>>>>>>>>>>>>>>>>>>>>>>>>,",req.body)
+
+            // if(req.body.EvolveCustomerSchedule_Date){
+            //     let queryObj = {}
+            //     let addfield =  {
+            //         EvolveCustomer_Code: "$EvolveCustomer_ID.EvolveCustomer_Code",
+            //         EvolveCustomer_Name: "$EvolveCustomer_ID.EvolveCustomer_Name",
+            //         EvolveItem_Code: "$EvolveItem_ID.EvolveItem_Code",
+            //         EvolveItem_Desc: { $concat: ["$EvolveItem_ID.EvolveItem_Desc1", "-", "$EvolveItem_ID.EvolveItem_Desc2"] },
+            //         EvolveSalesOrder_Number: "$EvolveSalesOrder_ID.EvolveSalesOrder_Number",
+            //     }
+            //      let aa = req.body.EvolveCustomerSchedule_Date.split('~')[0]
+            //      let bb = req.body.EvolveCustomerSchedule_Date.split('~')[1]
+            //     //  aa = aa.replaceAll("/",'-')
+            //     //  bb = bb.replaceAll("/",'-')
+                 
+            //      console.log('aa: ', new Date(aa));
+            //      console.log('bb: ', new Date(bb));
+
+            //         queryObj.condition = {"$and":[{"$or":[{"date":{"$gte":new Date(aa)}}]},{"$or":[{"date":{"$lte":new Date(bb)}}]}]}
+            //         queryObj.addFields = {...addfield};
+
+            //     List = await Evolve.App.Services.Wms.materialPlanning.SrvList.getCustomerScheduleByDateRange(queryObj);
+            //     console.log('List::::::::::: ', List);
+
+            // }else{
+            //     let queryObj = {
+            //         "condition": {
+            //             EvolveCustomerSchedule_Month: parseInt(data.EvolveCustomerSchedule_Month),
+            //             EvolveCustomerSchedule_Year: parseInt(data.EvolveCustomerSchedule_Year),
+            //         },
+            //         "addFields": {
+            //             EvolveCustomer_Code: "$EvolveCustomer_ID.EvolveCustomer_Code",
+            //             EvolveCustomer_Name: "$EvolveCustomer_ID.EvolveCustomer_Name",
+            //             EvolveItem_Code: "$EvolveItem_ID.EvolveItem_Code",
+            //             EvolveItem_Desc: { $concat: ["$EvolveItem_ID.EvolveItem_Desc1", "-", "$EvolveItem_ID.EvolveItem_Desc2"] },
+            //             EvolveSalesOrder_Number: "$EvolveSalesOrder_ID.EvolveSalesOrder_Number",
+            //         }
+            //     };
+            //     List = await Evolve.App.Services.Wms.materialPlanning.SrvList.getCustomerSchedule(queryObj);
+            // }
+            // console.log('List:>>>>>>>>>>>>>>>>>>>>>>>>> ', List);
+            // if (List instanceof Error) {
+            //     isError = true;
+            //     msgCode = 120;
+            //     vars = ["Material Planning List"];
+            // } else {
+            //     let month = (data.EvolveCustomerSchedule_Month).toString().padStart(2, '0');
+            //     data.monthYear = month +"-"+data.EvolveCustomerSchedule_Year;
+            //     let getSoList = await Evolve.App.Services.Wms.materialPlanning.SrvList.getScheduleSoDetail(data);
+            //     if (!(getSoList instanceof Error)) {
+            //        List = [...List,...getSoList]
+            //     }
+
+            //     for (let i = 0; i < List.length; i++) {
+
+
+            //         let element = List[i];
+            //         // if(element.EvolveItem_ID.EvolveItem_Code == "88" || element.EvolveItem_ID.EvolveItem_Code == "74") {
+            //             let dd = element.EvolveCustomerSchedule_Date.split("-")[1];
+            //         let mm = element.EvolveCustomerSchedule_Date.split("-")[0];
+            //         let yy = element.EvolveCustomerSchedule_Date.split("-")[2];
+            //         element.EvolveCustomerSchedule_Date = dd.toString().padStart(2, '0') + "-" + mm.toString().padStart(2, '0') + "-" + yy;
+            //         let bomArr = await Evolve.App.Controllers.Wms.materialPlanning.ConList.getBomChildListByCode(element.EvolveItem_ID._id, element.EvolveItem_ID.EvolveItem_Code, req.body.EvolveBusinessGroup_ID, element.EvolveCustomerSchedule_TotalQty, req.body.EvolveUnit_ID, element.EvolveItem_ID, usedInv);
+
+            //         if (bomArr.length > 0) {
+            //             for (let j = 0; j < bomArr.length; j++) {
+            //                 let item = bomArr[j];
+
+            //                 usedInv = item.itemsusedInInv;
+
+            //                 let findex = result.findIndex(x => x.EvolveItem_Code == item.EvolveItem_Code);
+
+            //                 if (findex == -1) {
+
+            //                     // let invData = await Evolve.App.Services.Wms.materialPlanning.SrvList.getItemWiseInventory(item);
+            //                     // console.log("invData", invData);
+            //                     // if (!(invData instanceof Error) && invData.length > 0) {
+            //                     //     item.stockQty = invData[0].totalQty;
+            //                     //     // data.netQty = parseFloat(parseFloat(qty) - parseFloat(data.stockQty));
+            //                     // }
+
+            //                     item.requireMentParent = [
+            //                         element
+            //                     ]
+            //                     item.stockQty = 0;
+            //                     item.stockAtSite = 0;
+            //                     item.stockAtVendor = 0;
+            //                     item.qtyUseFromStock = 0;
+            //                     // item.safetyStock = item.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_SafetyStock ? element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_SafetyStock : 0
+
+            //                     // let ufindex = usedInv.findIndex(x => x.EvolveItem_Code == item.EvolveItem_Code);
+            //                     // if (ufindex>-1) {
+            //                     //     item.stockQty = usedInv[ufindex].itemtotalStockQty;
+            //                     //     item.qtyUseFromStock = usedInv[ufindex].usedStockQty;
+            //                     // }
+            //                     result.push(item);
+            //                 } else {
+            //                     result[findex].requireMentParent.push(element)
+            //                     result[findex].qty = parseFloat(result[findex].qty) + parseFloat(item.qty);
+
+            //                 }
+
+            //             }
+
+            //         }
+            //         // }
+                    
+            //     }
+
+
+            //     result.forEach(function (item) {
+                    
+            //         let ufindex = usedInv.findIndex(x => x.EvolveItem_Code == item.EvolveItem_Code);
+            //         if (ufindex > -1) {
+            //             item.stockQty = parseFloat(usedInv[ufindex].itemtotalStockQty).toFixed(3);
+            //             item.stockAtSite = parseFloat(usedInv[ufindex].itemtotalStockAtSite).toFixed(3);
+            //             item.stockAtVendor = parseFloat(usedInv[ufindex].itemtotalStockAtVendor).toFixed(3);
+            //             item.qtyUseFromStock = parseFloat(usedInv[ufindex].usedStockQty).toFixed(3);
+            //             item.netQty = parseFloat(parseFloat(item.qty) + parseFloat(item.EvolveItem_SafetyStock) - parseFloat(usedInv[ufindex].itemtotalStockQty)).toFixed(3);
+            //         }else{
+                        
+            //             item.netQty = parseFloat(parseFloat(item.qty) + parseFloat(item.EvolveItem_SafetyStock)  - parseFloat(item.stockQty)).toFixed(3);
+            //         }
+
+            //         item.stockQty = parseFloat(item.stockQty).toFixed(3);
+            //         item.stockAtSite = parseFloat(item.stockAtSite).toFixed(3);
+            //         item.stockAtVendor = parseFloat(item.stockAtVendor).toFixed(3);
+            //         item.qtyUseFromStock = parseFloat(item.qtyUseFromStock).toFixed(3);
+            //         item.safetyStock = parseFloat(item.EvolveItem_SafetyStock).toFixed(3);
+            //         item.qty = parseFloat(item.qty).toFixed(3);
+            //     })
+
+            //     console.log("usedInv", usedInv);
+
+            // }
+
+            let closedList = []
+            let closedSoQueryObj = {}
+
+
+           
+
+            let mrpItemTypeArr = Evolve.CONFIG.MRPITEMTYPE ? Evolve.CONFIG.MRPITEMTYPE : null;
+
+            mrpItemTypeArr = mrpItemTypeArr ? mrpItemTypeArr.split(",") : null;
+            if (mrpItemTypeArr) {
+                result = result.filter((itemData) => {
+                    return mrpItemTypeArr.includes(itemData.EvolveItem_Type);
+                });
+            }
+
+            
+            // if (List.length == 0) {
+            //     msgCode = 123;
+            //     vars = ["No"];
+            //     isError = true;
+            // }
+
+            let message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(msgCode, req.body.EvolveLanguage_Code, vars);
+            let obj = {
+                statusCode: isError ? 400 : 200,
+                status: isError ? "fail" : "Success",
+                message: message,
+                result: result
+            };
+            res.send(obj);
+
+
+        } catch (error) {
+            console.log(error);
+            Evolve.Console.log("Error While Get materialPlanningSearch List!! " + error.message);
+            let message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, req.body.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: message,
+                result: null,
+            };
+            res.send(obj);
+        }
+    },
+
+    // getBomChildListByCode: async function (data, qty) {
+    //     try {
+    //         let responceData = [];
+
+    //         let getSingleBomItemList = await Evolve.App.Services.Wms.materialPlanning.SrvList.getSingleBomItemList({ EvolveItem_ID: data.EvolveItem_ID._id })
+    //         // console.log("getSingleBomItemList",getSingleBomItemList);
+    //         if (getSingleBomItemList.statusCode == 200) {
+    //             getSingleBomItemList = getSingleBomItemList.result;
+
+    //             data.stockQty = 0;
+    //             data.netQty = qty;
+    //             data.totalQty = qty;
+    //             // console.log("getSingleBomItemList", data.EvolveItem_ID._id , data.EvolveItem_ID.EvolveItem_Code);
+    //             let invData = await Evolve.App.Services.Wms.materialPlanning.SrvList.getItemWiseInventory(data);
+    //             console.log("invData", invData);
+    //             if (!(invData instanceof Error) && invData.length > 0) {
+    //                 data.stockQty = invData[0].totalQty;
+    //                 data.netQty = parseFloat(parseFloat(qty) - parseFloat(data.stockQty));
+    //             }
+
+
+    //             responceData.push(data);
+
+    //             if (getSingleBomItemList.EvolveItemBomDetails.length > 0) {
+    //                 for (let h = 0; h < getSingleBomItemList.EvolveItemBomDetails.length; h++) {
+    //                     let element = getSingleBomItemList.EvolveItemBomDetails[h];
+    //                     element.stockQty = 0;
+    //                     element.netQty = qty;
+    //                     element.totalQty = qty;
+    //                     element.EvolveUnit_ID = data.EvolveUnit_ID;
+
+    //                     let invData = await Evolve.App.Services.Wms.materialPlanning.SrvList.getItemWiseInventory(element);
+    //                     console.log("invData", invData);
+    //                     // console.log("invData", invData);
+    //                     if (!(invData instanceof Error) && invData.length > 0) {
+    //                         element.stockQty = invData[0].totalQty;
+    //                         element.netQty = parseFloat((parseFloat(element.EvolveItemBom_Qty) * parseFloat(data.netQty) - invData[0].totalQty));
+    //                     }
+    //                     if (element.netQty > 0) {
+    //                         let Item = await Evolve.App.Controllers.Wms.materialPlanning.ConList.getBomChildListByCode(element, element.netQty);
+
+    //                         if (Item.length > 0) {
+
+    //                             responceData.push(...Item);
+    //                         } else {
+
+    //                             responceData.push(element);
+
+    //                         }
+    //                     }
+
+
+    //                 }
+    //             }
+    //         }
+    //         return responceData;
+    //     } catch (error) {
+    //         return error
+    //     }
+
+
+    // },
+
+    getBomChildListByCode: async function (EvolveItem_ID, bomCode, bsnsGrp, qtyToMake, unitId, itemData, usedInv) {
+        try {
+            let responceData = [];
+            let itemsusedInInv = usedInv;
+            let itemStockQty = 0;
+            let itemStockQtyAtSite = 0;
+            let itemStockQtyAtVender = 0;
+            let itemSafetyStock = itemData.EvolveItem_DefaultPlanningData.EvolveItem_SafetyStock ? itemData.EvolveItem_DefaultPlanningData.EvolveItem_SafetyStock : 0
+            console.log("itemsusedInInv:::",itemsusedInInv);
+            let fnd = itemsusedInInv.find((item) => item.EvolveItem_Code == itemData.EvolveItem_Code);
+            console.log("fnd::::::",fnd);
+            let getItemSiteData = await Evolve.App.Services.eSmartFactory.soToWo.SrvList.getItemSiteWiseData({ EvolveItem_ID: EvolveItem_ID, EvolveUnit_ID: unitId })
+            console.log("getItemSiteData>>>", getItemSiteData);
+            if (getItemSiteData.statusCode == 200) {
+                let itemSiteData = getItemSiteData.result;
+                itemSafetyStock = itemSiteData.EvolveItemSite_PlanningData.EvolveItem_SafetyStock ? itemSiteData.EvolveItemSite_PlanningData.EvolveItem_SafetyStock : itemSafetyStock;
+                bomCode = itemSiteData.EvolveItemSite_PlanningData.EvolveItem_BOMORFormula ? itemSiteData.EvolveItemSite_PlanningData.EvolveItem_BOMORFormula : bomCode
+            }
+            if (fnd) {
+                itemStockQty = parseFloat(fnd.itemtotalStockQty) - parseFloat(fnd.usedStockQty);
+            } else {
+                let invData = await Evolve.App.Services.Wms.materialPlanning.SrvList.getItemWiseInventory({ EvolveItem_ID: EvolveItem_ID, EvolveUnit_ID: unitId });
+                console.log("invData", invData);
+                if (!(invData instanceof Error) && invData.length > 0) {
+                    itemStockQty = parseFloat(invData[0].totalQty) ;
+                    itemStockQtyAtSite = parseFloat(itemStockQty)
+                    // getVendorItemInventory
+                    let supInvData = await Evolve.App.Services.Wms.materialPlanning.SrvList.getVendorItemInventory({ EvolveItem_ID: EvolveItem_ID, EvolveUnit_ID: unitId });
+                    console.log("supInvData",supInvData);
+                    if (!(supInvData instanceof Error) && supInvData.length > 0) {
+                        console.log("supInvData",supInvData[0].totalQty);
+                        itemStockQtyAtVender = parseFloat(supInvData[0].totalQty);
+                        itemStockQtyAtSite = parseFloat(itemStockQty) - parseFloat(supInvData[0].totalQty);
+
+                    }
+                }
+            }
+
+
+            console.log("itemStockQty:::", itemStockQty);
+            let finalQtyToMake = 0;
+            let qtyuseFromInv = 0;
+            if (itemStockQty > 0) {
+                finalQtyToMake = parseFloat(qtyToMake) - parseFloat(itemStockQty);
+
+
+            }
+            console.log("itemData.EvolveItem_Code::::::",itemData.EvolveItem_Code);
+            console.log("finalQtyToMake::::::",finalQtyToMake);
+            console.log("itemStockQty::::::",itemStockQty);
+            console.log("qtyToMake::::::",qtyToMake);
+            if (finalQtyToMake > 0) {
+                qtyuseFromInv = parseFloat(itemStockQty)
+                // return responceData
+            } else {
+                if(itemStockQty > 0) {
+                    qtyuseFromInv = parseFloat(qtyToMake);
+                }else{
+                    finalQtyToMake = parseFloat(qtyToMake);
+                }
+                
+            }
+            console.log("qtyuseFromInv:::", qtyuseFromInv);
+            if (qtyuseFromInv > 0) {
+                let checkinUseInv = itemsusedInInv.findIndex((item) => item.EvolveItem_Code == itemData.EvolveItem_Code);
+                if (checkinUseInv == -1) {
+                    itemsusedInInv.push(
+                        {
+                            EvolveItem_Code: itemData.EvolveItem_Code,
+                            usedStockQty: qtyuseFromInv,
+                            itemtotalStockQty: itemStockQty,
+                            itemtotalStockAtSite : itemStockQtyAtSite,
+                            itemtotalStockAtVendor : itemStockQtyAtVender,
+                        }
+                    )
+                } else {
+                    console.log("Comes To Update Qty::::", qtyuseFromInv);
+                    itemsusedInInv[checkinUseInv].usedStockQty += qtyuseFromInv;
+                }
+            }
+
+            qtyToMake = parseFloat(qtyToMake);
+            finalQtyToMake = parseFloat(finalQtyToMake);
+
+
+
+            let getSingleBomItemList = await Evolve.App.Services.Wms.materialPlanning.SrvList.getSingleBomItemList({ EvolveItemBom_Code: bomCode, EvolveBusinessGroup_ID: bsnsGrp });
+
+            if (getSingleBomItemList.statusCode == 200) {
+                getSingleBomItemList = getSingleBomItemList.result;
+
+                getSingleBomItemList.EvolveItemBomDetails = getSingleBomItemList.EvolveItemBomDetails.filter(x => x.EvolveItem_ID != null);
+                    console.log("qtyToMake at time of Push::::",qtyToMake  , itemData.EvolveItem_Code);
+                
+                responceData.push({ EvolveItem_Code: itemData.EvolveItem_Code, qty: parseFloat(qtyToMake).toFixed(3), EvolveItem_Desc: itemData.EvolveItem_Desc1, EvolveItem_ID: EvolveItem_ID, EvolveUnit_ID: unitId, itemsusedInInv: itemsusedInInv, EvolveItem_Type: itemData.EvolveItem_Type , EvolveItem_SafetyStock :  parseFloat(itemSafetyStock)});
+                console.log("itemData.EvolveItem_Code:", itemData.EvolveItem_Code, itemData.EvolveItem_Type);
+                console.log("finalQtyToMake:", finalQtyToMake);
+                if (finalQtyToMake <= 0) {
+                    return responceData;
+                }
+
+                if (getSingleBomItemList.EvolveItemBomDetails.length > 0) {
+                    for (let h = 0; h < getSingleBomItemList.EvolveItemBomDetails.length; h++) {
+                        let element = getSingleBomItemList.EvolveItemBomDetails[h];
+
+                        element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula = element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula ? element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula : element.EvolveItem_ID.EvolveItem_Code;
+
+
+                        let itemSiteWiseData = await Evolve.App.Services.eSmartFactory.soToWo.SrvList.getItemSiteWiseData({ EvolveItem_ID: element.EvolveItem_ID, EvolveUnit_ID: unitId });
+
+                        if (itemSiteWiseData.statusCode == 200) {
+                            let itemSiteData = itemSiteWiseData.result;
+
+                            element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula = itemSiteData.EvolveItemSite_PlanningData.EvolveItem_BOMORFormula ? itemSiteData.EvolveItemSite_PlanningData.EvolveItem_BOMORFormula : element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula;
+                        }
+
+                        let Item = await Evolve.App.Controllers.Wms.materialPlanning.ConList.getBomChildListByCode(element.EvolveItem_ID._id, element.EvolveItem_ID.EvolveItem_DefaultPlanningData.EvolveItem_BOMORFormula, bsnsGrp, parseFloat(parseFloat(finalQtyToMake) * parseFloat(element.EvolveItemBom_Qty)).toFixed(3), unitId, element.EvolveItem_ID, itemsusedInInv);
+
+                        if (Item.length > 0) {
+                                console.log("inside ifqtyToMake at time of Push::::",qtyToMake , Item);
+                            responceData.push(...Item);
+                        } else {
+                                console.log("esle part qtyToMake at time of Push::::",qtyToMake , element.EvolveItem_ID.EvolveItem_Code);
+                            
+                            responceData.push({ EvolveItem_Code: element.EvolveItem_ID.EvolveItem_Code, qty: parseFloat(finalQtyToMake * parseFloat(element.EvolveItemBom_Qty)).toFixed(3), EvolveItem_Desc: element.EvolveItem_ID.EvolveItem_Desc1 + "-" + element.EvolveItem_ID.EvolveItem_Desc2, EvolveItem_ID: EvolveItem_ID, EvolveUnit_ID: unitId, itemsusedInInv: itemsusedInInv, EvolveItem_Type: element.EvolveItem_ID.EvolveItem_Type  , EvolveItem_SafetyStock :  parseFloat(itemSafetyStock) });
+                        }
+
+                    }
+                }
+            }
+            return responceData;
+        } catch (error) {
+            console.log("error::::::::::;",error);
+            return error
+        }
+
+
+    },
+
+    exportData: async function (req, res) {
+        try {
+            let data = req.body;
+            let list = req.body.customerScheduleReport;
+            let error = false;
+            let fileData = [];
+            let messageCode = ''
+            let msgInfo = ['']
+            let obj = {};
+            let fileName = null;
+
+            for (let index = 0; index < list.length; index++) {
+                let data = {};
+                data['Item Code'] = list[index].EvolveItem_Code
+                data['Item Desc'] = list[index].EvolveItem_Desc
+                data['Item Type'] = list[index].EvolveItem_Type
+                data['Qty Required'] = list[index].qty
+                data['Safety Stock'] = list[index].EvolveItem_SafetyStock
+                data['Qty Avl In Stock At Site'] = list[index].stockAtSite
+                data['Qty Avl In Stock At Vendor'] = list[index].stockAtVendor
+                data['Net Qty'] = list[index].netQty
+              
+                fileData.push(data)
+            }
+
+            if (fileData.length > 0) {
+                let newWB = Evolve.Xlsx.utils.book_new();
+                let newWS = Evolve.Xlsx.utils.json_to_sheet(fileData);
+                let unitCode = data.EvolveUnit_Code;
+                let path = `./public/`;
+
+                Evolve.Xlsx.utils.book_append_sheet(newWB, newWS, `MATERIALPLANNINGREPORT- ${unitCode}`);
+                let date = new Date();
+                date = date.getTime();
+                fileName = path + "MATERIALPLANNINGREPORT" + "_" + unitCode + "_" + date + '.csv';
+                // if (Evolve.Fs.existsSync(path)) {
+                //     fileName = path + "INVENTORYEXPORT" + "_" + unitCode + "_" + date + '.XLSX';
+                // } else {
+                //     await Evolve.Fs.mkdirSync(path);
+                //     fileName = path + unitCode + " " + date + '.XLSX';
+                // }
+
+                Evolve.Xlsx.writeFile(newWB, fileName);
+                fileName = fileName.replace('/public', '');
+
+                let getMessage = error ? await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(messageCode, data.EvolveLanguage_Code, msgInfo) : '';
+
+                obj = {
+                    statusCode: error ? 400 : 200,
+                    status: error ? "fail" : "success",
+                    message: getMessage,
+                    result: { fileName }
+                };
+            }
+            res.send(obj);
+
+        } catch (error) {
+            console.log(error);
+            Evolve.Console.log("Error While exportData !!" + error.message);
+            let message = await Evolve.App.Controllers.Mdm.messageMaster.ConList.getMessageDetailsByCodeLan(111, req.body.EvolveLanguage_Code);
+            let obj = {
+                statusCode: 400,
+                status: "fail",
+                message: message,
+                result: null,
+            };
+            res.send(obj);
+        }
+    }
+}

@@ -1,0 +1,1691 @@
+'use strict';
+const Evolve = require("../../Boot/Evolve");
+const Schema = Evolve.Mongoose.Schema;
+Evolve.EvolvePage = {
+    name: { type: 'string', required: true },
+    code: { type: 'string', required: true },
+    table: { type: 'string', required: true },
+    isdevice: { type: 'Boolean', default: false },
+    isDeviceManualEntry: { type: 'Boolean', default: false },
+    deviceby: { type: 'string', default: '' },
+    export: {
+        print: { type: 'Boolean', default: false },
+        excle: { type: 'Boolean', default: false },
+        pdf: { type: 'Boolean', default: false },
+        csv: { type: 'Boolean', default: false },
+    },
+    import: {
+        bulkupload: { type: 'Boolean', default: false },
+    },
+    ismemory: { type: 'Boolean', default: false },
+    memoryfield: { type: 'string', default: '' },
+    options: {
+        refresh: { type: 'Boolean', default: false },
+        edit: { type: 'Boolean', default: false },
+        add: { type: 'Boolean', default: false },
+        view: { type: 'Boolean', default: false },
+        delete: { type: 'Boolean', default: false },
+        field: { type: 'string', default: "" }, // select _id for delete / update operations 
+    },
+    noofrecords: { type: 'number', default: 10 },
+    isdyanamicload: { type: 'Boolean', default: false }, // 0 : load all record in sigle time 1 : load reuired record and then depend on pegination mumber
+    url: { type: 'string', default: '' }, // created by auto code
+    actionurl: { type: 'string', default: '' }, // if you wants to create sperate page for create and edit. 
+    pagefields: [{
+        index: { type: 'number', default: null },
+        field: { type: 'string', required: true },
+        label: { type: 'string', default: '' },
+        desc: { type: 'string', default: '' },
+        datatype: { type: 'string', default: '' }, // number  / string 
+        inputtype: { type: 'string', default: '' }, // INPUT  / SELECT / CHECKBOX / file etc...
+        options: { type: 'string', default: '' },// GREEN | RED | ETC
+        default: { type: 'string', default: '' }, //  GREEN
+        isreadonly: { type: 'Boolean', default: false },
+        isrequired: { type: 'Boolean', default: false },
+        validationcode: { type: 'string', default: '' },
+        customfunction: { type: 'string', default: '' },
+        table: { type: 'string', default: '' },
+        tabledisplayfield: { type: 'string', default: '' },
+        tablereffield: { type: 'string', default: '' },
+        defaulvalcondition: { type: 'string', default: '' }
+    }],
+    listfields: [{
+        index: { type: 'number', default: null },
+        field: { type: 'string', required: true }, // field name  / code
+        label: { type: 'string', default: '' },
+        desc: { type: 'string', default: '' },
+        prefix: { type: 'string', default: '' },
+        postfix: { type: 'string', default: '' },
+        type: { type: 'number', default: 1 }, // 1 : table field 2 : custom field  3: refrence field 
+        customfunction: { type: 'string', default: '' },
+        table: { type: 'string', default: '' },
+        tabledisplayfield: { type: 'string', default: '' },
+        tablereffield: { type: 'string', default: '' },
+        icon: { type: 'string', default: '' },
+        isbadge: { type: 'Boolean', default: false }, // show text on badge html
+        conditionaldisplay: [{
+            operator: { type: 'string', default: '' }, // == > < != LIKE
+            matchedvalue: { type: 'string', default: '' },
+            displayhtml: { type: 'string', default: '' },
+        }],
+        link: { type: 'string', default: '' },
+    }],
+};
+const EvolvePage = new Schema(Evolve.EvolvePage, { collection: 'EvolvePage' })
+Evolve.Mongoose.model('EvolvePage', EvolvePage);
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+                    if(data.pageDetails.ismemory && addPageData.records){
+                     let a = eval(data.pageDetails.memoryfield)
+                        a[addPageData.records.key] = addPageData.records.value
+                     console.log('a: ', a);
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template>
+  <b-row>
+    <b-col lg="12">
+      <b-card no-body>
+        <b-card-body class="d-flex align-items-center flex-wrap gap-3">
+          <div class="flex-grow-1">
+            <p class="text-muted mb-2">Page Number</p>
+            <h6 class="fs-md mb-0"># {{ LastGeneratedCode }}</h6>
+          </div>
+          <div class="flex-shrink-0 text-end">
+            <h6 class="fs-md mb-2">
+              15 Feb, 2023 <i class="bi bi-calendar4-event align-baseline ms-1"></i>
+            </h6>
+            <p class="text-muted mb-0">
+              08:54 AM <i class="bi bi-clock align-baseline ms-1"></i>
+            </p>
+          </div>
+          <div class="flex-shrink-0">
+            <nuxt-link to="#" class="btn btn-primary"
+              ><i class="bx bxs-download align-middle me-1"></i> Download</nuxt-link
+            >
+          </div>
+        </b-card-body>
+      </b-card>
+    </b-col>
+    <b-col lg="12">
+      <b-card no-body>
+        <b-card-body>
+          <b-form :validated="customValidation" :novalidate="true">
+            <b-row>
+              <b-col lg="3" sm="12">
+                <div class="mb-2">
+                  <label for="name" class="form-label"
+                    >Name <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    placeholder="Name"
+                    v-model="pageName"
+                    required
+                  />
+                  <b-form-invalid-feedback>Required!!</b-form-invalid-feedback>
+                </div>
+              </b-col>
+              <b-col lg="3" sm="12">
+                <div class="mb-3">
+                  <label for="primaryTable" class="form-label"
+                    >Table<span class="text-danger">*</span></label
+                  >
+                  <Multiselect
+                    :key="reInitTable"
+                    id="primaryTable"
+                    placeholder=""
+                    :searchable="true"
+                    :label="'label'"
+                    :value-prop="'value'"
+                    :options="tableList"
+                    v-model="primaryTableName"
+                    required
+                    :disabled="isDevice && !deviceby"
+                  />
+                  <b-form-invalid-feedback>Required!!</b-form-invalid-feedback>
+                </div>
+              </b-col>
+
+              <b-col lg="3" sm="12" v-if="isDevice">
+                <div>
+                  <label for="addaddress-phone" class="form-label"
+                    >Device By <span class="text-danger">*</span></label
+                  >
+                  <Multiselect
+                    placeholder="select Device By"
+                    :searchable="true"
+                    :options="deviceByList"
+                    v-model="deviceby"
+                  />
+                </div>
+              </b-col>
+
+              <b-col lg="3" sm="12">
+                <div class="mb-3">
+                  <label for="primaryField" class="form-label"
+                    >Primery Field<span class="text-danger">*</span></label
+                  >
+                  <Multiselect
+                    id="primaryField"
+                    placeholder=""
+                    :searchable="true"
+                    :options="primaryField"
+                    v-model="optionsType.field"
+                    required
+                  />
+                  <b-form-invalid-feedback>Required!!</b-form-invalid-feedback>
+                </div>
+              </b-col>
+
+              <b-col lg="3" sm="12">
+                <div class="mb-3">
+                  <label for="isDevice" class="form-label">is Device</label>
+                  <br />
+                  <b-form-checkbox
+                    id="isDevice"
+                    switch
+                    inline
+                    checked
+                    class="form-switch-md"
+                    v-model="isDevice"
+                  >
+                  </b-form-checkbox>
+                </div>
+              </b-col>
+
+              <b-col lg="3" sm="12" v-if="isDevice">
+                <div class="mb-3">
+                  <label for="isDeviceManualEntry" class="form-label"
+                    >is Device ManualEntry</label
+                  >
+                  <br />
+                  <b-form-checkbox
+                    id="isDeviceManualEntry"
+                    switch
+                    inline
+                    checked
+                    class="form-switch-md"
+                    v-model="isDeviceManualEntry"
+                  >
+                  </b-form-checkbox>
+                </div>
+              </b-col>
+            </b-row>
+          </b-form>
+        </b-card-body>
+      </b-card>
+    </b-col>
+    <b-col lg="12">
+      <b-card no-body>
+        <b-card-body>
+          <b-tabs
+            nav-class="nav-border-top nav-border-top-primary mb-3"
+            content-class="text-muted"
+          >
+            <b-tab
+              :disabled="!isDevice || isDeviceManualEntry ? false : true"
+              title="Form Data"
+            >
+              <b-col lg="12" v-if="!isDevice || isDeviceManualEntry">
+                <b-card no-body>
+                  <b-card-header>
+                    <b-card-title title-tag="h6" class="mb-0">Form Data</b-card-title>
+                  </b-card-header>
+                  <b-card-body>
+                    <b-row>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Field<span class="text-danger">*</span></label
+                          >
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="primaryField"
+                            v-model="field"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-2">
+                          <label for="name" class="form-label"
+                            >Lable <span class="text-danger">*</span></label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="lable"
+                            placeholder="Lable"
+                            v-model="label"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Description</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="description"
+                            placeholder="Description"
+                            v-model="desc"
+                          />
+                        </div>
+                      </b-col>
+                      <!--  -->
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Data Type</label
+                          >
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="datatypes"
+                            v-model="datatype"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Input Type</label
+                          >
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="inputtypes"
+                            v-model="inputtype"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label">Options</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="options"
+                            placeholder="Options"
+                            v-model="options"
+                          />
+                        </div>
+                      </b-col>
+                      <!--  -->
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Default Value<span class="text-danger">*</span></label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="options"
+                            placeholder="Options"
+                            v-model="defaultValue"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3 text-center">
+                          <label for="addaddress-phone" class="form-label"
+                            >Read Only</label
+                          >
+                          <br />
+                          <b-form-checkbox
+                            id="customSwitchsizemd"
+                            switch
+                            inline
+                            checked
+                            class="form-switch-md"
+                            v-model="isreadonly"
+                          >
+                          </b-form-checkbox>
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3 text-center">
+                          <label for="addaddress-phone" class="form-label"
+                            >Required</label
+                          >
+                          <br />
+                          <b-form-checkbox
+                            id="customSwitchsizemd"
+                            switch
+                            inline
+                            checked
+                            class="form-switch-md"
+                            v-model="isrequired"
+                          >
+                          </b-form-checkbox>
+                        </div>
+                      </b-col>
+                      <!--  -->
+
+                      <b-col lg="8" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Custom Function</label
+                          >
+                          <textarea
+                            class="form-control"
+                            id="Remarks"
+                            rows="3"
+                            placeholder=""
+                            v-model="customfunction"
+                          ></textarea>
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Validation</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="validation"
+                            placeholder="Validation"
+                            v-model="validationcode"
+                          />
+                        </div>
+                      </b-col>
+                      <!--  -->
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label">Table</label>
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="tableList"
+                            v-model="reftable"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Ref Field<span v-if="reftable" class="text-danger"
+                              >*</span
+                            ></label
+                          >
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="tableRefOptions"
+                            v-model="tableRefField"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="4" sm="12">
+                        <div class="mb-3">
+                          <label for="addaddress-phone" class="form-label"
+                            >Display Field<span v-if="reftable" class="text-danger"
+                              >*</span
+                            ></label
+                          >
+                          <Multiselect
+                            placeholder=""
+                            :searchable="true"
+                            :options="tableRefOptions"
+                            v-model="tabledisplayfield"
+                          />
+                        </div>
+                      </b-col>
+                      <b-col lg="12">
+                        <div class="text-end">
+                          <b-button
+                            type="button"
+                            variant="success"
+                            class="me-1"
+                            @click="addField(ifEditFormData)"
+                            >{{
+                              ifEditFormData < 0 ? "Add Field" : "Update Field"
+                            }}</b-button
+                          >
+                          <b-button
+                            type="button"
+                            variant="danger"
+                            class="me-1"
+                            @click="resetPageField"
+                            >Clear</b-button
+                          >
+                        </div>
+                      </b-col>
+                    </b-row>
+
+                    <b-row class="mt-3">
+                      <b-col lg="12">
+                        <b-table-simple responsive small class="table-nowrap mb-0">
+                          <b-thead>
+                            <b-tr>
+                              <b-th scope="col">Field</b-th>
+                              <b-th scope="col">Lable</b-th>
+                              <b-th scope="col">Data Type</b-th>
+                              <b-th scope="col">Input Type</b-th>
+                              <b-th scope="col">required</b-th>
+                              <b-th scope="col">Option</b-th>
+                            </b-tr>
+                          </b-thead>
+                          <b-tbody>
+                            <b-tr v-for="(opt, index) of pagefields" :key="index">
+                              <b-td class="fw-medium">{{ opt.field }}</b-td>
+                              <b-td>{{ opt.label }}</b-td>
+
+                              <b-td>{{ opt.datatype }}</b-td>
+                              <b-td>{{ opt.inputtype }}</b-td>
+
+                              <b-td
+                                ><span
+                                  class="badge bg-success-subtle"
+                                  :class="opt.isrequired ? 'text-success' : 'text-danger'"
+                                  >{{ opt.isrequired ? "True" : "False" }}</span
+                                ></b-td
+                              >
+                              <b-td>
+                                <b-td>
+                                  <b-button
+                                    type="button"
+                                    variant="success"
+                                    class="btn-icon btn-sm"
+                                    @click="editFormData(opt, index)"
+                                    ><i class="ri-edit-line"></i
+                                  ></b-button>
+                                  <b-button
+                                    type="button"
+                                    variant="danger"
+                                    class="btn-icon mx-2 btn-sm"
+                                    @click="dltFormData(index)"
+                                    ><i class="ri-delete-bin-5-line"></i
+                                  ></b-button>
+                                </b-td>
+                              </b-td>
+                            </b-tr>
+                          </b-tbody>
+                        </b-table-simple>
+                      </b-col>
+                    </b-row>
+                  </b-card-body>
+                </b-card>
+              </b-col>
+            </b-tab>
+
+            <b-tab title="List Data">
+              <b-row>
+                <b-col lg="12">
+                  <b-card no-body>
+                    <b-card-header>
+                      <b-card-title title-tag="h6" class="mb-0">List Data</b-card-title>
+                    </b-card-header>
+                    <b-card-body>
+                      <b-row>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Field<span class="text-danger">*</span></label
+                            >
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="primaryField"
+                              v-model="listfield"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Label<span class="text-danger">*</span></label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Label"
+                              placeholder="Label"
+                              v-model="listlabel"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Description</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="description"
+                              placeholder="Description"
+                              v-model="listdesc"
+                            />
+                          </div>
+                        </b-col>
+
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Pre Fix</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Prefix"
+                              placeholder="Pre Fix"
+                              v-model="listprefix"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Post Fix</label
+                            >
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="table"
+                              placeholder="Post Fix"
+                              v-model="listpostfix"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3 text-center">
+                            <label for="addaddress-phone" class="form-label">Badge</label>
+                            <br />
+                            <b-form-checkbox
+                              id="customSwitchsizemd"
+                              switch
+                              inline
+                              checked
+                              class="form-switch-md"
+                              v-model="listisbadge"
+                            >
+                            </b-form-checkbox>
+                          </div>
+                        </b-col>
+
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Field Type</label
+                            >
+                            <!-- <Multiselect
+                                placeholder=""
+                                :searchable="true"
+                                :options="primaryField"
+                              /> -->
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="table"
+                              placeholder="Field Type"
+                              v-model="listtype"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label">icon</label>
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="primaryField"
+                              v-model="listicon"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label">Table</label>
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="tableList"
+                              v-model="listtable"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Ref Field
+                              <span v-if="listtable" class="text-danger">*</span></label
+                            >
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="listtablereffieldOpt"
+                              v-model="listtablereffield"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Display Field
+                              <span v-if="listtable" class="text-danger">*</span></label
+                            >
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="listtablereffieldOpt"
+                              v-model="listtabledisplayfield"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="4" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label">link</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="table"
+                              placeholder="Link"
+                              v-model="listlink"
+                            />
+                          </div>
+                        </b-col>
+                      </b-row>
+
+                      <b-row>
+                        <b-col lg="8" sm="12">
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >Custom Function</label
+                            >
+                            <textarea
+                              class="form-control"
+                              id="Remarks"
+                              rows="3"
+                              placeholder=""
+                              v-model="listcustomfunction"
+                            ></textarea>
+                          </div>
+                        </b-col>
+                      </b-row>
+
+                      <b-row class="mt-3">
+                        <b-col lg="12">
+                          <b-card no-body class="border">
+                            <b-card-header>
+                              <b-card-title title-tag="h6" class="mb-0"
+                                >Conditional Display</b-card-title
+                              >
+                            </b-card-header>
+                            <b-card-body>
+                              <b-row
+                                v-for="(opt, index) of conditionaldisplay"
+                                :key="index"
+                              >
+                                <b-col lg="3" sm="12">
+                                  <div class="mb-3">
+                                    <label for="addaddress-phone" class="form-label"
+                                      >Operator
+                                    </label>
+                                    <Multiselect
+                                      placeholder=""
+                                      :searchable="true"
+                                      :options="conditionaldisplayOpt"
+                                      v-model="opt.operator"
+                                    />
+                                  </div>
+                                </b-col>
+                                <b-col lg="3" sm="12">
+                                  <div class="mb-3">
+                                    <label for="addaddress-phone" class="form-label"
+                                      >Math Field
+                                    </label>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="table"
+                                      placeholder="Mathfield"
+                                      v-model="opt.matchedvalue"
+                                    />
+                                  </div>
+                                </b-col>
+                                <b-col lg="3" sm="12">
+                                  <div class="mb-3">
+                                    <label for="addaddress-phone" class="form-label"
+                                      >Display Field
+                                    </label>
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="table"
+                                      placeholder="Display Field"
+                                      v-model="opt.displayhtml"
+                                    />
+                                  </div>
+                                </b-col>
+
+                                <b-col lg="3" sm="12">
+                                  <div class="mb-3">
+                                    <label for="addaddress-phone" class="form-label"
+                                      >Action
+                                    </label>
+                                    <div>
+                                      <button
+                                        type="button"
+                                        class="btn btn-success custom-toggle active"
+                                        @click="addConditionalData"
+                                      >
+                                        <span
+                                          ><i class="ri-add-line align-bottom"></i
+                                        ></span>
+                                      </button>
+                                      <button
+                                        v-if="index > 0"
+                                        type="button"
+                                        class="btn btn-danger ms-2 custom-toggle active"
+                                        @click="deleteConditionalData(index)"
+                                      >
+                                        <span
+                                          ><i
+                                            class="ri-delete-bin-5-line align-bottom"
+                                          ></i
+                                        ></span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </b-col>
+                              </b-row>
+                            </b-card-body>
+                          </b-card>
+                        </b-col>
+                      </b-row>
+
+                      <b-row>
+                        <b-col lg="12">
+                          <div class="text-end">
+                            <b-button
+                              type="button"
+                              variant="success"
+                              class="me-1"
+                              @click="addlistField(ifListFormData)"
+                              >{{
+                                ifListFormData < 0 ? "Add ListField" : "Update ListField"
+                              }}</b-button
+                            >
+                            <b-button
+                              type="button"
+                              variant="danger"
+                              class="me-1"
+                              @click="resetListField"
+                              >Clear</b-button
+                            >
+                          </div>
+                        </b-col>
+                      </b-row>
+
+                      <b-row class="mt-3">
+                        <b-col lg="12">
+                          <b-table-simple responsive small class="table-nowrap mb-0">
+                            <b-thead>
+                              <b-tr>
+                                <b-th scope="col">Field</b-th>
+                                <b-th scope="col">Lable</b-th>
+
+                                <b-th scope="col">Desc</b-th>
+                                <b-th scope="col">Prefix</b-th>
+                                <b-th scope="col">Postfix</b-th>
+                                <b-th scope="col">Ref</b-th>
+                                <b-th scope="col">Action</b-th>
+                              </b-tr>
+                            </b-thead>
+                            <b-tbody>
+                              <b-tr v-for="(opt, index) of listfields" :key="index">
+                                <b-td>{{ opt.field }}</b-td>
+                                <b-td>{{ opt.label }}</b-td>
+                                <b-td>{{ opt.desc }}</b-td>
+                                <b-td>{{ opt.prefix }}</b-td>
+                                <b-td>{{ opt.postfix }}</b-td>
+                                <b-td>{{ opt.tablereffield }}</b-td>
+                                <b-td>
+                                  <b-td>
+                                    <b-button
+                                      type="button"
+                                      variant="success"
+                                      class="btn-icon btn-sm"
+                                      @click="editListData(opt, index)"
+                                      ><i class="ri-edit-line"></i
+                                    ></b-button>
+                                    <b-button
+                                      type="button"
+                                      variant="danger"
+                                      class="btn-icon mx-2 btn-sm"
+                                      @click="dltListData(index)"
+                                      ><i class="ri-delete-bin-5-line"></i
+                                    ></b-button>
+                                  </b-td>
+                                </b-td>
+                              </b-tr>
+                            </b-tbody>
+                          </b-table-simple>
+                        </b-col>
+                      </b-row>
+                    </b-card-body>
+                  </b-card>
+                </b-col>
+              </b-row>
+            </b-tab>
+            <b-tab title="Options">
+              <b-row>
+                <b-col lg="12">
+                  <b-card no-body>
+                    <b-card-header>
+                      <b-card-title title-tag="h6" class="mb-0">Options</b-card-title>
+                    </b-card-header>
+                    <b-card-body>
+                      <b-row>
+                        <b-col lg="3" sm="12">
+                          <div class="mb-3 fw-bold fs-6">Export</div>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="exportType.print" id="Print"
+                              >Print</b-form-checkbox
+                            >
+                          </b-form-group>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="exportType.excle" id="excel"
+                              >excel</b-form-checkbox
+                            >
+                          </b-form-group>
+
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="exportType.pdf" id="Pdf"
+                              >Pdf</b-form-checkbox
+                            >
+                          </b-form-group>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="exportType.csv" id="Csv"
+                              >Csv</b-form-checkbox
+                            >
+                          </b-form-group>
+                        </b-col>
+                        <b-col lg="3" sm="12">
+                          <div class="mb-3 fw-bold fs-6">Form Option</div>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="optionsType.edit" id="Edit"
+                              >Edit</b-form-checkbox
+                            >
+                          </b-form-group>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="optionsType.add" id="Add"
+                              >Add</b-form-checkbox
+                            >
+                          </b-form-group>
+
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="optionsType.view" id="View"
+                              >View</b-form-checkbox
+                            >
+                          </b-form-group>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="optionsType.delete" id="Delete"
+                              >Delete</b-form-checkbox
+                            >
+                          </b-form-group>
+                        </b-col>
+                        <b-col lg="3" sm="12">
+                          <div class="mb-3 fw-bold fs-6">Form Option</div>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox v-model="isdyanamicload" id="dynamicLoading"
+                              >Dynamic Loading</b-form-checkbox
+                            >
+                          </b-form-group>
+                          <div class="mb-3">
+                            <label for="addaddress-phone" class="form-label"
+                              >No of Record<span class="text-danger">*</span></label
+                            >
+                            <Multiselect
+                              placeholder=""
+                              :searchable="true"
+                              :options="noOfRecordsList"
+                              v-model="noofrecords"
+                            />
+                            <div class="mb-2 fw fs-6 mt-3">Action URL</div>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="actionurl"
+                              v-model="actionurl"
+                            />
+                          </div>
+                        </b-col>
+                        <b-col lg="3" sm="12">
+                          <div class="mb-3 fw-bold fs-6">Import</div>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox
+                              v-model="importType.bulkupload"
+                              id="bulkupload"
+                              >Csv Import</b-form-checkbox
+                            >
+                          </b-form-group>
+                        </b-col>
+
+                        <b-col lg="3" sm="12">
+                          <div class="mb-3 fw-bold fs-6">Memory</div>
+                          <b-form-group class="form-check-primary mb-3">
+                            <b-form-checkbox
+                              v-model="ismemory"
+                              id="bulkupload"
+                              @change="memoryfield = ''"
+                            >
+                              Memory Operation
+                            </b-form-checkbox>
+                          </b-form-group>
+
+                          <div class="mb-2 fw fs-6 mt-3" v-if="ismemory">
+                            Memory Field
+                          </div>
+                          <input
+                            v-if="ismemory"
+                            type="text"
+                            class="form-control"
+                            id="actionurl"
+                            v-model="memoryfield"
+                          />
+                        </b-col>
+                      </b-row>
+                    </b-card-body>
+                  </b-card>
+                </b-col>
+              </b-row>
+            </b-tab>
+          </b-tabs>
+        </b-card-body>
+      </b-card>
+      <div class="text-end mb-3">
+        <b-button type="button" variant="success" class="me-1" @click="onCreatePage()">
+          {{ pageId ? "Update Page" : "Create Page" }}</b-button
+        >
+        <b-button type="button" variant="danger" class="me-1" @click="$router.back()"
+          >Close</b-button
+        >
+      </div>
+    </b-col>
+  </b-row>
+</template>
+<style>
+@import "../../../node_modules/@vueform/multiselect/themes/default.css";
+</style>
+<script>
+import appConfig from "~/app.config";
+import Multiselect from "@vueform/multiselect";
+export default {
+  page: {
+    title: "Custom Page",
+    meta: [{ name: "description", content: appConfig.description }],
+  },
+  data() {
+    return {
+      title: "Custom Page",
+
+      pageId: this.$route.query.primaryId,
+      LastGeneratedCode: "EPGE00",
+      customValidation: false,
+      pageName: "",
+      tableRefOptions: [],
+      primaryTableName: "",
+      isDevice: false,
+      isDeviceManualEntry: false,
+      tableList: [],
+      primaryField: [],
+      datatypes: ["string", "boolean", "number", "ObjectId"],
+      inputtypes: ["INPUT", "SELECT", "CHECKBOX", "DATE", "FILE"],
+
+      pagefields: [],
+      listfields: [],
+
+      //Form Data
+      field: "",
+      label: "",
+      desc: "",
+      datatype: "",
+      inputtype: "",
+      options: "",
+      defaultValue: "",
+      isreadonly: false,
+      isrequired: false,
+      validationcode: "",
+      customfunction: "",
+      reftable: "",
+      tableRefField: "",
+      tabledisplayfield: "",
+      defaulvalcondition: "",
+
+      //List Data
+      listfield: "",
+      listlabel: "",
+      listdesc: "",
+      listprefix: "",
+      listpostfix: "",
+      listtype: 0,
+      listcustomfunction: "",
+      listtable: "",
+      listtabledisplayfield: "",
+      listtablereffield: "",
+      listtablereffieldOpt: [],
+      listicon: "",
+      listisbadge: false,
+      conditionaldisplay: [
+        {
+          operator: "",
+          matchedvalue: "",
+          displayhtml: "",
+        },
+      ],
+      conditionaldisplayOpt: ["equal", "less than", "greater than"],
+      listlink: "",
+      deviceby: "",
+
+      //list Device configuration
+      deviceByList: [
+        { label: "MINUTE", value: "_MINUTE" },
+        { label: "HOUR", value: "_HOUR" },
+        { label: "DAY", value: "_DAY" },
+        { label: "MONTH", value: "_MONTH" },
+        { label: "YEAR", value: "_YEAR" },
+      ],
+      // deviceByList:['MINUTE','HOUR','DAY','MONTH','YEAR'],
+      //Options
+      exportType: {
+        print: false,
+        excle: false,
+        pdf: false,
+        csv: false,
+      },
+      optionsType: {
+        refresh: false,
+        edit: false,
+        add: false,
+        view: false,
+        delete: false,
+        field: "", // select _id for delete / update operations
+      },
+      noofrecords: 0,
+      isdyanamicload: false,
+      importType: {
+        bulkupload: false,
+      },
+      actionurl: "",
+      noOfRecordsList: [10, 25, 50, 100],
+
+      //edit
+      ifEditFormData: -1,
+      ifListFormData: -1,
+      reInitTable: 0,
+
+      //memory
+      ismemory: false,
+      memoryfield: "",
+    };
+  },
+  components: {
+    Multiselect,
+    // flatPickr
+  },
+  watch: {
+    isDevice: {
+      async handler(newValue, oldValue) {
+        console.log("oldValue: ", oldValue);
+        console.log("newValue: ", newValue);
+
+        if (newValue !== oldValue) {
+          await this.getAllTableList();
+        }
+      },
+      deep: true,
+    },
+    primaryTableName: {
+      async handler(newValue, oldValue) {
+        console.log("oldValue: ", oldValue);
+        console.log("newValue: ", newValue);
+
+        if (newValue !== oldValue) {
+          let tablefields = await this.onChangeTableName(newValue);
+          console.log("tablefields: ", tablefields);
+
+          this.primaryField = tablefields;
+        }
+      },
+      deep: true,
+    },
+    listTableName: {
+      async handler(newValue, oldValue) {
+        console.log("oldValue: ", oldValue);
+        console.log("newValue: ", newValue);
+
+        if (newValue !== oldValue) {
+          let tablefields = await this.onChangeTableName(newValue);
+          console.log("tablefields: ", tablefields);
+
+          this.primaryField = tablefields;
+        }
+      },
+      deep: true,
+    },
+    reftable: {
+      async handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          let tablefields = await this.onChangeTableName(newValue);
+          console.log("tablefields: ", tablefields);
+
+          this.tableRefOptions = tablefields;
+        }
+      },
+      deep: true,
+    },
+    listtable: {
+      async handler(newValue, oldValue) {
+        if (newValue !== oldValue) {
+          let tablefields = await this.onChangeTableName(newValue);
+          console.log("tablefields: ", tablefields);
+
+          this.listtablereffieldOpt = tablefields;
+        }
+      },
+      deep: true,
+    },
+  },
+  async created() {
+    await this.getAllTableList();
+    await this.getLastGeneratedCode();
+
+    if (this.pageId) {
+      await this.getSinglePageData({
+        operation: "LSP",
+        _id: this.pageId,
+      });
+    }
+  },
+
+  methods: {
+    async getSinglePageData(query) {
+      console.log("query: ", query);
+      const getSinglePageData = await $fetch("/api/v1/pageDesigner/pageDesignHandler", {
+        baseURL: this.$config.public.baseURL,
+        method: "POST",
+        headers: {
+          // Access a private variable (only available on the server)
+          Authorization: `Bearer ${useUserDataStore().authToken}`,
+        },
+        body: {
+          ...query,
+          EvolveUserRoleData: useUserDataStore().roles,
+        },
+      });
+
+      console.log("getSinglePageData: ", getSinglePageData);
+
+      if (getSinglePageData.statusCode == 200) {
+        let result = getSinglePageData.result;
+
+        this.exportType = result.export;
+        this.optionsType = result.options;
+        this.importType = result.import;
+        this.pageName = result.name;
+        this.deviceby = result?.deviceby ? result.deviceby : "";
+        this.primaryTableName = result.table;
+        this.noofrecords = result.noofrecords;
+        this.actionurl = result.actionurl;
+        this.isDevice = result?.isdevice ? result.isdevice : false;
+        this.isDeviceManualEntry = result?.isDeviceManualEntry
+          ? result.isDeviceManualEntry
+          : false;
+        this.isdyanamicload = result.isdyanamicload;
+        this.pagefields = result.pagefields;
+        this.listfields = result.listfields;
+
+        this.LastGeneratedCode = result.code;
+
+        this.ismemory = result.ismemory;
+        this.memoryfield = result.ismemory ? result.memoryfield : "";
+      }
+    },
+    async getAllTableList() {
+      try {
+        this.tableList = [];
+        const getAllTableList = await $fetch("/api/v1/pageDesigner/pageDesignHandler", {
+          baseURL: this.$config.public.baseURL,
+          method: "POST",
+          headers: {
+            // Access a private variable (only available on the server)
+            Authorization: `Bearer ${useUserDataStore().authToken}`,
+          },
+          body: {
+            operation: "ALLTABLE",
+            isDevice: this.isDevice,
+            EvolveUserRoleData: useUserDataStore().roles,
+          },
+        });
+
+        console.log("getAllTableList: ", getAllTableList);
+        if (getAllTableList.statusCode == 200) {
+          for (let i = 0; i < getAllTableList.result.length; i++) {
+            const element = getAllTableList.result[i];
+            this.tableList.push({
+              value: this.isDevice ? element.value : element,
+              label: this.isDevice ? element.label : element,
+            });
+          }
+          this.reInitTable++;
+        } else {
+          this.$swal.fire("Error While Update !!", "", "fail");
+          console.log("Error while update record !!");
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Edit Unit Data ", "error");
+      }
+    },
+
+    async onChangeTableName(data) {
+      try {
+        console.log("data: ", data);
+        const getAllTableFields = await $fetch("/api/v1/pageDesigner/pageDesignHandler", {
+          baseURL: this.$config.public.baseURL,
+          method: "POST",
+          headers: {
+            // Access a private variable (only available on the server)
+            Authorization: `Bearer ${useUserDataStore().authToken}`,
+          },
+          body: {
+            operation: "LF",
+            table: data,
+            isDevice: this.isDevice,
+            deviceby: this.deviceby,
+            EvolveUserRoleData: useUserDataStore().roles,
+          },
+        });
+
+        console.log("getAllTableFields: ", getAllTableFields);
+        if (getAllTableFields.statusCode == 200) {
+          // this.primaryField = getAllTableFields.response;
+          return getAllTableFields.response;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Edit Unit Data ", "error");
+      }
+    },
+
+    async addField(data) {
+      try {
+        if (!this.field) {
+          this.$swal.fire("Error", "Please Fill Require Page Feilds ", "error");
+        } else if (data !== -1 && typeof data == "number") {
+          this.pagefields[data].field = this.field;
+          this.pagefields[data].label = this.label;
+          this.pagefields[data].desc = this.desc;
+          this.pagefields[data].datatype = this.datatype;
+          this.pagefields[data].inputtype = this.inputtype;
+          this.pagefields[data].options = this.options;
+          this.pagefields[data].default = this.defaultValue;
+          this.pagefields[data].isreadonly = this.isreadonly;
+          this.pagefields[data].isrequired = this.isrequired;
+          this.pagefields[data].validationcode = this.validationcode;
+          this.pagefields[data].customfunction = this.customfunction;
+          this.pagefields[data].table = this.reftable;
+          this.pagefields[data].tabledisplayfield = this.tabledisplayfield;
+          this.pagefields[data].tablereffield = this.tableRefField;
+          this.pagefields[data].defaulvalcondition = this.defaulvalcondition;
+
+          this.resetPageField();
+        } else {
+          let obj = {
+            index: this.pagefields.length + 1,
+            field: this.field,
+            label: this.label,
+            desc: this.desc,
+            datatype: this.datatype,
+            inputtype: this.inputtype,
+            options: this.options,
+            default: this.defaultValue,
+            isreadonly: this.isreadonly,
+            isrequired: this.isrequired,
+            validationcode: this.validationcode,
+            customfunction: this.customfunction,
+            table: this.reftable,
+            tabledisplayfield: this.tabledisplayfield,
+            tablereffield: this.tableRefField,
+            defaulvalcondition: this.defaulvalcondition,
+          };
+          console.log("Obj: ", obj);
+
+          this.pagefields.push(obj);
+          this.resetPageField();
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Add page Feilds ", "error");
+      }
+    },
+
+    async addlistField(data) {
+      try {
+        if (!this.listfield) {
+          this.$swal.fire("Error", "Please Fill Require List Feilds ", "error");
+        } else if (data !== -1 && typeof data == "number") {
+          this.listfields[data].field = this.listfield;
+          this.listfields[data].label = this.listlabel;
+          this.listfields[data].desc = this.listdesc;
+          this.listfields[data].prefix = this.listprefix;
+          this.listfields[data].postfix = this.listpostfix;
+          this.listfields[data].type = this.listtype;
+          this.listfields[data].customfunction = this.listcustomfunction;
+          this.listfields[data].table = this.listtable;
+          this.listfields[data].tabledisplayfield = this.listtabledisplayfield;
+          this.listfields[data].tablereffield = this.listtablereffield;
+          this.listfields[data].icon = this.listicon;
+          this.listfields[data].isbadge = this.listisbadge;
+          this.listfields[data].conditionaldisplay = this.conditionaldisplay;
+          this.listfields[data].link = this.listlink;
+
+          this.ifListFormData = -1;
+          this.resetListField();
+        } else {
+          let obj = {
+            index: this.listfields.length + 1,
+            field: this.listfield,
+            label: this.listlabel,
+            desc: this.listdesc,
+            prefix: this.listprefix,
+            postfix: this.listpostfix,
+            type: this.listtype,
+            customfunction: this.listcustomfunction,
+            table: this.listtable,
+            tabledisplayfield: this.listtabledisplayfield,
+            tablereffield: this.listtablereffield,
+            icon: this.listicon,
+            isbadge: this.listisbadge,
+            conditionaldisplay: this.conditionaldisplay,
+            link: this.listlink,
+          };
+          this.listfields.push(obj);
+          this.resetListField();
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Add page Feilds ", "error");
+      }
+    },
+
+    async resetPageField() {
+      try {
+        this.field = "";
+        this.label = "";
+        this.desc = "";
+        this.datatype = "";
+        this.inputtype = "";
+        this.options = "";
+        this.defaultValue = "";
+        this.isreadonly = false;
+        this.isrequired = false;
+        this.validationcode = "";
+        this.customfunction = "";
+        this.reftable = "";
+        this.tableRefField = "";
+        this.tabledisplayfield = "";
+        this.defaulvalcondition = "";
+        this.ifEditFormData = -1;
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Reset PageField ", "error");
+      }
+    },
+
+    async resetListField() {
+      try {
+        this.listfield = "";
+        this.listlabel = "";
+        this.listdesc = "";
+        this.listprefix = "";
+        this.listpostfix = "";
+        this.listtype = 0;
+        this.listcustomfunction = "";
+        this.listtable = "";
+        this.listtabledisplayfield = "";
+        this.listtablereffield = "";
+        this.listicon = "";
+        this.listisbadge = false;
+        this.conditionaldisplay = [
+          {
+            operator: "",
+            matchedvalue: "",
+            displayhtml: "",
+          },
+        ];
+        this.listlink = "";
+        this.ifListFormData = -1;
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Reset PageField ", "error");
+      }
+    },
+
+    async addConditionalData() {
+      try {
+        this.conditionaldisplay.push({
+          operator: "",
+          matchedvalue: "",
+          displayhtml: "",
+        });
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while add Conditional data ", "error");
+      }
+    },
+
+    async deleteConditionalData(index) {
+      try {
+        this.conditionaldisplay.splice(index, 1);
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while delete Conditional data ", "error");
+      }
+    },
+
+    async getLastGeneratedCode() {
+      try {
+        const getLastGeneratedCode = await $fetch(
+          `/api/v1/pageDesigner/pageDesignHandler`,
+          {
+            baseURL: this.$config.public.baseURL,
+            method: "POST",
+            headers: {
+              // Access a private variable (only available on the server)
+              Authorization: `Bearer ${useUserDataStore().authToken}`,
+            },
+            body: {
+              operation: "LGC",
+              EvolveUserRoleData: useUserDataStore().roles,
+            },
+          }
+        );
+        console.log("getLastGeneratedCode: ", getLastGeneratedCode);
+
+        if (getLastGeneratedCode.statusCode == 200) {
+          this.LastGeneratedCode =
+            getLastGeneratedCode.result.EvolveSerial_LastGeneratedCode;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Get Last Generated Code ", "error");
+      }
+    },
+
+    async onCreatePage() {
+      try {
+        if (!this.pageName || !this.primaryTableName || !this.primaryField) {
+          this.customValidation = true;
+          this.$swal.fire("Error", "Please Fill All Required Fields ", "error");
+        } else {
+          console.log("this.deviceby>>", this.deviceby);
+          let dataObj = {
+            name: this.pageName,
+            table: this.primaryTableName,
+            isdevice: this.isDevice,
+            isDeviceManualEntry: this.isDeviceManualEntry,
+            deviceby: this.deviceby.includes("_") ? this.deviceby : "_" + this.deviceby,
+            export: this.exportType,
+            import: this.importType,
+            options: this.optionsType,
+            noofrecords: this.noofrecords,
+            isdyanamicload: this.isdyanamicload,
+            pagefields: this.pagefields,
+            listfields: this.listfields,
+            actionurl: this.actionurl,
+            ismemory: this.ismemory,
+            memoryfield: this.ismemory ? this.memoryfield : "",
+          };
+
+          if (this.pageId) {
+            dataObj._id = this.pageId;
+          }
+
+          console.log("called>>>>>>>>>>>>>>", dataObj);
+
+          const result = await $fetch(`/api/v1/pageDesigner/pageDesignHandler`, {
+            baseURL: this.$config.public.baseURL,
+            method: "POST",
+            headers: {
+              // Access a private variable (only available on the server)
+              Authorization: `Bearer ${useUserDataStore().authToken}`,
+            },
+            body: {
+              operation: this.pageId ? "MP" : "AP",
+              dataObj,
+              EvolveUserRoleData: useUserDataStore().roles,
+            },
+          });
+
+          if (result.statusCode == 200) {
+            this.pageId = "";
+            this.$router.push({
+              path: "/common/pageDesigner/list",
+            });
+          }
+          console.log("result: ", result);
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while create Page ", "error");
+      }
+    },
+
+    async editFormData(data, index) {
+      try {
+        if (data) {
+          this.field = data.field;
+          this.label = data.label;
+          this.desc = data.desc;
+          this.datatype = data.datatype;
+          this.inputtype = data.inputtype;
+          this.options = data.options;
+          this.defaultValue = data.default;
+          this.isreadonly = data.isreadonly;
+          this.isrequired = data.isrequired;
+          this.validationcode = data.validationcode;
+          this.customfunction = data.customfunction;
+          this.reftable = data.table;
+          this.tabledisplayfield = data.tabledisplayfield;
+          this.tableRefField = data.tablereffield;
+          this.defaulvalcondition = data.defaulvalcondition;
+          this.ifEditFormData = index;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Edit Form Data ", "error");
+      }
+    },
+
+    async dltFormData(index) {
+      try {
+        console.log("index: ", index);
+        if (index !== -1) {
+          this.pagefields.splice(index, 1);
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Delete Form Data ", "error");
+      }
+    },
+
+    async editListData(data, index) {
+      try {
+        if (data) {
+          this.listfield = data.field;
+          this.listlabel = data.label;
+          this.listdesc = data.desc;
+          this.listprefix = data.prefix;
+          this.listpostfix = data.postfix;
+          this.listtype = data.type;
+          this.listcustomfunction = data.customfunction;
+          this.listtable = data.table;
+          this.listtabledisplayfield = data.tabledisplayfield;
+          this.listtablereffield = data.tablereffield;
+          this.listicon = data.icon;
+          this.listisbadge = data.isbadge;
+          this.conditionaldisplay = data.conditionaldisplay;
+          this.listlink = data.link;
+
+          this.ifListFormData = index;
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Edit List Data ", "error");
+      }
+    },
+
+    async dltListData(index) {
+      try {
+        if (index !== -1) {
+          this.listfields.splice(index, 1);
+        }
+      } catch (error) {
+        console.log("error: ", error);
+        this.$swal.fire("Error", "Error while Delete List Data ", "error");
+      }
+    },
+  },
+};
+</script>

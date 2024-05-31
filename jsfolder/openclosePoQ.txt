@@ -1,0 +1,84 @@
+getAllOpenLinePo: async function (data) {
+        try {
+
+            // console.log("data.filterObj????", JSON.stringify(data.filterObj));
+            // console.log("data.addFieldObj?????", JSON.stringify(data.addFieldObj));
+
+            return await Evolve.Mongoose.model('EvolvePO').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('62de23659b90475655e4df50'),
+                            }
+                        ]
+                    }
+                },
+                { $unwind: '$EvolvePODetails' },
+                {
+                    $match: {
+                        'EvolvePODetails.EvolvePODetails_Status' : {$eq : 'O'}
+                    }
+                },
+                { $skip: 0 }, { $limit: 10 },
+                {
+                    $facet: {
+                        result: [],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolvePODetails.EvolvePODetails_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolvePODetails.EvolvePODetails_ReceiveQty" }
+                            }}
+                        ]
+                    }
+                },
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Open Line Po " + error.message);
+            return new Error("Error While get All Open Line Po " + error.message);
+        }
+    },
+
+    getAllCloseLinePo: async function (data) {
+        try {
+            return await Evolve.Mongoose.model('EvolvePO').aggregate([
+                {
+                    $match: {
+                        $and: [
+                            {
+                                EvolveUnit_ID: Evolve.Mongoose.Types.ObjectId('62de23659b90475655e4df50'),
+                            }
+                        ]
+                    }
+                },
+                { $unwind: '$EvolvePODetails' },
+                {
+                    $match: {
+                        'EvolvePODetails.EvolvePODetails_Status' : {$eq : 'C'}
+                    }
+                },
+                { $skip: 0 }, { $limit: 10 },
+                {
+                    $facet: {
+                        result: [],
+                        totalQTY: [
+                            {"$group": {
+                                "_id": null,
+                                "totalQty": { "$sum": "$EvolvePODetails.EvolvePODetails_Qty" },
+                                "totalRecievedQty": { "$sum": "$EvolvePODetails.EvolvePODetails_ReceiveQty" }
+                            }}
+                        ]
+                    }
+                },
+                     
+            ]).allowDiskUse(true)
+
+        } catch (error) {
+            Evolve.Console.log("Error While get All Close Line Po " + error.message);
+            return new Error("Error While get All Close Line Po " + error.message);
+        }
+    },
+
+}
